@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-
+import config from '../../config.json'
 const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [projectName, setProjectName] = useState('');
   const [trainerName, setTrainerName] = useState('');
@@ -34,7 +34,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       fromTime,
       toTime,
     };
-    let res = axios.post("http://localhost:3009/v1/training", newEmployee)
+    let res = axios.post(`${config.url}/training`, newEmployee)
     const updatedEmployees = [...employees, newEmployee];
     localStorage.setItem('employees_data', JSON.stringify(updatedEmployees));
     setEmployees(updatedEmployees);
