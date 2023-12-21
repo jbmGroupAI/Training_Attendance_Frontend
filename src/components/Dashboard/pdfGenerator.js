@@ -7,13 +7,17 @@ export const generatePDF = (upperData, expandedData) => {
   // Set font and font size for the table
   pdf.setFont('helvetica');
   pdf.setFontSize(12);
-
+  // const x = 10; // X-coordinate
+  // const y = 20; // Y-coordinate
+  
+  // pdf.text('Jai Bharat Maruti', x, y);
+  
   // Create an array to store table data
   const tableData = [];
 
   // Add upper-level data to the table data
   tableData.push([
-    'Project Name',
+    'Training Topic',
     'Trainer Name',
     'Venue',
     'Plant Code',
@@ -31,6 +35,10 @@ export const generatePDF = (upperData, expandedData) => {
     upperData.toTime,
   ]);
 
+
+  // const expandedDataTitle = 'Employee Attendance'; // You can customize this title
+  // tableData.push([expandedDataTitle]);
+  
   // Add a separator row
   tableData.push(['', '', '', '', '', '', '']);
 
@@ -43,7 +51,7 @@ export const generatePDF = (upperData, expandedData) => {
     'Punch In',
     'Punch Out',
   ]);
-
+ 
   // Add expanded data to the table
   expandedData.forEach((row) => {
     tableData.push([
@@ -51,13 +59,16 @@ export const generatePDF = (upperData, expandedData) => {
       row.empPlantId[0],
       row.empFName[0],
       row.department[0],
-      new Date(row.timeInfo[0].time).toLocaleString('SV-se'),
-      new Date(row.timeInfo[row.timeInfo.length - 1].time).toLocaleString('SV-se'),
+      new Date(row.timeInfo[0].time).toUTCString('SV-se'),
+      new Date(row.timeInfo[row.timeInfo.length - 1].time).toUTCString('SV-se'),
     ]);
   });
 
+  
+
   // Set the position for the table
-  const tableStart = 10;
+  const tableStart = 20;
+
 
   // Ensure that the autoTable method is available
   if (typeof pdf.autoTable === 'function') {
@@ -67,6 +78,8 @@ export const generatePDF = (upperData, expandedData) => {
       body: tableData.slice(1),
       startY: tableStart,
     });
+    
+
   } else {
     console.error('autoTable method is not available. Please check if jspdf-autotable is correctly imported.');
   }

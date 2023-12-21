@@ -25,9 +25,9 @@ useEffect(()=>{
 
   return (
     <header>
-      <h1>Meeting List</h1>
+      <h1>List of Training</h1>
       <div style={{ marginTop: '30px', marginBottom: '18px' }}>
-        <button onClick={() => setIsAdding(true)}>Add Meeting</button>
+        <button onClick={() => setIsAdding(true)}>Schedule Training</button>
         <Logout setIsAuthenticated={setIsAuthenticated} />
         <DateRangeFilter onFilter={handleFilter} defaultStartDate={defaultStartDate} defaultEndDate={defaultEndDate}/>
       </div>

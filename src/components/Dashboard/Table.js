@@ -6,7 +6,7 @@ import FilterComponent from './FilterComponent'; // Make sure to import your Fil
 export default function Table({ employees, handleEdit, handleDelete }) {
   const columns = [
     {
-      name: 'Project Name',
+      name: 'Training Topic',
       selector: (row) => row.projectName,
     },
     {

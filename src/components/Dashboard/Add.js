@@ -53,7 +53,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
     <div className="small-container">
       <form onSubmit={handleAdd}>
         <h1>Add Meeting</h1>
-        <label htmlFor="projectName">Project Name</label>
+        <label htmlFor="projectName">Training Topic</label>
         <input
           id="projectName"
           type="text"
