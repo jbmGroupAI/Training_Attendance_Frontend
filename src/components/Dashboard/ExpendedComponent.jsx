@@ -50,12 +50,12 @@ export default function ExpendedComponent({ data }) {
     },
     {
       name: 'Punch In',
-      selector: (row) => new Date(row.timeInfo[0].time).toLocaleString('SV-se'),
+      selector: (row) => new Date(row.timeInfo[0].time).toUTCString('SV-se'),
     },
     {
       name: 'Punch Out',
       selector: (row) =>
-        new Date(row.timeInfo[(row.timeInfo).length - 1].time).toLocaleString('SV-se'),
+        new Date(row.timeInfo[(row.timeInfo).length - 1].time).toUTCString('SV-se'),
     },
   ];
 
