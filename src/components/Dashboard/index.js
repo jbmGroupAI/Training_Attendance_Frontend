@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-
+import config from '../../config.json'
 import Header from './Header';
 import Table from './Table';
 import Add from './Add';
@@ -16,7 +16,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
   const [isEditing, setIsEditing] = useState(false);
   
   async function handleChangeDateRange(data){
-      const res = await axios.get(`http://localhost:3009/v1/training?startDate=${data.startDate}&endDate=${data.endDate}`)
+      const res = await axios.get(`${config.url}/training?startDate=${data.startDate}&endDate=${data.endDate}`)
       setEmployees(res.data)
     
   }
