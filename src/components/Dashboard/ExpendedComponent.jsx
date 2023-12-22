@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import { generatePDF } from './pdfGenerator'; // Adjust the path as needed
+import { expandCustomStyles } from '../UI/Table';
 
 function formatDateToISOString(date) {
   if (!(date instanceof Date)) {
@@ -103,11 +104,13 @@ export default function ExpendedComponent({ data }) {
 
   return (
     <>
-      <DataTable columns={columns} data={tableData} />
+      <DataTable columns={columns} data={tableData} customStyles={expandCustomStyles} />
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button onClick={handleDownloadPDF} disabled={loading}>
+      <div className="d-flex justify-content-end">
+      <button onClick={handleDownloadPDF} disabled={loading} className='btn-login m-2'>
         {loading ? 'Downloading...' : 'Download PDF'}
       </button>
+      </div>
     </>
   );
 }

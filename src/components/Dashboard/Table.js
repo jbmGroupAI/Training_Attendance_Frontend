@@ -2,6 +2,7 @@ import React from 'react';
 import DataTable from 'react-data-table-component';
 import ExpendedComponent from './ExpendedComponent';
 import FilterComponent from './FilterComponent'; // Make sure to import your FilterComponent
+import { expandCustomStyles, expandTableCustomStyles } from '../UI/Table';
 
 export default function Table({ employees, handleEdit, handleDelete }) {
   const columns = [
@@ -36,7 +37,7 @@ export default function Table({ employees, handleEdit, handleDelete }) {
   ];
 
   const ExpandedComponent = ({ data }) => {
-    return <ExpendedComponent data={data} />;
+    return <ExpendedComponent data={data}/>;
   };
 
   const [filterText, setFilterText] = React.useState('');
@@ -54,11 +55,13 @@ export default function Table({ employees, handleEdit, handleDelete }) {
     };
 
     return (
+      <div className='row'>
       <FilterComponent
         onFilter={(e) => setFilterText(e.target.value)}
         onClear={handleClear}
         filterText={filterText}
       />
+      </div>
     );
   }, [filterText, resetPaginationToggle]);
 
@@ -71,6 +74,7 @@ export default function Table({ employees, handleEdit, handleDelete }) {
       pagination
       subHeader
       subHeaderComponent={subHeaderComponentMemo}
+      customStyles={expandTableCustomStyles}
     />
   );
 }

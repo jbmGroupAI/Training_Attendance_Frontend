@@ -24,12 +24,19 @@ useEffect(()=>{
 },[filteredDates])
 
   return (
-    <header>
-      <h1>List of Training</h1>
-      <div style={{ marginTop: '30px', marginBottom: '18px' }}>
+    <header className=''>
+      <div className='d-flex justify-content-between px-5 py-2 align-self-center header'>
+        <div className='my-auto'>List of Training</div>
+        <div className='d-flex gap-3'><button onClick={() => setIsAdding(true)} className='btn-schedule'>Schedule Training</button>
+        <Logout setIsAuthenticated={setIsAuthenticated} /></div>
+      </div>
+      {/* <h1>List of Training</h1>
+      <div className='border-red w-100 topBar'>
         <button onClick={() => setIsAdding(true)}>Schedule Training</button>
-        <Logout setIsAuthenticated={setIsAuthenticated} />
-        <DateRangeFilter onFilter={handleFilter} defaultStartDate={defaultStartDate} defaultEndDate={defaultEndDate}/>
+        <Logout setIsAuthenticated={setIsAuthenticated} className="btn-login"/>
+      </div> */}
+      <div>
+      <DateRangeFilter onFilter={handleFilter} defaultStartDate={defaultStartDate} defaultEndDate={defaultEndDate}/>
       </div>
     </header>
   );
