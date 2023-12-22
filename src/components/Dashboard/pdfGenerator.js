@@ -14,7 +14,7 @@ export const generatePDF = (upperData, expandedData) => {
   
   // Create an array to store table data
   const tableData = [];
-
+  const tableData1 =[]
   // Add upper-level data to the table data
   tableData.push([
     'Training Topic',
@@ -40,10 +40,10 @@ export const generatePDF = (upperData, expandedData) => {
   // tableData.push([expandedDataTitle]);
   
   // Add a separator row
-  tableData.push(['', '', '', '', '', '', '']);
+  // tableData.push(['', '', '', '', '', '', '']);
 
   // Add headers for the expanded data
-  tableData.push([
+  tableData1.push([
     'Emp ID',
     'Plant ID',
     'Emp Name',
@@ -54,7 +54,7 @@ export const generatePDF = (upperData, expandedData) => {
  
   // Add expanded data to the table
   expandedData.forEach((row) => {
-    tableData.push([
+    tableData1.push([
       row.empOnlyId,
       row.empPlantId[0],
       row.empFName[0],
@@ -77,8 +77,14 @@ export const generatePDF = (upperData, expandedData) => {
       head: [tableData[0]],
       body: tableData.slice(1),
       startY: tableStart,
+      
     });
-    
+    pdf.autoTable({
+      head: [tableData1[0]],
+      body: tableData1.slice(1),
+      startY: tableStart+30,
+
+    });
 
   } else {
     console.error('autoTable method is not available. Please check if jspdf-autotable is correctly imported.');
