@@ -4,6 +4,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import loginImg from './login.png';
 import Swal from 'sweetalert2';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import "../../components/Login/index.css"
 
 const Login = ({ setIsAuthenticated }) => {
   const adminEmail = 'admin@example.com';
@@ -53,14 +54,14 @@ const Login = ({ setIsAuthenticated }) => {
   };
 
   return (
-    //<div className="small-container"></div>
-    <div className="small-container">
-      <div className="sItem">
-        <div className="loginImage">
-          <img src={loginImg} width="300" style={{ position: 'relative' }} alt="login" />
+    <>
+    <div className='container align-items-center p-5 m-5'>
+      <div className='d-flex justify-content-between m-auto'>
+        <div className='col-7 m-auto'>
+        <img src={loginImg} width="300" alt="login" />
         </div>
-        <div className="loginForm">
-          <h2>Login</h2>
+        <div className='col-5 border bg-white p-5 rounded-4'>
+        <h2>Login</h2>
           <Form onFinish={onFinish}>
             <Form.Item>
               <Input
@@ -68,6 +69,7 @@ const Login = ({ setIsAuthenticated }) => {
                 placeholder="Email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                className='login-input'
               />
             </Form.Item>
             <Form.Item>
@@ -77,23 +79,27 @@ const Login = ({ setIsAuthenticated }) => {
                 placeholder="Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                className='login-input'
               />
             </Form.Item>
             <Form.Item>
               <Checkbox>Remember me</Checkbox>
-              <Button type="primary" htmlType="submit" className="login-form-button">
+              <div className='mt-3'>
+              <Button type="primary" htmlType="submit" className="btn-login">
                 Log in
               </Button>
+              </div>
             </Form.Item>
           </Form>
         </div>
       </div>
+    </div>
       <div className="footer">
         <a href="" target="_blank" rel="noopener noreferrer" className="footerLink">
           Powered by ThirdEye AI
         </a>
       </div>
-    </div>
+    </>
   );
 };
 

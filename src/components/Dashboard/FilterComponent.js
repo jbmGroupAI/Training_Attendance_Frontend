@@ -2,14 +2,15 @@ import React from 'react';
 
 const FilterComponent = ({ onFilter, onClear, filterText }) => {
   return (
-    <div className="filter-container">
+    <div className="d-flex gap-3">
       <input
         type="text"
         placeholder="Filter by Plant Code"
         value={filterText}
         onChange={onFilter}
+        className='login-input'
       />
-      <button className="clear-button" onClick={onClear}>
+      <button className="btn-login" onClick={onClear}>
         Clear
       </button>
     </div>
