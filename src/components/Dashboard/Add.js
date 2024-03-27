@@ -62,7 +62,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       <div></div>
       <div className="container m-5 p-5">
         <form onSubmit={handleAdd}>
-          <h2>Add Training</h2>
+          <h2>Add Training </h2>
           <div className="bg-white p-5 rounded-4 border">
             <div className="d-flex gap-2 my-3">
               <div className="col">
