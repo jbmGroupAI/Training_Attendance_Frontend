@@ -62,7 +62,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       <div></div>
       <div className="container m-5 p-5">
         <form onSubmit={handleAdd}>
-          <h2>Add Meeting</h2>
+          <h2>Add Training </h2>
           <div className="bg-white p-5 rounded-4 border">
             <div className="d-flex gap-2 my-3">
               <div className="col">
@@ -74,7 +74,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   type="text"
                   name="projectName"
                   value={projectName}
-                  onChange={(e) => setProjectName(e.target.value)}
+                  onChange={e => setProjectName(e.target.value)}
                   className="login-input"
                 />
               </div>
@@ -83,11 +83,11 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   Trainer Name
                 </label>
                 <input
-                  id="trainerName"
-                  type="text"
-                  name="trainerName"
-                  value={trainerName}
-                  onChange={(e) => setTrainerName(e.target.value)}
+                   id="trainerName"
+                   type="text"
+                   name="trainerName"
+                   value={trainerName}
+                   onChange={e => setTrainerName(e.target.value)}
                   className="login-input"
                 />
               </div>
@@ -100,7 +100,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   type="text"
                   name="venue"
                   value={venue}
-                  onChange={(e) => setVenue(e.target.value)}
+                  onChange={e => setVenue(e.target.value)}
                   className="login-input"
                 />
               </div>
@@ -111,7 +111,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   type="number"
                   name="plantCode"
                   value={plantCode}
-                  onChange={(e) => setPlantCode(e.target.value)}
+                  onChange={e => setPlantCode(e.target.value)}
                   className="login-input"
                 />
               </div>
@@ -120,11 +120,11 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
               <div className="col">
               <label htmlFor="date" className="label">Date</label>
               <input
-                id="date"
-                type="date"
-                name="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
+                 id="date"
+                 type="date"
+                 name="date"
+                 value={date}
+                 onChange={e => setDate(e.target.value)}
                 className="date-picker"
               />
               </div>
@@ -134,7 +134,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                 id="fromTime"
                 type="time"
                 value={fromTime}
-                onChange={(e) => setFromTime(e.target.value)}
+                onChange={e => setFromTime(e.target.value)}
                 className="date-picker"
               />
               </div>
@@ -144,7 +144,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                 id="toTime"
                 type="time"
                 value={toTime}
-                onChange={(e) => setToTime(e.target.value)}
+                onChange={e => setToTime(e.target.value)}
                 className="date-picker"
               />
               </div>

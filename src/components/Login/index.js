@@ -1,18 +1,18 @@
-
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import loginImg from './login.png';
 import Swal from 'sweetalert2';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import "../../components/Login/index.css"
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = () => {
   const adminEmail = 'admin@example.com';
   const adminPassword = 'qwerty';
   const [email, setEmail] = useState(adminEmail);
   const [password, setPassword] = useState(adminPassword);
 
- 
+ const navigate = useNavigate()
 
   const onFinish = () => {
     if (email === adminEmail && password === adminPassword) {
@@ -24,8 +24,7 @@ const Login = ({ setIsAuthenticated }) => {
         },
         willClose: () => {
           localStorage.setItem('is_authenticated', true);
-          setIsAuthenticated(true);
-
+          navigate('/', { replace: true });
           Swal.fire({
             icon: 'success',
             title: 'Successfully logged in!',

@@ -5,11 +5,15 @@ import Header from './Header';
 import Table from './Table';
 import Add from './Add';
 import Edit from './Edit';
+
 import axios from 'axios';
 import { employeesData } from '../../data';
+import {Login} from '../Login';
+import {Logout} from '../Logout';
 
 
-const Dashboard = ({ setIsAuthenticated }) => {
+
+const Dashboard = () => {
   const [employees, setEmployees] = useState(employeesData);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -54,6 +58,9 @@ const Dashboard = ({ setIsAuthenticated }) => {
       }
     });
   };
+  
+
+
 
   return (
     <div className="container-fluid m-0 p-0">
@@ -62,7 +69,6 @@ const Dashboard = ({ setIsAuthenticated }) => {
           <Header
           handleChangeDateRange={handleChangeDateRange}
             setIsAdding={setIsAdding}
-            setIsAuthenticated={setIsAuthenticated}
           />
           <div className='container'>
           <Table

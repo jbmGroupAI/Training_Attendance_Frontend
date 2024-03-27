@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const defaultStartDate = new Date().setHours(0,0,0)
 const defaultEndDate = new Date().setHours(23,59,59)
 
-const Header = ({ setIsAdding, setIsAuthenticated ,handleChangeDateRange}) => {
+const Header = ({ setIsAdding ,handleChangeDateRange}) => {
   const [filteredDates, setFilteredDates] = useState({
     startDate : new Date(defaultStartDate),
     endDate : new Date(defaultEndDate)
@@ -28,7 +28,7 @@ useEffect(()=>{
       <div className='d-flex justify-content-between px-5 py-2 align-self-center header'>
         <div className='my-auto'>List of Training</div>
         <div className='d-flex gap-3'><button onClick={() => setIsAdding(true)} className='btn-schedule'>Schedule Training</button>
-        <Logout setIsAuthenticated={setIsAuthenticated} /></div>
+        <Logout /></div>
       </div>
       {/* <h1>List of Training</h1>
       <div className='border-red w-100 topBar'>

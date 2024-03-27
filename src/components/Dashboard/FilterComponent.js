@@ -10,9 +10,9 @@ const FilterComponent = ({ onFilter, onClear, filterText }) => {
         onChange={onFilter}
         className='login-input'
       />
-      <button className="btn-login" onClick={onClear}>
+      {/* <button className="clear-button" onClick={onClear}>
         Clear
-      </button>
+      </button> */}
     </div>
   );
 };
