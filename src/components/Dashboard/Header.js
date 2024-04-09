@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-
 import Logout from '../Logout';
 import DateRangeFilter from '../DateRange/DateRange';
 import { useEffect } from 'react';
+
+
 const defaultStartDate = new Date().setHours(0,0,0)
 const defaultEndDate = new Date().setHours(23,59,59)
 
@@ -30,11 +31,7 @@ useEffect(()=>{
         <div className='d-flex gap-3'><button onClick={() => setIsAdding(true)} className='btn-schedule'>Schedule Training</button>
         <Logout /></div>
       </div>
-      {/* <h1>List of Training</h1>
-      <div className='border-red w-100 topBar'>
-        <button onClick={() => setIsAdding(true)}>Schedule Training</button>
-        <Logout setIsAuthenticated={setIsAuthenticated} className="btn-login"/>
-      </div> */}
+      
       <div>
       <DateRangeFilter onFilter={handleFilter} defaultStartDate={defaultStartDate} defaultEndDate={defaultEndDate}/>
       </div>
