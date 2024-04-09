@@ -1,134 +1,10 @@
-
-
-
-import React, { useEffect, useState } from 'react';
-import DataTable from 'react-data-table-component';
-import axios from 'axios';
-import { generatePDF } from './pdfGenerator'; // Adjust the path as needed
-import { expandCustomStyles } from '../UI/Table';
-
-function formatDateToISOString(date) {
-  if (!(date instanceof Date)) {
-    throw new Error('Input must be a Date object');
-  }
-
-  const pad = (num) => String(num).padStart(2, '0');
-
-  const year = date.getFullYear();
-  const month = pad(date.getMonth() + 1); // Months are 0-based
-  const day = pad(date.getDate());
-  const hours = pad(date.getHours());
-  const minutes = pad(date.getMinutes());
-  const seconds = pad(date.getSeconds());
-
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-}
-
-export default function ExpendedComponent({ data }) {
-  const [tableData, setTableData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const { fromTime, toTime, date } = data;
-  const [sHours, Sminutes] = fromTime.split(':');
-  const [eHours, eminutes] = toTime.split(':');
-  const startTime = new Date(date).setHours(sHours, Sminutes, 0);
-  const endTime = new Date(date).setHours(eHours, eminutes, 0);
-
-  const columns = [
-    {
-      name: 'Emp ID',
-      selector: (row) => row.empOnlyId,
-    },
-    {
-      name: 'Plant ID',
-      selector: (row) => row.empPlantId[0],
-    },
-    {
-      name: 'Emp Name',
-      selector: (row) => row.empFName[0],
-    },
-    {
-      name: 'Designation',
-      selector: (row) => row.department[0],
-    },
-    {
-      name: 'Punch In',
-      selector: (row) => new Date(row.timeInfo[0].time).toUTCString('SV-se'),
-    },
-    {
-      name: 'Punch Out',
-      selector: (row) =>
-        new Date(row.timeInfo[(row.timeInfo).length - 1].time).toUTCString('SV-se'),
-    },
-    {
-      name: 'Acknowledge', // Column for checkboxes
-      cell: (row) => <input type="checkbox" checked={row.attended} readOnly />,
-    },
-  ];
-
-  const handleDownloadPDF = async () => {
-    try {
-      setLoading(true);
-
-      const res = await axios.get(
-        `http://fr.thirdeye-ai.com/face/getFaceInfo?startDate=${formatDateToISOString(
-          new Date(startTime)
-        )}Z&endDate=${formatDateToISOString(new Date(endTime))}&companyId=JBMGroup&camId=TrainingProgram`
-      );
-
-      const tableData = res.data;
-
-      const pdf = generatePDF(data, tableData);
-      pdf.save('Training_Attendance.pdf');
-    } catch (error) {
-      setError('Error downloading PDF. Please try again.');
-      console.error('Error downloading PDF:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    async function getData() {
-      console.log('Fetching data');
-      try {
-        const res = await axios.get(
-          `http://fr.thirdeye-ai.com/face/getFaceInfo?startDate=${formatDateToISOString(
-            new Date(startTime)
-          )}Z&endDate=${formatDateToISOString(new Date(endTime))}&companyId=JBMGroup&camId=TrainingProgram`
-        );
-        const data = res.data;
-        setTableData(data);
-      } catch (error) {
-        setError('Error fetching data. Please try again.');
-        console.error('Error in expended table ', error);
-      }
-    }
-
-    getData();
-  }, [data]);
-
-  return (
-    <>
-      <DataTable columns={columns} data={tableData} customStyles={expandCustomStyles} />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <div className="d-flex justify-content-end">
-        <button onClick={handleDownloadPDF} disabled={loading} className='btn-login m-2'>
-          {loading ? 'Downloading...' : 'Download PDF'}
-        </button>
-      </div>
-    </>
-  );
-}
-
-
-
-// import React, { useEffect, useState } from 'react';
+// import React, { useState, useEffect } from 'react';
 // import DataTable from 'react-data-table-component';
 // import axios from 'axios';
-// import { generatePDF } from './pdfGenerator'; // Adjust the path as needed
 // import { expandCustomStyles } from '../UI/Table';
+// import { saveAs } from 'file-saver';
+// import { PDFDownloadLink } from '@react-pdf/renderer';
+// import Test from './Test';
 
 // function formatDateToISOString(date) {
 //   if (!(date instanceof Date)) {
@@ -147,133 +23,418 @@ export default function ExpendedComponent({ data }) {
 //   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 // }
 
-// export default function ExpendedComponent({ data }) {
-//   const [tableData, setTableData] = useState([]);
+// export default function ExpandedComponent({ data, empCodes }) {
 //   const [loading, setLoading] = useState(false);
 //   const [error, setError] = useState(null);
-//   const [attendanceSent, setAttendanceSent] = useState(false);
-//   const [attendanceStatus, setAttendanceStatus] = useState({});
+//   const [employeeData, setEmployeeData] = useState([]);
 
-//   const { fromTime, toTime, date } = data;
-//   const [sHours, Sminutes] = fromTime.split(':');
-//   const [eHours, eminutes] = toTime.split(':');
-//   const startTime = new Date(date).setHours(sHours, Sminutes, 0);
-//   const endTime = new Date(date).setHours(eHours, eminutes, 0);
+//   console.log("hshshhs",empCodes)
+
+//   useEffect(() => {
+//     const fetchAttendanceData = async () => {
+//       try {
+//         setLoading(true);
+//         const response = await axios.get('http://fr.thirdeye-ai.com/face/getFaceInfo', {
+//           params: {
+//             startDate: formatDateToISOString(new Date('2024-03-04')),
+//             endDate: formatDateToISOString(new Date('2024-04-05')),
+//             companyId: 'JBMGroup',
+//             camId: 'TrainingProgram',
+//           },
+//         });
+//         setEmployeeData(response.data);
+//         setLoading(false);
+//       } catch (error) {
+//         setError('Failed to fetch attendance data');
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchAttendanceData();
+//   }, []);
 
 //   const columns = [
 //     {
-//       name: 'Emp ID',
-//       selector: (row) => row.empOnlyId,
+//       name: 'Employee Code',
+//       selector: (row) => `${row.empFName[0]} - ${row.empOnlyId}`,
 //     },
 //     {
 //       name: 'Plant ID',
-//       selector: (row) => row.empPlantId[0],
-//     },
-//     {
-//       name: 'Emp Name',
-//       selector: (row) => row.empFName[0],
+//       selector:(row) =>  row.empPlantId  ? row.empPlantId : ""
 //     },
 //     {
 //       name: 'Designation',
-//       selector: (row) => row.department[0],
+//       selector: (row) =>  row.department  ? row.department : ""
 //     },
 //     {
 //       name: 'Punch In',
-//       selector: (row) => new Date(row.timeInfo[0].time).toUTCString('SV-se'),
+//       selector: (row) => row.timeInfo  ?  (row.timeInfo.length > 0 ? row.timeInfo[0].time : '') : "",
 //     },
 //     {
 //       name: 'Punch Out',
-//       selector: (row) =>
-//         new Date(row.timeInfo[(row.timeInfo).length - 1].time).toUTCString('SV-se'),
-//     },
-//     {
-//       name: 'Attended',
-//       cell: (row) => (
-//         <input
-//           type="checkbox"
-//           checked={attendanceStatus[row.empOnlyId]}
-//           onChange={(e) =>
-//             setAttendanceStatus((prevStatus) => ({
-//               ...prevStatus,
-//               [row.empOnlyId]: e.target.checked,
-//             }))
-//           }
-//         />
-//       ),
+//       selector: (row) => row.timeInfo  ? 
+//         (row.timeInfo.length > 0 ? row.timeInfo[row.timeInfo.length - 1].time : ''):"",
 //     },
 //   ];
 
-//   const handleDownloadPDF = async () => {
-//     try {
-//       setLoading(true);
+//   // Filter employeeData based on empCodes
+//   // const employeeData = employeeData.filter((emp) =>
+//   //   empCodes.includes(`${emp.empFName[0]} - ${emp.empOnlyId}`)
+//   // );
 
-//       const res = await axios.get(
-//         `http://fr.thirdeye-ai.com/face/getFaceInfo?startDate=${formatDateToISOString(
-//           new Date(startTime)
-//         )}Z&endDate=${formatDateToISOString(new Date(endTime))}&companyId=JBMGroup&camId=TrainingProgram`
-//       );
 
-//       const tableData = res.data;
 
-//       const pdf = generatePDF(data, tableData);
-//       pdf.save('Training_Attendance.pdf');
-//     } catch (error) {
-//       setError('Error downloading PDF. Please try again.');
-//       console.error('Error downloading PDF:', error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const sendAttendance = async () => {
-//     try {
-//       setLoading(true);
-//       // Send attendance data to the specified email address
-//       // Example: axios.post('/send-attendance-email', { attendanceStatus })
-//       setAttendanceSent(true);
-//     } catch (error) {
-//       setError('Error sending attendance. Please try again.');
-//       console.error('Error sending attendance:', error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     async function getData() {
-//       console.log('Fetching data');
-//       try {
-//         const res = await axios.get(
-//           `http://fr.thirdeye-ai.com/face/getFaceInfo?startDate=${formatDateToISOString(
-//             new Date(startTime)
-//           )}Z&endDate=${formatDateToISOString(new Date(endTime))}&companyId=JBMGroup&camId=TrainingProgram`
-//         );
-//         const data = res.data;
-//         setTableData(data);
-//       } catch (error) {
-//         setError('Error fetching data. Please try again.');
-//         console.error('Error in expended table ', error);
-//       }
-//     }
-
-//     getData();
-//   }, [data]);
+  
+//   const allEmpData = empCodes.map((emp)=>{
+//     const empFName = []
+//     const [fName, empOnlyId] = emp.split(' - ') 
+//       empFName.push(fName)
+//       return {empFName, empOnlyId};
+//   })
+//   const finalData = [...allEmpData, ...employeeData]
 
 //   return (
 //     <>
-//       <DataTable columns={columns} data={tableData} customStyles={expandCustomStyles} />
+//       <DataTable
+//         columns={columns}
+//         data={finalData}
+//         customStyles={expandCustomStyles}
+//         pagination
+//         subHeader
+//         subHeaderComponent={<div></div>}
+//       />
 //       {error && <p style={{ color: 'red' }}>{error}</p>}
-//       <div className="d-flex justify-content-end">
-//         <button onClick={handleDownloadPDF} disabled={loading} className="btn-login m-2">
-//           {loading ? 'Downloading...' : 'Download PDF'}
-//         </button>
-//         {!attendanceSent && (
-//           <button onClick={sendAttendance} disabled={loading} className="btn-login m-2">
-//             {loading ? 'Sending Attendance...' : 'Send Attendance'}
+//       <div className='d-flex justify-content-end'>
+//         <PDFDownloadLink
+//           document={<Test upperData={data} expandedData={employeeData} />}
+//           fileName='Report.pdf'
+//         >
+//           <button disabled={loading} className='btn-login m-2'>
+//             {loading ? 'Downloading...' : 'Download PDF'}
 //           </button>
-//         )}
+//         </PDFDownloadLink>
 //       </div>
 //     </>
 //   );
 // }
 
+import React, { useState, useEffect } from 'react';
+import DataTable from 'react-data-table-component';
+import axios from 'axios';
+import { expandCustomStyles } from '../UI/Table';
+import { saveAs } from 'file-saver';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import Test from './Test';
+import moment from 'moment';
+
+function formatDateToISOString(date) {
+  if (!(date instanceof Date)) {
+    throw new Error('Input must be a Date object');
+  }
+
+  const pad = (num) => String(num).padStart(2, '0');
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1); // Months are 0-based
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
+
+// export default function ExpandedComponent({ data, empCodes }) {
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [employeeData, setEmployeeData] = useState([]);
+
+//   console.log("hshshhs",empCodes)
+
+//   useEffect(() => {
+//     const fetchAttendanceData = async () => {
+//       try {
+//         setLoading(true);
+//         const response = await axios.get('http://fr.thirdeye-ai.com/face/getFaceInfo', {
+//           params: {
+//             startDate: formatDateToISOString(new Date('2024-03-04')),
+//             endDate: formatDateToISOString(new Date('2024-04-05')),
+//             companyId: 'JBMGroup',
+//             camId: 'TrainingProgram',
+//           },
+//         });
+//         setEmployeeData(response.data);
+//         setLoading(false);
+//       } catch (error) {
+//         setError('Failed to fetch attendance data');
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchAttendanceData();
+//   }, []);
+
+//   const columns = [
+//     {
+//       name: 'Employee Code',
+//       selector: (row) => `${row.empFName[0]} - ${row.empOnlyId}`,
+//     },
+//     {
+//       name: 'Plant ID',
+//       selector:(row) =>  row.empPlantId  ? row.empPlantId : ""
+//     },
+//     {
+//       name: 'Designation',
+//       selector: (row) =>  row.department  ? row.department : ""
+//     },
+//     {
+//       name: 'Punch In',
+//       selector: (row) => row.timeInfo  ?  (row.timeInfo.length > 0 ? row.timeInfo[0].time : '') : "",
+//     },
+//     {
+//       name: 'Punch Out',
+//       selector: (row) => row.timeInfo  ? 
+//         (row.timeInfo.length > 0 ? row.timeInfo[row.timeInfo.length - 1].time : ''):"",
+//     },
+//   ];
+
+//   // Filter out duplicates from empCodes
+//   const uniqueEmpCodes = [...new Set(empCodes)];
+
+//   // Create finalData array by merging empCodes and employeeData
+//   const allEmpData = uniqueEmpCodes.map((emp)=>{
+//     const empFName = []
+//     const [fName, empOnlyId] = emp.split(' - ') 
+//       empFName.push(fName)
+//       return {empFName, empOnlyId};
+//   });
+//   const finalData = [...allEmpData, ...employeeData];
+
+//   // Filter finalData to remove duplicate employee codes
+//   const uniqueFinalData = finalData.filter((emp, index, self) =>
+//     index === self.findIndex((e) => e.empOnlyId === emp.empOnlyId)
+//   );
+
+//   return (
+//     <>
+//       <DataTable
+//         columns={columns}
+//         data={uniqueFinalData}
+//         customStyles={expandCustomStyles}
+//         pagination
+//         subHeader
+//         subHeaderComponent={<div></div>}
+//       />
+//       {error && <p style={{ color: 'red' }}>{error}</p>}
+//       <div className='d-flex justify-content-end'>
+//         <PDFDownloadLink
+//           document={<Test upperData={data} expandedData={employeeData} />}
+//           fileName='Report.pdf'
+//         >
+//           <button disabled={loading} className='btn-login m-2'>
+//             {loading ? 'Downloading...' : 'Download PDF'}
+//           </button>
+//         </PDFDownloadLink>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default function ExpandedComponent({ data, empCodes }) {
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [employeeData, setEmployeeData] = useState([]);
+
+//   console.log("hshshhs", empCodes);
+
+//   useEffect(() => {
+//     const fetchAttendanceData = async () => {
+//       try {
+//         setLoading(true);
+//         const response = await axios.get('http://fr.thirdeye-ai.com/face/getFaceInfo', {
+//           params: {
+//             startDate: formatDateToISOString(new Date('2024-03-04')),
+//             endDate: formatDateToISOString(new Date('2024-04-05')),
+//             companyId: 'JBMGroup',
+//             camId: 'TrainingProgram',
+//           },
+//         });
+//         setEmployeeData(response.data);
+//         setLoading(false);
+//       } catch (error) {
+//         setError('Failed to fetch attendance data');
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchAttendanceData();
+//   }, []);
+
+//   const columns = [
+//     {
+//       name: 'Employee Code',
+//       selector: (row) => `${row.empFName[0]} - ${row.empOnlyId}`,
+//     },
+//     {
+//       name: 'Plant ID',
+//       selector: (row) => row.empPlantId ? row.empPlantId : ""
+//     },
+//     {
+//       name: 'Designation',
+//       selector: (row) => row.department ? row.department : ""
+//     },
+//     {
+//       name: 'Punch In',
+//       selector: (row) => row.timeInfo ?
+//         (row.timeInfo.length > 0 ? row.timeInfo[0].time : '') : "",
+//     },
+//     {
+//       name: 'Punch Out',
+//       selector: (row) => row.timeInfo ?
+//         (row.timeInfo.length > 0 ? row.timeInfo[row.timeInfo.length - 1].time : '') : "",
+//     },
+//   ];
+
+//   // Create a map to store employee data with employee codes as keys
+//   const employeeMap = {};
+
+//   // Populate employeeMap with empCodes data
+//   empCodes.forEach((emp) => {
+//     const [fName, empOnlyId] = emp.split(' - ');
+//     employeeMap[empOnlyId] = { empFName: [fName], empOnlyId };
+//   });
+
+//   // Override existing employee data with new data from employeeData
+//   employeeData.forEach((emp) => {
+//     employeeMap[emp.empOnlyId] = emp;
+//   });
+
+//   // Convert employeeMap to array
+//   const finalData = Object.values(employeeMap);
+
+//   return (
+//     <>
+//       <DataTable
+//         columns={columns}
+//         data={finalData}
+//         customStyles={expandCustomStyles}
+//         pagination
+//         subHeader
+//         subHeaderComponent={<div></div>}
+//       />
+//       {error && <p style={{ color: 'red' }}>{error}</p>}
+//       <div className='d-flex justify-content-end'>
+//         <PDFDownloadLink
+//           document={<Test upperData={data} expandedData={employeeData} />}
+//           fileName='Report.pdf'
+//         >
+//           <button disabled={loading} className='btn-login m-2'>
+//             {loading ? 'Downloading...' : 'Download PDF'}
+//           </button>
+//         </PDFDownloadLink>
+//       </div>
+//     </>
+//   );
+// }
+
+
+export default function ExpandedComponent({ data, empCodes, selectedPlantId,plantId }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [employeeData, setEmployeeData] = useState([]);
+
+  console.log("Selected", data);
+  const date = moment(data.date).format("YYYY-MM-DD")
+  const startTime = `${date}T${data.fromTime}:00.000Z`
+  const endTime = date+"T"+data?.toTime+":00.000Z"
+  console.log(startTime , endTime)
+
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('http://fr.thirdeye-ai.com/face/getFaceInfo', {
+          params: {
+            plantId:plantId,
+            startDate: startTime,
+            endDate: endTime,
+            companyId: 'JBMGroup',
+            camId: 'TrainingProgram',
+          },
+        });
+        setEmployeeData(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError('Failed to fetch attendance data');
+        setLoading(false);
+      }
+    };
+
+    fetchAttendanceData();
+  }, []);
+
+  const columns = [
+    {
+      name: 'Employee Code',
+      selector: (row) => `${row.empFName[0]} - ${row.empOnlyId}`,
+    },
+    {
+      name: 'Plant ID',
+      selector: (row) => row.empPlantId ? row.empPlantId : ""
+    },
+    {
+      name: 'Designation',
+      selector: (row) => row.department ? row.department : ""
+    },
+    {
+      name: 'Punch In',
+      selector: (row) => row.timeInfo ?
+        (row.timeInfo.length > 0 ? row.timeInfo[0].time : '') : "",
+    },
+    {
+      name: 'Punch Out',
+      selector: (row) => row.timeInfo ?
+        (row.timeInfo.length > 0 ? row.timeInfo[row.timeInfo.length - 1].time : '') : "",
+    },
+  ];
+
+  const employeeMap = {};
+
+  // Populate employeeMap with empCodes data
+  empCodes.forEach((emp) => {
+    const [fName, empOnlyId] = emp.split(' - ');
+    employeeMap[empOnlyId] = { empFName: [fName], empOnlyId };
+  });
+
+  // Override existing employee data with new data from employeeData
+  employeeData.forEach((emp) => {
+    employeeMap[emp.empOnlyId] = emp;
+  });
+
+  // Convert employeeMap to array
+  const finalData = Object.values(employeeMap);
+
+  return (
+    <>
+      <DataTable
+        columns={columns}
+        data={finalData} // Use finalData instead of filteredEmployeeData
+        customStyles={expandCustomStyles}
+        pagination
+        subHeader
+        subHeaderComponent={<div></div>}
+      />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className='d-flex justify-content-end'>
+        <PDFDownloadLink
+          document={<Test upperData={data} expandedData={employeeData} />}
+          fileName='Report.pdf'
+        >
+          <button disabled={loading} className='btn-login m-2'>
+            {loading ? 'Downloading...' : 'Download PDF'}
+          </button>
+        </PDFDownloadLink>
+      </div>
+    </>
+  );
+}
