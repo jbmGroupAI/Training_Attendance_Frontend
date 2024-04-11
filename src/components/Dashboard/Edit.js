@@ -1,23 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import config from "../../config.json";
 
 const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
-  const id = selectedEmployee._id;
+  const [formData, setFormData] = useState(selectedEmployee || { // Initialize formData with selectedEmployee data
+    projectName: '',
+    trainerName: '',
+    venue: '',
+    plantCode: '',
+    date: '',
+    fromTime: '',
+    toTime: ''
+  });
+console.log("teyyye",formData)
+useEffect(() => {
+  if (selectedEmployee) {
+    setFormData({
+      projectName: selectedEmployee.projectName || '',
+      trainerName: selectedEmployee.trainerName || '',
+      venue: selectedEmployee.venue || '',
+      plantCode: selectedEmployee.plantCode || '',
+      date: selectedEmployee.date || '',
+      fromTime: selectedEmployee.fromTime || '',
+      toTime: selectedEmployee.toTime || ''
+    });
+  }
+}, [selectedEmployee]);
 
-  const [projectName, setProjectName] = useState(selectedEmployee.projectName);
-  const [trainerName, setTrainerName] = useState(selectedEmployee.trainerName);
-  const [venue, setVenue] = useState(selectedEmployee.venue);
-  const [plantCode, setPlantCode] = useState(selectedEmployee.plantCode);
-  const [date, setDate] = useState(selectedEmployee.date);
-  const [fromTime, setFromTime] = useState(selectedEmployee.fromTime);
-  const [toTime, setToTime] = useState(selectedEmployee.toTime);
+// Added formData to the dependency array
+
+console.log("selectedEmployee:", selectedEmployee);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!projectName || !trainerName || !venue || !plantCode || !date || !fromTime || !toTime) {
+    if (!formData.projectName || !formData.trainerName || !formData.venue || !formData.plantCode || !formData.date || !formData.fromTime || !formData.toTime) {
       return Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -26,23 +44,15 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
       });
     }
 
-    const updatedEmployee = {
-      projectName,
-      trainerName,
-      venue,
-      plantCode,
-      date,
-      fromTime,
-      toTime,
-    };
-
     try {
-      const response = await axios.put(`${config.url}/training{id}`, updatedEmployee);
+      const response = await axios.put(`${config.url}/training/${selectedEmployee._id}`, formData);
       const updatedData = response.data; // Assuming the response contains the updated data
+
+      console.log("ewer",response)
 
       setEmployees((prevEmployees) =>
         prevEmployees.map((employee) =>
-          employee._id === id ? { ...employee, ...updatedData } : employee
+          employee._id === selectedEmployee._id ? { ...employee, ...updatedData } : employee
         )
       );
 
@@ -51,7 +61,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
       Swal.fire({
         icon: 'success',
         title: 'Updated!',
-        text: `${updatedEmployee.projectName}'s data has been updated.`,
+        text: `${formData.projectName}'s data has been updated.`,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -70,59 +80,59 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
     <div className="small-container">
       <form onSubmit={handleUpdate}>
         <h1>Edit Meeting</h1>
-        <label htmlFor="projectName">Project Name</label>
+        <label htmlFor="projectName">Training Topic</label>
         <input
           id="projectName"
           type="text"
           name="projectName"
-          value={projectName}
-          onChange={(e) => setProjectName(e.target.value)}
+          value={formData.projectName}
+          onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
         />
         <label htmlFor="trainerName">Trainer Name</label>
         <input
           id="trainerName"
           type="text"
           name="trainerName"
-          value={trainerName}
-          onChange={(e) => setTrainerName(e.target.value)}
+          value={formData.trainerName}
+          onChange={(e) => setFormData({ ...formData, trainerName: e.target.value })}
         />
         <label htmlFor="venue">Venue</label>
         <input
           id="venue"
           type="text"
           name="venue"
-          value={venue}
-          onChange={(e) => setVenue(e.target.value)}
+          value={formData.venue}
+          onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
         />
         <label htmlFor="plantCode">Plant Code</label>
         <input
           id="plantCode"
           type="number"
           name="plantCode"
-          value={plantCode}
-          onChange={(e) => setPlantCode(e.target.value)}
+          value={formData.plantCode}
+          onChange={(e) => setFormData({ ...formData, plantCode: e.target.value })}
         />
         <label htmlFor="date">Date</label>
         <input
           id="date"
           type="date"
           name="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+          value={formData.date}
+          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
         />
         <label htmlFor="fromTime">From Time:</label>
         <input
           id="fromTime"
           type="time"
-          value={fromTime}
-          onChange={(e) => setFromTime(e.target.value)}
+          value={formData.fromTime}
+          onChange={(e) => setFormData({ ...formData, fromTime: e.target.value })}
         />
         <label htmlFor="toTime">To Time:</label>
         <input
           id="toTime"
           type="time"
-          value={toTime}
-          onChange={(e) => setToTime(e.target.value)}
+          value={formData.toTime}
+          onChange={(e) => setFormData({ ...formData, toTime: e.target.value })}
         />
         <div style={{ marginTop: '30px' }}>
           <input type="submit" value="Update" />
