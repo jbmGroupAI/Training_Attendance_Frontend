@@ -27,6 +27,8 @@ export const tableCustomStyles = {
         backgroundColor: 'var(--secondary-trans) !important'
       }
   
+      
+      
       // '&:hover' :{
       //     backgroundColor:'red !important',
       // },

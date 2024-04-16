@@ -161,7 +161,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
             <div className="d-flex gap-2 my-3">
               <div className="col">
                 <label className="label" htmlFor="projectName">
-                  Title
+                Training Topic
                 </label>
                 <input
                   id="projectName"
