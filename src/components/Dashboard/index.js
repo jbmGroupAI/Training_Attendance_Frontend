@@ -7,6 +7,7 @@ import Add from './Add';
 import Edit from './Edit';
 import axios from 'axios';
 import { employeesData } from '../../data';
+import Index from './ParticipantTable';
 
 const Dashboard = () => {
   const [employees, setEmployees] = useState(employeesData);
@@ -18,23 +19,18 @@ const Dashboard = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [refresh, setRefresh] = useState(false)
+  const [showReport,setShowReport]=useState(false);
 
   async function handleChangeDateRange(data) {
     console.log(data)
     const res = await axios.get(`${config.url}/training?startDate=${data.startDate}&endDate=${data.endDate}`);
-    //console.log("hgshgsh",res)
     setRefresh(false)
     setEmployees(res.data);
   }
 
-  // const handleEdit = id => {
-  //   const employee = employees.find(employee => employee.id === id);
-  //   setSelectedEmployee(employee);
-  //   setIsEditing(true);
-  // };
-
-  const handleEdit = id => {
-    const employee = employees.find(employee => employee.id === id);
+  const handleEdit = row => {
+    console.log("ertyui", row)
+    const employee = employees.find(employee => employee.id === row.id);
     setSelectedEmployee(employee); // Set the selected employee data
     setIsEditing(true);
   };
@@ -67,8 +63,6 @@ const Dashboard = () => {
               timer: 1500,
             }).then(() => {
               setRefresh(true)
-              // or navigate to dashboard
-              // history.push('/dashboard');
             });
           });
         }
@@ -86,11 +80,12 @@ const Dashboard = () => {
   console.log("sssss",employees)
   return (
     <div className="container-fluid m-0 p-0">
-      {!isAdding && !isEditing && (
+      {!isAdding && !isEditing && !showReport && (
         <>
           <Header
             handleChangeDateRange={handleChangeDateRange}
             setIsAdding={setIsAdding}
+            setShowReport={setShowReport}
           />
           <div className='container'>
             {/* <Table
@@ -120,6 +115,11 @@ const Dashboard = () => {
       selectedEmployee={selectedEmployee} // Pass the selected employee data to Edit component
       setEmployees={setEmployees}
       setIsEditing={setIsEditing}
+    />
+  )}
+  {showReport && (
+    <Index
+    setShowReport={setShowReport}
     />
   )}
     </div>

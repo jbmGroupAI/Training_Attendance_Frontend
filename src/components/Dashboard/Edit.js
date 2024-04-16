@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import config from "../../config.json";
+import "../UI/Edit.css"; 
+import Header from "./Header"; 
 
 const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
   const [formData, setFormData] = useState(selectedEmployee || { // Initialize formData with selectedEmployee data
@@ -19,9 +21,9 @@ useEffect(() => {
     setFormData({
       projectName: selectedEmployee.projectName || '',
       trainerName: selectedEmployee.trainerName || '',
-      venue: selectedEmployee.venue || '',
-      plantCode: selectedEmployee.plantCode || '',
-      date: selectedEmployee.date || '',
+      plantName: selectedEmployee.plantName || '',
+      plantId: selectedEmployee.plantId || '',
+      date: new Date(selectedEmployee.date) || '',
       fromTime: selectedEmployee.fromTime || '',
       toTime: selectedEmployee.toTime || ''
     });
@@ -35,7 +37,7 @@ console.log("selectedEmployee:", selectedEmployee);
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!formData.projectName || !formData.trainerName || !formData.venue || !formData.plantCode || !formData.date || !formData.fromTime || !formData.toTime) {
+    if (!formData.projectName || !formData.trainerName || !formData.plantName || !formData.plantId || !formData.date || !formData.fromTime || !formData.toTime) {
       return Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -77,7 +79,8 @@ console.log("selectedEmployee:", selectedEmployee);
   };
 
   return (
-    <div className="small-container">
+    <div className="full-page-container m-5 p-5">
+       <Header setIsEditing={setIsEditing} handleChangeDateRange={() => {}} />
       <form onSubmit={handleUpdate}>
         <h1>Edit Meeting</h1>
         <label htmlFor="projectName">Training Topic</label>
@@ -88,7 +91,7 @@ console.log("selectedEmployee:", selectedEmployee);
           value={formData.projectName}
           onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
         />
-        <label htmlFor="trainerName">Trainer Name</label>
+        <label htmlFor="trainerName"> Faculty Name</label>
         <input
           id="trainerName"
           type="text"
@@ -98,19 +101,19 @@ console.log("selectedEmployee:", selectedEmployee);
         />
         <label htmlFor="venue">Venue</label>
         <input
-          id="venue"
+          id="plantName"
           type="text"
-          name="venue"
-          value={formData.venue}
-          onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
+          name="plantName"
+          value={formData.plantName}
+          onChange={(e) => setFormData({ ...formData, plantName: e.target.value })}
         />
-        <label htmlFor="plantCode">Plant Code</label>
+        <label htmlFor="plantCode">Plant ID</label>
         <input
-          id="plantCode"
+          id="plantId"
           type="number"
-          name="plantCode"
-          value={formData.plantCode}
-          onChange={(e) => setFormData({ ...formData, plantCode: e.target.value })}
+          name="plantId"
+          value={formData.plantId}
+          onChange={(e) => setFormData({ ...formData, plantId: e.target.value })}
         />
         <label htmlFor="date">Date</label>
         <input
@@ -120,6 +123,9 @@ console.log("selectedEmployee:", selectedEmployee);
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
         />
+
+
+
         <label htmlFor="fromTime">From Time:</label>
         <input
           id="fromTime"
