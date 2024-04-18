@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import Report from './Report'
 
-function ExpandableComponent({ employeeId, employeeName, data }) {
+function ExpandableComponent({ employeeId, employeeName, data ,parentTableData}) {
   const [meetings, setMeetings] = useState([]);
-
   useEffect(() => {
     const filteredMeetings = data.filter(
       (item) =>
@@ -15,6 +16,7 @@ function ExpandableComponent({ employeeId, employeeName, data }) {
     );
     setMeetings(filteredMeetings);
   }, [employeeId, employeeName, data]);
+  console.log('data1',data)
 
   const columns = [
     {
@@ -49,6 +51,7 @@ function ExpandableComponent({ employeeId, employeeName, data }) {
   ];
 
   return (
+    <>
     <DataTable
       columns={columns}
       data={meetings}
@@ -56,6 +59,20 @@ function ExpandableComponent({ employeeId, employeeName, data }) {
       subHeader
       subHeaderComponent={<div></div>}
     />
+    {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
+      <div className='d-flex justify-content-end'>
+        <PDFDownloadLink
+          document={<Report upperData={parentTableData} expandedData={meetings} />}
+          fileName='Individual_Training.pdf'
+        >
+          {({ loading }) => (
+            <button disabled={loading} className='btn-login m-2'>
+              {loading ? 'Downloading...' : 'Download'}
+            </button>
+          )}
+        </PDFDownloadLink>
+      </div>
+      </>
   );
 }
 

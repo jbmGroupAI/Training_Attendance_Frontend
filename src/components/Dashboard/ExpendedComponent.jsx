@@ -31,7 +31,7 @@ function ExpandedComponent({ data, empCodes, plantId }) {
             camId: 'TrainingProgram',
           },
         });
-        console.log("66",response)
+      
         setEmployeeData(response.data);
         setLoading(false);
       } catch (error) {

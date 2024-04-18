@@ -4,7 +4,6 @@ import logo from './Logo.png';
 import logoo from './third-eye.png';
 
 export default function Test({ upperData, expandedData }) {
-    console.log("expandedData",expandedData)
     const styles = StyleSheet.create({
         page: {
             fontSize: 11,
@@ -29,19 +28,19 @@ export default function Test({ upperData, expandedData }) {
         },
 
         logo: {
-                  width: 120,
-                  marginLeft: 10,
-                  position: 'absolute',
-                  top: 0,
-                  left: 0
-                },
+            width: 120,
+            marginLeft: 10,
+            position: 'absolute',
+            top: 0,
+            left: 0
+        },
         logoo: {
-                  width: 120,
-                  marginRight: 10,
-                  position: 'absolute',
-                  top: 0,
-                  right: 0
-                },
+            width: 120,
+            marginRight: 10,
+            position: 'absolute',
+            top: 0,
+            right: 0
+        },
 
         reportTitle: {
             fontSize: 20,
@@ -78,6 +77,7 @@ export default function Test({ upperData, expandedData }) {
             paddingLeft: 7,
             flex: 1,
             height: 20,
+
             backgroundColor: '#DEDEDE',
             borderColor: 'whitesmoke',
             borderRightWidth: 1,
@@ -95,34 +95,39 @@ export default function Test({ upperData, expandedData }) {
         }
     });
     const InvoiceTitle = () => (
-    <View style={{ position: 'relative', alignItems: 'center' }} > 
-    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>JAY BHARAT MARUTI LIMITED</Text> 
-    <Text style={{ fontSize: 12 }}>Attendance Sheet</Text>
-     <Text style={{ fontSize: 10 }}>Internal Training Programme</Text> 
-     <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} /> 
-     <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} /> 
-     </View>
-    
+        <View style={{ position: 'relative', alignItems: 'center' }} >
+            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>JAY BHARAT MARUTI LIMITED</Text>
+            <Text style={{ fontSize: 12 }}>Attendance Sheet</Text>
+            <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
+            <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} />
+            <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} />
+        </View>
+
     );
 
 
     const test = [
         { name: 'Training Topic', key: 'projectName' },
-        { name: 'Trainer Name', key: 'trainerName' },
+        { name: 'Faculty Name', key: 'trainerName' },
         { name: 'Venue', key: 'plantName' },
         { name: 'Plant ID', key: 'plantId' },
         { name: 'Date', key: 'date' },
         { name: 'From Time', key: 'fromTime' },
-        { name: 'To Time', key: 'toTime' }
+        { name: 'To Time', key: 'toTime' },
+        { name: 'Meeting hours', key: 'totalMeetingTime' },
+        { name: 'Status', key: 'status' },
     ];
 
     const TableHead = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
-            {test.map(({ name }, index) => (
+            {test.map(({ name }, index) => {
+                console.log(name)
+                return(
+                
                 <View key={index} style={styles.theader}>
                     <Text>{name}</Text>
                 </View>
-            ))}
+            )})}
         </View>
     );
 
@@ -140,76 +145,79 @@ export default function Test({ upperData, expandedData }) {
         const dateTime = new Date(date);
         dateTime.setHours(dateTime.getHours() - 5);
         dateTime.setMinutes(dateTime.getMinutes() - 30);
-      
+
         // Format the time as desired (e.g., HH:mm)
         const formattedTime = `${dateTime.getHours()}:${String(dateTime.getMinutes()).padStart(2, '0')}`;
-      
+
         return formattedTime;
-      }
+    }
 
     const headers2 = [
         { name: 'Participant List', key: '_id' },
         { name: 'Plant ID', key: 'empPlantId' },
         { name: 'Designation', key: 'department' },
         {
-          name: 'Punch In',
-          key: 'Punch In',
+            name: 'Punch In',
+            key: 'Punch In',
         },
         {
-          name: 'Punch Out',
-          key : 'Punch Out',
+            name: 'Punch Out',
+            key: 'Punch Out',
         },
-      ];
-      
-      const TableHead2 = () => (
+    ];
+
+    const TableHead2 = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
-          {headers2.map(({ name }, index) => {
-            
-            console.log(name)
-            
-            return(
-            <View key={index} style={styles.theader}>
-              <Text>{name}</Text>
-            </View>
-          )})}
+            {headers2.map(({ name }, index) => {
+
+                console.log(name)
+
+                return (
+                    <View key={index} style={styles.theader}>
+                        <Text>{name}</Text>
+                    </View>
+                )
+            })}
         </View>
-      );
-      const TableBody2 = () => (
+    );
+    const TableBody2 = () => (
         <Fragment>
             {expandedData.map((receipt, index) => {
-                console.log("receipt",receipt)
+                console.log("receipt", receipt)
                 return (
-                <View style={{ width: '100%', flexDirection: 'row' }} key={index}>
-                    {headers2.map(({ key }, innerIndex) => {
-                        if(key === 'Punch In'){
-                            return(
-                                <View style={styles.tbody} key={innerIndex}>
-                                    <Text>{receipt.hasOwnProperty('timeInfo') ?  formatTime(receipt.timeInfo[0].time) : ""}</Text>
-                                </View>
-                            )
-                        }
-                        else if(key === 'Punch Out'){
-                            return(
-                                <View style={styles.tbody} key={innerIndex}>
-                                    <Text>{receipt.hasOwnProperty('timeInfo') ?  formatTime(receipt.timeInfo[receipt.timeInfo.length - 1].time) : ""}</Text>
-                                </View>
-                            )
-                        }
-                        else{
-                            return(
-                                <View style={styles.tbody} key={innerIndex}>
-                                    <Text>{receipt.hasOwnProperty(key) ? receipt[key] : ""}</Text>
-                                </View>
-                            )
-                        }
-                    })}
-                </View>
-            )})}
+                    <View style={{ width: '100%', flexDirection: 'row' }} key={index}>
+                        {headers2.map(({ key }, innerIndex) => {
+                            if (key === 'Punch In') {
+                                return (
+                                    <View style={styles.tbody} key={innerIndex}>
+                                        <Text>{receipt.hasOwnProperty('timeInfo') ? formatTime(receipt.timeInfo[0].time) : ""}</Text>
+                                    </View>
+                                )
+                            }
+                            else if (key === 'Punch Out') {
+                                return (
+                                    <View style={styles.tbody} key={innerIndex}>
+                                        <Text>{receipt.hasOwnProperty('timeInfo') ? formatTime(receipt.timeInfo[receipt.timeInfo.length - 1].time) : ""}</Text>
+                                    </View>
+                                )
+                            }
+                            else {
+                                return (
+                                    <View style={styles.tbody} key={innerIndex}>
+                                        <Text>{receipt.hasOwnProperty(key) ? receipt[key] : ""}</Text>
+                                    </View>
+                                )
+                            }
+                        })}
+                    </View>
+                )
+            })}
         </Fragment>
     );
 
+
     return (
-      
+
         <Document>
             <Page size="A4" style={styles.page}>
                 <InvoiceTitle />
