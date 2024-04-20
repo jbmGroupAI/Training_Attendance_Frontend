@@ -1,9 +1,30 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Image, Text, View, Page, Document, StyleSheet } from '@react-pdf/renderer';
 import logo from './Logo.png';
-import logoo from './third-eye.png';
+//import logoo from './third-eye.png';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 export default function Test({ upperData, expandedData }) {
+    upperData.allEmployees=expandedData;
+   
+//     const [updatedData, setUpdatedData] = useState(expandedData);
+//     let { id } = useParams()
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             try {
+//                 const response = await axios.get(`http://localhost:3011/v1/training/final/${id}`);
+//                 setUpdatedData(response.data.allEmployees.filter(employee => employee.acknowledgement));
+//             } catch (error) {
+//                 console.error('Error fetching data:', error);
+//             }
+//         };
+
+//         fetchData();
+//     }, [upperData]);
+
+// console.log('pdfff', updatedData);
+
     const styles = StyleSheet.create({
         page: {
             fontSize: 11,
@@ -34,13 +55,13 @@ export default function Test({ upperData, expandedData }) {
             top: 0,
             left: 0
         },
-        logoo: {
-            width: 120,
-            marginRight: 10,
-            position: 'absolute',
-            top: 0,
-            right: 0
-        },
+        // logoo: {
+        //     width: 120,
+        //     marginRight: 10,
+        //     position: 'absolute',
+        //     top: 0,
+        //     right: 0
+        // },
 
         reportTitle: {
             fontSize: 20,
@@ -76,7 +97,7 @@ export default function Test({ upperData, expandedData }) {
             paddingTop: 4,
             paddingLeft: 7,
             flex: 1,
-            height: 20,
+            height: 50,
 
             backgroundColor: '#DEDEDE',
             borderColor: 'whitesmoke',
@@ -100,7 +121,7 @@ export default function Test({ upperData, expandedData }) {
             <Text style={{ fontSize: 12 }}>Attendance Sheet</Text>
             <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
             <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} />
-            <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} />
+            {/* <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} /> */}
         </View>
 
     );
@@ -121,7 +142,6 @@ export default function Test({ upperData, expandedData }) {
     const TableHead = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
             {test.map(({ name }, index) => {
-                console.log(name)
                 return(
                 
                 <View key={index} style={styles.theader}>
@@ -164,13 +184,22 @@ export default function Test({ upperData, expandedData }) {
             name: 'Punch Out',
             key: 'Punch Out',
         },
+        {
+            name:'Category',
+            key:"planned",
+        },
+        {
+            name:'Acknowldege',
+            key:"acknowledgement",
+        }
+
     ];
 
     const TableHead2 = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
             {headers2.map(({ name }, index) => {
 
-                console.log(name)
+               
 
                 return (
                     <View key={index} style={styles.theader}>
@@ -180,40 +209,47 @@ export default function Test({ upperData, expandedData }) {
             })}
         </View>
     );
+    
+
     const TableBody2 = () => (
         <Fragment>
-            {expandedData.map((receipt, index) => {
-                console.log("receipt", receipt)
-                return (
-                    <View style={{ width: '100%', flexDirection: 'row' }} key={index}>
-                        {headers2.map(({ key }, innerIndex) => {
-                            if (key === 'Punch In') {
-                                return (
-                                    <View style={styles.tbody} key={innerIndex}>
-                                        <Text>{receipt.hasOwnProperty('timeInfo') ? formatTime(receipt.timeInfo[0].time) : ""}</Text>
-                                    </View>
-                                )
-                            }
-                            else if (key === 'Punch Out') {
-                                return (
-                                    <View style={styles.tbody} key={innerIndex}>
-                                        <Text>{receipt.hasOwnProperty('timeInfo') ? formatTime(receipt.timeInfo[receipt.timeInfo.length - 1].time) : ""}</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View style={styles.tbody} key={innerIndex}>
-                                        <Text>{receipt.hasOwnProperty(key) ? receipt[key] : ""}</Text>
-                                    </View>
-                                )
-                            }
-                        })}
-                    </View>
-                )
-            })}
+          {expandedData.map((receipt, index) => {
+            return (
+              <View style={{ width: '100%', flexDirection: 'row' }} key={index}>
+                {headers2.map(({ name, key }, innerIndex) => {
+                  if (key === 'planned') {
+                    return (
+                      <View style={styles.tbody} key={innerIndex}>
+                        <Text>{receipt[key] ? "Planned": 'Unplanned'}</Text>
+                      </View>
+                    );
+                  } else if (key === 'Punch In') {
+                    return (
+                      <View style={styles.tbody} key={innerIndex}>
+                        <Text>{receipt.hasOwnProperty('timeInfo') ? formatTime(receipt.timeInfo[0].time) : ''}</Text>
+                      </View>
+                    );
+                  } else if (key === 'Punch Out') {
+                    return (
+                      <View style={styles.tbody} key={innerIndex}>
+                        <Text>{receipt.hasOwnProperty('timeInfo') ? formatTime(receipt.timeInfo[receipt.timeInfo.length - 1].time) : ''}</Text>
+                      </View>
+                    );
+                  } else {
+                    return (
+                      <View style={styles.tbody} key={innerIndex}>
+                        <Text>{receipt.hasOwnProperty(key) ? receipt[key] : ''}</Text>
+                      </View>
+                    );
+                  }
+                })}
+              </View>
+            );
+          })}
         </Fragment>
-    );
+      );
+      
+      
 
 
     return (

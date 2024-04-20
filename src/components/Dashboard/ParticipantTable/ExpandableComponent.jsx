@@ -5,6 +5,9 @@ import Report from './Report'
 
 function ExpandableComponent({ employeeId, employeeName, data ,parentTableData}) {
   const [meetings, setMeetings] = useState([]);
+ 
+//const [data, setData] = useState([]);
+
   useEffect(() => {
     const filteredMeetings = data.filter(
       (item) =>
@@ -18,6 +21,21 @@ function ExpandableComponent({ employeeId, employeeName, data ,parentTableData})
   }, [employeeId, employeeName, data]);
   console.log('data1',data)
 
+  // useEffect(() => {
+  //   if (data && Array.isArray(data)) {
+  //     const filteredMeetings = data.filter(
+  //       (item) =>
+  //         item &&
+  //         item.empCodes &&
+  //         item.empCodes.some((emp) =>
+  //           emp.includes(`${employeeName} - ${employeeId}`)
+  //         )
+  //     );
+  //     setMeetings(filteredMeetings);
+  //   }
+  // }, [employeeId, employeeName, data]);
+  
+console.log('ggggggg',data)
   const columns = [
     {
       name: "Training Topic",
@@ -77,3 +95,5 @@ function ExpandableComponent({ employeeId, employeeName, data ,parentTableData})
 }
 
 export default ExpandableComponent;
+
+

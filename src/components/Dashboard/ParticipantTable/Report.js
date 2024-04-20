@@ -125,21 +125,29 @@ const Report = ({ upperData,expandedData}) => {
     );
 
 
-    const TableBody = () => (
-        <View style={{ width: '100%', flexDirection: 'row' }}>
-            {test1.map(({ key ,name}, index) =>{ 
-                console.log("ggg : ",name === "Training Count" ? upperData?.trainingId
-                ?.length: upperData[key])
-                return(
-                <View style={styles.tbody} key={index}>
-                    <Text>{name === "Training Count" ? upperData?.trainingId
-?.length: upperData[key]}</Text>
-                </View>
-)})}
-        </View>
-    );
+//     const TableBody = () => (
+//         <View style={{ width: '100%', flexDirection: 'row' }}>
+//             {test1.map(({ key ,name}, index) =>{ 
+//                 console.log("ggg : ",name === "Training Count" ? upperData?.trainingId
+//                 ?.length: upperData[key])
+//                 return(
+//                 <View style={styles.tbody} key={index}>
+//                     <Text>{name === "Training Count" ? upperData?.trainingId
+// ?.length: upperData[key]}</Text>
+//                 </View>
+// )})}
+//         </View>
+//     );
 
-
+const TableBody = () => (
+    <View style={{ width: '100%', flexDirection: 'row' }}>
+        {test1.map(({ key ,name}, index) => (
+            <View style={styles.tbody} key={index}>
+                <Text>{name === "Training Count" ? upperData?.trainingId?.length : upperData?.[key]}</Text>
+            </View>
+        ))}
+    </View>
+);
     
     const test2 = [
         { name: 'Training Topic', key: 'projectName' },
@@ -162,14 +170,35 @@ const Report = ({ upperData,expandedData}) => {
         </View>
     );
 
+    // const TableBody2 = () => {
+    //     console.log('Expanded Data:', expandedData);
+    //     return (
+    //         <>
+    //             {expandedData.map((rowData, rowIndex) => (
+    //                 <View key={rowIndex} style={{ width: '100%', flexDirection: 'row' }}>
+    //                     {test2.map(({ key }, cellIndex) => (
+    //                         <View style={styles.tbody} key={cellIndex}>
+    //                             <Text>{key === "date" ? new Date(rowData[key]).toLocaleDateString('sv-SE') : rowData[key]}</Text>
+    //                         </View>
+    //                     ))}
+    //                 </View>
+    //             ))}
+    //         </>
+    //     );
+    // };
+
     const TableBody2 = () => {
         console.log('Expanded Data:', expandedData);
         return (
             <>
+                {/* Iterate over each item in expandedData */}
                 {expandedData.map((rowData, rowIndex) => (
                     <View key={rowIndex} style={{ width: '100%', flexDirection: 'row' }}>
+                        {/* Render each column based on the test2 keys */}
                         {test2.map(({ key }, cellIndex) => (
                             <View style={styles.tbody} key={cellIndex}>
+                                {/* Use conditional rendering if necessary */}
+                                {/* Example: Format the date if the key is 'date' */}
                                 <Text>{key === "date" ? new Date(rowData[key]).toLocaleDateString('sv-SE') : rowData[key]}</Text>
                             </View>
                         ))}
