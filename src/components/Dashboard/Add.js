@@ -18,6 +18,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [date, setDate] = useState("");
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
+  const [facultyMail, setFacultyMail] = useState(""); // New state for faculty mail
+  const [meetingDescription, setMeetingDescription] = useState(""); // New state for meeting description
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   useEffect(() => {
@@ -96,7 +98,9 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       !plantId ||
       !date ||
       !fromTime ||
-      !toTime
+      !toTime ||
+      !facultyMail || // Check if faculty mail is provided
+      !meetingDescription // Check if meeting description is provided
     ) {
       return Swal.fire({
         icon: "error",
@@ -121,6 +125,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       date,
       fromTime,
       toTime,
+      facultyMail, // Add faculty mail to the newEmployee object
+      meetingDescription, // Add meeting description to the newEmployee object
     };
     axios
       .post(`${config.url}/training`, newEmployee)
@@ -187,6 +193,24 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="login-input"
                 />
               </div>
+               {/* Add input fields for Faculty Mail and Meeting Description */}
+            <div className="d-flex gap-2 my-3">
+              <div className="col">
+                <label className="label" htmlFor="facultyMail">
+                  Faculty Email
+                </label>
+                <input
+                  id="facultyMail"
+                  type="email"
+                  name="facultyMail"
+                  value={facultyMail}
+                  onChange={(e) => setFacultyMail(e.target.value)}
+                  className="login-input"
+                />
+              </div>
+              
+            </div>
+
             </div>
             <div className="d-flex gap-2 my-3">
               <div className="col">
@@ -229,6 +253,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                 />
               </div>
             </div>
+           
             <div className="d-flex gap-2 my-3">
               <div className="col">
                 <label className="label" htmlFor="plantName">
@@ -289,6 +314,19 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                 className="login-input"
               />
             </div>
+            <div className="col">
+                <label className="label" htmlFor="meetingDescription">
+                  Meeting Description
+                </label>
+                <input
+                  id="meetingDescription"
+                  type="text"
+                  name="meetingDescription"
+                  value={meetingDescription}
+                  onChange={(e) => setMeetingDescription(e.target.value)}
+                  className="login-input"
+                />
+              </div>
 
             <div className="d-flex justify-content-between mt-5">
               <div className="">
@@ -311,4 +349,3 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
 };
 
 export default Add;
-

@@ -5,10 +5,12 @@ import React from 'react';
 import Dashboard from "../Dashboard";
 import Login from "../Login";
 import AuthRequired from "../Authorization/AuthRequired";
+import Acknowledge from "../Dashboard/Acknowledge/TrainingTable.js"
 
 import Logout from "../Logout/index.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareMinus } from '@fortawesome/free-solid-svg-icons';
+import TrainingTable from "../Dashboard/Acknowledge/TrainingTable.js";
 
 
 function App() {
@@ -57,6 +59,16 @@ function App() {
               // </AuthRequired>
             }
           /> */}
+
+<Route
+            path="/table/:id"
+            element={
+              // <AuthRequired>
+              <TrainingTable/>
+              // </AuthRequired>
+            }
+          />
+
         </Routes>
       </div>
    // </div>
