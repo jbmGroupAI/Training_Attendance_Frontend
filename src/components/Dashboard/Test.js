@@ -6,24 +6,10 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 export default function Test({ upperData, expandedData }) {
+    console.log("expanded", expandedData)
     upperData.allEmployees=expandedData;
    
-//     const [updatedData, setUpdatedData] = useState(expandedData);
-//     let { id } = useParams()
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 const response = await axios.get(`http://localhost:3011/v1/training/final/${id}`);
-//                 setUpdatedData(response.data.allEmployees.filter(employee => employee.acknowledgement));
-//             } catch (error) {
-//                 console.error('Error fetching data:', error);
-//             }
-//         };
 
-//         fetchData();
-//     }, [upperData]);
-
-// console.log('pdfff', updatedData);
 
     const styles = StyleSheet.create({
         page: {

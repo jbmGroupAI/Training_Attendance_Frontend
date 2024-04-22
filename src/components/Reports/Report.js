@@ -44,7 +44,8 @@ import { useParams } from 'react-router-dom';
 //   }, [trainingData, plannedCount, actualCount]);
 
 
-const Report = () => {
+const Report = ({data}) => {
+  console.log("xcvbnm,.", data)
   const [trainingData, setTrainingData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
@@ -57,7 +58,7 @@ const Report = () => {
   useEffect(() => {
     const fetchTrainingData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3011/v1/training/final/6622368a2544be5b80cd173f`);
+        const response = await axios.get(`http://localhost:3011/v1/training/final?meetingId=${data?._id}`);
         setTrainingData(response.data);
         setIsLoading(false);
       } catch (error) {

@@ -114,12 +114,12 @@ function ExpandedComponent({ data, empCodes, plantId }) {
 
   const finalData = Object.values(employeeMap);
 
-  console.log("guhuyhuhyu", finalData);
+  // console.log("guhuyhuhyu", finalData);
 
 
-  const Test2=({upperData, expandedData})=>{
-    return <Test  upperData={upperData}  expandedData={expandedData} />;
-  }
+  // const Test2=({upperData, expandedData})=>{
+  //   return <Test  upperData={data}  expandedData={finalData} />;
+  // }
 
   return (
     <>
@@ -135,7 +135,7 @@ function ExpandedComponent({ data, empCodes, plantId }) {
       {/* {error && <p style={{ color: "red" }}>{error}</p>}
       <div className="d-flex justify-content-end">
         <PDFDownloadLink
-          document={<FinalData trainingData={data} />}
+          document={<Test trainingData={data} />}
           fileName="TrainingAttendance.pdf"
         >
           {({ loading }) => (
