@@ -138,13 +138,13 @@ const TrainingTable = () => {
                                 <td>{employee.timeInfo.length > 0 ? formatTime(employee.timeInfo[0].time) : '-'}</td>
                                 <td>{employee.timeInfo.length > 0 ? formatTime(employee.timeInfo[0].time) : '-'}</td>
                                 <td>
-    <input
-        type="checkbox"
-        checked={employee.acknowledgement} // Use 'acknowledgement' instead of 'acknowledgment'
-        onChange={() => handleAcknowledgeChange(employee._id, !employee.acknowledgement)}
-        className="input-checkbox"
-    />
-</td>
+                                    <input
+                                        type="checkbox"
+                                        checked={employee.acknowledgement} // Use 'acknowledgement' instead of 'acknowledgment'
+                                        onChange={() => handleAcknowledgeChange(employee._id, !employee.acknowledgement)}
+                                        className="input-checkbox"
+                                    />
+                                </td>
                             </tr>
                         ))}
                     </tbody>

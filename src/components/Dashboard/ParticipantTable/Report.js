@@ -1,10 +1,14 @@
+
+
+
+
+
 import React from 'react';
 import { Document, Page, View, Text, Image, StyleSheet } from '@react-pdf/renderer';
 import logo from './Logo.png';
 import logoo from './third-eye.png';
 
-const Report = ({ upperData,expandedData}) => {
-    console.log('data',upperData)
+const Report = ({ upperData, expandedData }) => {
     const styles = StyleSheet.create({
         page: {
             fontSize: 11,
@@ -77,7 +81,7 @@ const Report = ({ upperData,expandedData}) => {
             paddingTop: 4,
             paddingLeft: 7,
             flex: 1,
-            height: 20,
+            height: 50,
             backgroundColor: '#DEDEDE',
             borderColor: 'whitesmoke',
             borderRightWidth: 1,
@@ -95,10 +99,11 @@ const Report = ({ upperData,expandedData}) => {
         }
     });
 
+
     const InvoiceTitle = () => (
         <View style={{ position: 'relative', alignItems: 'center' }} >
             <Text style={{ fontSize: 15, fontWeight: 'bold' }}>JAY BHARAT MARUTI LIMITED</Text>
-            <Text style={{ fontSize: 12 }}>Attendance Sheet</Text>
+            <Text style={{ fontSize: 12 }}>Individual Training Record</Text>
             <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
             <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} />
             <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} />
@@ -110,9 +115,6 @@ const Report = ({ upperData,expandedData}) => {
         { name: 'Employee ID', key: 'employeeId' },
         { name: 'Training Count', key: 'trCount' },
     ];
-    console.log('Test1:', test1);
-
-
 
     const TableHead = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
@@ -124,31 +126,16 @@ const Report = ({ upperData,expandedData}) => {
         </View>
     );
 
+    const TableBody = () => (
+        <View style={{ width: '100%', flexDirection: 'row' }}>
+            {test1.map(({ key, name }, index) => (
+                <View style={styles.tbody} key={index}>
+                    <Text>{name === "Training Count" ? upperData?.trainingId?.length : upperData?.[key]}</Text>
+                </View>
+            ))}
+        </View>
+    );
 
-//     const TableBody = () => (
-//         <View style={{ width: '100%', flexDirection: 'row' }}>
-//             {test1.map(({ key ,name}, index) =>{ 
-//                 console.log("ggg : ",name === "Training Count" ? upperData?.trainingId
-//                 ?.length: upperData[key])
-//                 return(
-//                 <View style={styles.tbody} key={index}>
-//                     <Text>{name === "Training Count" ? upperData?.trainingId
-// ?.length: upperData[key]}</Text>
-//                 </View>
-// )})}
-//         </View>
-//     );
-
-const TableBody = () => (
-    <View style={{ width: '100%', flexDirection: 'row' }}>
-        {test1.map(({ key ,name}, index) => (
-            <View style={styles.tbody} key={index}>
-                <Text>{name === "Training Count" ? upperData?.trainingId?.length : upperData?.[key]}</Text>
-            </View>
-        ))}
-    </View>
-);
-    
     const test2 = [
         { name: 'Training Topic', key: 'projectName' },
         { name: 'Trainer Name', key: 'trainerName' },
@@ -156,9 +143,9 @@ const TableBody = () => (
         { name: 'Plant ID', key: 'plantId' },
         { name: 'Date', key: 'date' },
         { name: 'From Time', key: 'fromTime' },
-        { name: 'To Time', key: 'toTime' }
+        { name: 'To Time', key: 'toTime' },
+        { name: 'Training Hours', key: 'trainingHours' }, // Add Training Hours field
     ];
-    console.log('Test2:', test2);
 
     const TableHead1 = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
@@ -170,36 +157,41 @@ const TableBody = () => (
         </View>
     );
 
-    // const TableBody2 = () => {
-    //     console.log('Expanded Data:', expandedData);
-    //     return (
-    //         <>
-    //             {expandedData.map((rowData, rowIndex) => (
-    //                 <View key={rowIndex} style={{ width: '100%', flexDirection: 'row' }}>
-    //                     {test2.map(({ key }, cellIndex) => (
-    //                         <View style={styles.tbody} key={cellIndex}>
-    //                             <Text>{key === "date" ? new Date(rowData[key]).toLocaleDateString('sv-SE') : rowData[key]}</Text>
-    //                         </View>
-    //                     ))}
-    //                 </View>
-    //             ))}
-    //         </>
-    //     );
-    // };
+    
+    const calculateTrainingHours = (fromTime, toTime) => {
+        // Split the time strings into hours and minutes
+        const [fromHours, fromMinutes] = fromTime.split(":").map(Number);
+        const [toHours, toMinutes] = toTime.split(":").map(Number);
+        
+        // Create Date objects with today's date and the specified hours and minutes
+        const fromDate = new Date();
+        fromDate.setHours(fromHours);
+        fromDate.setMinutes(fromMinutes);
+        
+        const toDate = new Date();
+        toDate.setHours(toHours);
+        toDate.setMinutes(toMinutes);
+    
+        // Calculate the difference in milliseconds
+        const diffMs = toDate.getTime() - fromDate.getTime();
+        // Convert milliseconds to hours
+        const diffHours = diffMs / (1000 * 60 * 60);
+        return diffHours.toFixed(2); // Return the result as a string with 2 decimal places
+    };
+    
 
     const TableBody2 = () => {
-        console.log('Expanded Data:', expandedData);
         return (
             <>
-                {/* Iterate over each item in expandedData */}
                 {expandedData.map((rowData, rowIndex) => (
                     <View key={rowIndex} style={{ width: '100%', flexDirection: 'row' }}>
-                        {/* Render each column based on the test2 keys */}
                         {test2.map(({ key }, cellIndex) => (
                             <View style={styles.tbody} key={cellIndex}>
-                                {/* Use conditional rendering if necessary */}
-                                {/* Example: Format the date if the key is 'date' */}
-                                <Text>{key === "date" ? new Date(rowData[key]).toLocaleDateString('sv-SE') : rowData[key]}</Text>
+                                <Text>
+                                    {key === "date" ? new Date(rowData[key]).toLocaleDateString('sv-SE') :
+                                        key === "trainingHours" ? calculateTrainingHours(rowData['fromTime'], rowData['toTime']) :
+                                            rowData[key]}
+                                </Text>
                             </View>
                         ))}
                     </View>
@@ -207,15 +199,15 @@ const TableBody = () => (
             </>
         );
     };
-    
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <InvoiceTitle />
                 <TableHead />
                 <TableBody />
-                <TableHead1/>
-                <TableBody2/>
+                <TableHead1 />
+                <TableBody2 />
             </Page>
         </Document>
     );

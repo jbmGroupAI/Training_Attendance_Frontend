@@ -5,43 +5,6 @@ import logoo from './third-eye.png';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-// const Report = () => {
-//   const [trainingData, setTrainingData] = useState(null);
-//   const [isLoading, setIsLoading] = useState(true);
-//   const { id } = useParams();
-//   const [plannedCount, setPlannedCount] = useState(0);
-//   const [actualCount, setActualCount] = useState(0);
-//   const [plannedVsActual, setPlannedVsActual] = useState(0);
-
-//   useEffect(() => {
-//     const fetchTrainingData = async () => {
-//       try {
-//         const response = await axios.get(`http://localhost:3011/v1/training/final/6622368a2544be5b80cd173f`);
-//         setTrainingData(response.data);
-//         setIsLoading(false);
-//       } catch (error) {
-//         console.error('Error fetching training data:', error);
-//         setIsLoading(false);
-//       }
-//     };
-
-//     fetchTrainingData();
-//   }, []);
-
-//   useEffect(() => {
-//     if (trainingData) {
-//       // Count planned employees
-//       const plannedEmployees = trainingData.allEmployees.filter(employee => employee.planned);
-//       setPlannedCount(plannedEmployees.length);
-
-//       // Count actual employees with punch in and punch out times
-//       const actualEmployees = plannedEmployees.filter(employee => employee.timeInfo && employee.timeInfo.length > 0);
-//       setActualCount(actualEmployees.length);
-
-//       // Calculate planned vs actual
-//       setPlannedVsActual(plannedCount - actualCount);
-//     }
-//   }, [trainingData, plannedCount, actualCount]);
 
 
 const Report = ({data}) => {
@@ -54,6 +17,8 @@ const Report = ({data}) => {
   const [plannedVsActual, setPlannedVsActual] = useState(0);
   const [meetingHours, setMeetingHours] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
+  const [totalPresent, setTotalPresent] = useState(0);
+  const [totalAbsent, setTotalAbsent] = useState(0);
 
   useEffect(() => {
     const fetchTrainingData = async () => {
@@ -70,45 +35,42 @@ const Report = ({data}) => {
     fetchTrainingData();
   }, []);
 
+  // useEffect(() => {
+  //   if (trainingData) {
+     
+  //     const plannedEmployees = trainingData.allEmployees.filter(employee => employee.planned);
+  //     setPlannedCount(plannedEmployees.length);
+
+     
+  //     const actualEmployees = plannedEmployees.filter(employee => employee.timeInfo && employee.timeInfo.length > 0);
+  //     setActualCount(actualEmployees.length);
+
+     
+  //     setPlannedVsActual(plannedCount - actualCount);
+
+     
+  //    }
+  // }, [trainingData, plannedCount, actualCount]);
+
   useEffect(() => {
     if (trainingData) {
-      // Count planned employees
       const plannedEmployees = trainingData.allEmployees.filter(employee => employee.planned);
       setPlannedCount(plannedEmployees.length);
 
-      // Count actual employees with punch in and punch out times
       const actualEmployees = plannedEmployees.filter(employee => employee.timeInfo && employee.timeInfo.length > 0);
       setActualCount(actualEmployees.length);
 
-      // Calculate planned vs actual
       setPlannedVsActual(plannedCount - actualCount);
 
-      // Calculate meeting hours
-      // let totalMeetingHours = 0;
-      // trainingData.allEmployees.forEach(employee => {
-      //   if (employee.fromTime && employee.toTime) {
-      //     const fromTime = new Date(employee.fromTime);
-      //     const toTime = new Date(employee.toTime);
-      //     const diffMs = toTime - fromTime;
-      //     const diffHours = diffMs / (1000 * 60 * 60);
-      //     totalMeetingHours += diffHours;
-      //   }
-      // });
-      // setMeetingHours(totalMeetingHours);
-
-      // Calculate total time
-    //   let totalTimeHours = 0;
-    //   trainingData.allEmployees.forEach(employee => {
-    //     if (employee.timeInfo && employee.timeInfo.length > 0) {
-    //       const punchInTime = new Date(employee.timeInfo[0].time);
-    //       const punchOutTime = new Date(employee.timeInfo[employee.timeInfo.length - 1].time);
-    //       const diffMs = punchOutTime - punchInTime;
-    //       const diffHours = diffMs / (1000 * 60 * 60);
-    //       totalTimeHours += diffHours;
-    //     }
-    //   });
-    //   setTotalTime(totalTimeHours);
-     }
+      // Calculate total present and total absent
+      const presentEmployees = actualEmployees.filter(employee => {
+        const punchInTime = employee.timeInfo[0].time;
+        const punchOutTime = employee.timeInfo[employee.timeInfo.length - 1].time;
+        return punchInTime && punchOutTime;
+      });
+      setTotalPresent(presentEmployees.length);
+      setTotalAbsent(actualEmployees.length - presentEmployees.length);
+    }
   }, [trainingData, plannedCount, actualCount]);
 
   if (isLoading) {
@@ -209,7 +171,7 @@ const Report = ({data}) => {
     const dateTime = new Date(date);
     dateTime.setHours(dateTime.getHours() - 5);
     dateTime.setMinutes(dateTime.getMinutes() - 30);
-    // Format the time as desired (e.g., HH:mm)
+   
     const formattedTime = `${dateTime.getHours()}:${String(dateTime.getMinutes()).padStart(2, '0')}`;
     return formattedTime;
   }
@@ -226,15 +188,7 @@ const Report = ({data}) => {
     // { name: 'Meeting Hours', key: "Meeting Hours" },
   ];
 
-  // const TableHead = () => (
-  //   <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
-  //     {test.map(({ name }, index) => (
-  //       <View key={index} style={styles.theader}>
-  //         <Text>{name}</Text>
-  //       </View>
-  //     ))}
-  //   </View>
-  // );
+  
 
   const TableHead = () => (
     <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
@@ -253,19 +207,6 @@ const Report = ({data}) => {
     <View style={{ width: '100%', flexDirection: 'row' }}>
       {test.map(({ key }, index) => {
 
-// const punchInTime = receipt.timeInfo.length > 0 ? new Date(receipt.timeInfo[0].time) : null;
-// const punchOutTime = receipt.timeInfo.length > 0 ? new Date(receipt.timeInfo[receipt.timeInfo.length - 1].time) : null;
-
-// let meetingHours = 0;
-// //let totalTime = 0;
-
-// if (trainingData.fromTime && trainingData.toTime) {
-//   const fromTime = new Date(trainingData.fromTime);
-//   const toTime = new Date(trainingData.toTime);
-//   let meetingHours = 0;
-//   const meetingHoursDiff = (toTime.getTime() - fromTime.getTime());
-//   meetingHours = Math.abs(meetingHoursDiff);
-// }
 
 
         console.log("table",TableBody)
@@ -290,15 +231,7 @@ const Report = ({data}) => {
     { name: 'Punch Out', key: "Punch Out" },
   ];
 
-  // const TableHead2 = () => (
-  //   <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
-  //     {test1.map(({ name }, index) => (
-  //       <View key={index} style={styles.theader}>
-  //         <Text>{name}</Text>
-  //       </View>
-  //     ))}
-  //   </View>
-  // );
+  
 
   const TableHead2 = () => (
     <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
@@ -309,9 +242,7 @@ const Report = ({data}) => {
           </View>
         )
       })}
-      {/* <View style={styles.theader}>
-        <Text>Total Time</Text>
-      </View> */}
+      
     </View>
   );
 
@@ -352,12 +283,12 @@ const Report = ({data}) => {
       <View style={styles.theader}>
         <Text>Planned vs Actual: {plannedVsActual}</Text>
       </View>
-      {/* <View style={styles.theader}>
-        <Text>Meeting Hours: {meetingHours.toFixed(2)}</Text>
+      <View style={styles.theader}>
+        <Text>Total Present:{totalPresent}</Text>
       </View>
       <View style={styles.theader}>
-        <Text>Total Time: {totalTime.toFixed(2)}</Text>
-      </View> */}
+        <Text>Total Absent:{totalAbsent}</Text>
+      </View>
       <View style={styles.theader}>
         <Text>Meeting Description: {trainingData.meetingDescription}</Text>
       </View>

@@ -8,18 +8,31 @@ function ExpandableComponent({ employeeId, employeeName, data ,parentTableData})
  
 //const [data, setData] = useState([]);
 
+  // useEffect(() => {
+  //   const filteredMeetings = data.filter(
+  //     (item) =>
+  //       item &&
+  //       item.empCodes &&
+  //       item.empCodes.some((emp) =>
+  //         emp.includes(`${employeeName} - ${employeeId}`)
+  //       )
+  //   );
+  //   setMeetings(filteredMeetings);
+  // }, [employeeId, employeeName, data]);
+  // console.log('data1',data)
+
   useEffect(() => {
     const filteredMeetings = data.filter(
       (item) =>
         item &&
         item.empCodes &&
         item.empCodes.some((emp) =>
-          emp.includes(`${employeeName} - ${employeeId}`)
+          typeof emp === 'string' && emp.includes(`${employeeName} - ${employeeId}`)
         )
     );
     setMeetings(filteredMeetings);
   }, [employeeId, employeeName, data]);
-  console.log('data1',data)
+  
 
   // useEffect(() => {
   //   if (data && Array.isArray(data)) {

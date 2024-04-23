@@ -156,7 +156,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   };
 
   return (
-    <div>
+    <div className="container">
       {/* Include the Header component here */}
       <Header setIsAdding={setIsAdding} handleChangeDateRange={() => {}} />
       <div className="container m-5 p-5">
