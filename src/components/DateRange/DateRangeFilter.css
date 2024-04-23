@@ -1,0 +1,73 @@
+/* DateRangeFilter.css */
+
+.container {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 50px;
+   
+  }
+  
+  .filter-icon {
+    background-image: "/home/rishabh/Desktop/trainingAttendance/public/filter-svgrepo-com.svg"; /* Replace 'filter-icon.svg' with the path to your filter icon image */
+    background-size:contain;
+    display: inline-block;
+    width: 20px;
+    height: 5px;
+    cursor: pointer;
+    align-content: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .filter-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .label {
+    margin-bottom: 5px;
+  }
+  
+  .date-picker {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+  }
+  
+  .btn-login {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 2.5px;
+    padding: 15px 15px;
+    cursor: pointer;
+    display: inline-block;
+    /* width: 10px;
+    height: 10px; */
+  }
+  
+  .btn-login:hover {
+    background-color: #0056b3;
+  }
+  
+  .date-range-filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .date-range-filter label {
+    margin-right: 10px;
+  }
+  
+  .date-range-filter input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    justify-content: space-between;
+  }
+  

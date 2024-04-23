@@ -1,0 +1,60 @@
+/* styles.css */
+
+.full-page-container {
+    width: 100%;
+    padding: 20px;
+    display: inline-flexbox;
+    background-color: #f9f9f9;
+    border-radius: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .full-page-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .full-page-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .full-page-container input {
+    width: calc(100% - 22px); /* Adjust input width to fit within padding */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .full-page-container input[type="submit"],
+  .full-page-container input[type="button"] {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .full-page-container input[type="submit"]:hover,
+  .full-page-container input[type="button"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .full-page-container .muted-button {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .full-page-container .muted-button:hover {
+    background-color: #bbb;
+  }
+  .justify-content-between {
+    justify-content: space-between;
+  }
+  

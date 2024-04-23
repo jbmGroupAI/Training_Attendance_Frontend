@@ -2,7 +2,7 @@ export const tableCustomStyles = {
     table: {
       style: {
         minHeight: 'fit-content',
-        padding: '0 !important',
+        padding: '10% !important',
         fontFamily: 'var(--font-para)'
       }
     },
@@ -27,6 +27,8 @@ export const tableCustomStyles = {
         backgroundColor: 'var(--secondary-trans) !important'
       }
   
+      
+      
       // '&:hover' :{
       //     backgroundColor:'red !important',
       // },
@@ -105,7 +107,7 @@ export const tableCustomStyles = {
   export const expandTableCustomStyles = {
     table: {
       style: {
-        minHeight: 'fit-content',
+        // minHeight: 'fit-content',
         padding: '0 !important',
         fontFamily: 'var(--font-para)',
         overflow: 'hidden',
@@ -185,7 +187,7 @@ export const tableCustomStyles = {
   export const expandCustomStyles = {
     table: {
       style: {
-        minHeight: 'fit-content',
+        // minHeight: 'fit-content',
         padding: '0 !important',
         fontFamily: 'var(--font-para)',
         backgroundColor:'var(--grey-000)',
