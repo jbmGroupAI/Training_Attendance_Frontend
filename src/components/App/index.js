@@ -8,70 +8,66 @@ import AuthRequired from "../Authorization/AuthRequired";
 import Acknowledge from "../Dashboard/Acknowledge/TrainingTable.js"
 
 import Logout from "../Logout/index.js";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareMinus } from '@fortawesome/free-solid-svg-icons';
-import TrainingTable from "../Dashboard/Acknowledge/TrainingTable.js";
 
+import TrainingTable from "../Dashboard/Acknowledge/TrainingTable.js";
+//import PartcipantTable from "../Dashboard/ParticipantTable/index.js"
+import Index from "../Dashboard/ParticipantTable/index.js";
+import Add from "../Dashboard/Add.js";
 
 function App() {
   const [collapsed, setCollapsed] = React.useState(false);
 
   return (
-    // <div style={{ display: 'flex', height: '100%', minHeight: '400px' }}>
-    //   <Sidebar collapsed={collapsed}>
-    //     <Menu>
-    //       <MenuItem component={<Link to="/" />}> Dashboard</MenuItem>
-    //       <MenuItem component={<Link to="/employee" />}> Employee</MenuItem>
-    //       {/* <MenuItem> E-commerce</MenuItem>
-    //     <MenuItem> Examples</MenuItem> */}
-    //       <Logout />
-    //     </Menu>
-    //   </Sidebar>
-    //   {/* <main style={{padding: 10 }}> */}
-    //   <div>
-      //   <FontAwesomeIcon icon={faSquareMinus} className="sb-button" onClick={() => setCollapsed(!collapsed)} />
-      // </div>
 
-      <div className="main" style={{ display: 'flex', height: '100%', minHeight: '400px', width: '100%' }}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <AuthRequired>
-                {/* <EmployeeModule /> */}
-                <Dashboard />
-              </AuthRequired>
-            }
-          />
-          <Route
-            path="/login"
+
+    <div className="main" style={{ display: 'flex', height: '100%', minHeight: '400px', width: '100%' }}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <AuthRequired>
+              {/* <EmployeeModule /> */}
+              <Dashboard />
+            </AuthRequired>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            // <AuthRequired>
+            <Login />
+            // </AuthRequired>
+          }
+        />
+        <Route
+            path="/reports"
             element={
               // <AuthRequired>
-              <Login />
+              <Index/>
               // </AuthRequired>
             }
           />
-          {/* <Route
-            path="/employee"
+           <Route
+            path="/schedule"
             element={
               // <AuthRequired>
-              <EmployeeModule />
-              // </AuthRequired>
-            }
-          /> */}
-
-<Route
-            path="/table/:id"
-            element={
-              // <AuthRequired>
-              <TrainingTable/>
+              <Add/>
               // </AuthRequired>
             }
           />
 
-        </Routes>
-      </div>
-   // </div>
+        <Route
+          path="/table/:id"
+          element={
+            // <AuthRequired>
+            <TrainingTable />
+            // </AuthRequired>
+          }
+        />
+
+      </Routes>
+    </div>
+    // </div>
 
   );
 }
