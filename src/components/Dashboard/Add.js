@@ -156,12 +156,11 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid p-0">
       {/* Include the Header component here */}
       <Header setIsAdding={setIsAdding} handleChangeDateRange={() => {}} />
-      <div className="container m-5 p-5">
+      <div className="mx-5 my-2">
         <form onSubmit={handleAdd}>
-         
           <div className="bg-white p-5 rounded-4 border">
           <h2>Training Schedule</h2>
             <div className="d-flex gap-2 my-3">

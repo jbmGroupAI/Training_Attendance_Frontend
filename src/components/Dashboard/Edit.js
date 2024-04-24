@@ -136,9 +136,11 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
   };
 
   return (
-    <div className="full-page-container m-5 p-5">
+    <div className="container-fluid p-0">
       <Header setIsEditing={setIsEditing} handleChangeDateRange={() => {}} />
+      <div className="container">
       <form onSubmit={handleUpdate}>
+        <div className="bg-white p-5 rounded-4 border">
         <h1>Edit Meeting</h1>
         {/* Project Name */}
         <div className="form-group">
@@ -294,7 +296,9 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
         >
           Cancel
         </button>
+        </div>
       </form>
+      </div>
     </div>
   );
 };

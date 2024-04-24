@@ -49,8 +49,9 @@ export default function Index() {
   ];
 
   return (
-    <div className='container'>
+    <div className='container-fluid p-0'>
     <Header/>
+    <div className='container'>
       <DataTable
         columns={columns}
         data={data}
@@ -81,6 +82,7 @@ export default function Index() {
           />
         }
       />
+      </div>
     </div>
   );
 }

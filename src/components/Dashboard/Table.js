@@ -12,6 +12,7 @@ import Report from "../Reports/Report"
 import moment from "moment";
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Delete, Edit } from '../GlobalSVG/GlobalSVG';
 
 export default function Table({ trainings, handleEdit, handleDelete, handleChangeDateRange, setFilteredDates, filteredDates }) {
   const [filterText, setFilterText] = useState('');
@@ -101,8 +102,8 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
       name: 'Actions',
       cell: (row) => (
         <div style={{ display: 'flex' }} className="action-buttons">
-          <button style={{ marginRight: '5px', padding: '3px 8px', border: 'none', cursor: 'pointer', backgroundColor: '#007bff', color: '#fff', fontSize: '12px' }} onClick={() => handleEdit(row)}>Edit</button>
-          <button style={{ padding: '3px 8px', border: 'none', cursor: 'pointer', backgroundColor: '#dc3545', color: '#fff', fontSize: '12px' }} onClick={() => handleDelete(row._id)}>Delete</button>
+          <button className='btn-edit' onClick={() => handleEdit(row)}><Edit/></button>
+          <button className='btn-delete' onClick={() => handleDelete(row._id)}><Delete/></button>
 
         </div>
       ),
@@ -164,7 +165,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
     return <>
 
       <ExpendedComponent data={data} empCodes={data.empCodes} plantId={data.plantId} />
-     {!data.acknowledgement&& <button onClick={() => handleSendData(data, data.empCodes, finalData)}>Send Mail</button>}
+     {!data.acknowledgement&& <div className='d-flex justify-content-between'><div className='p-1'> </div><div><button className='btn-login' onClick={() => handleSendData(data, data.empCodes, finalData)}>Send Mail</button></div></div>}
       {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
      {data.acknowledgement&& <div className="d-flex justify-content-end">
         <PDFDownloadLink
@@ -192,6 +193,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
   const subHeaderComponentMemo = React.useMemo(() => {
     return (
       <>
+      <div className='w-100 d-flex justify-content-between align-items-center'>
         <FilterComponent onFilter={(e) => setFilterText(e.target.value)} />
         <div>
           <DateRangeFilter
@@ -199,6 +201,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
             defaultStartDate={filteredDates.startDate}
             defaultEndDate={filteredDates.endDate}
           />
+        </div>
         </div>
       </>
     );
