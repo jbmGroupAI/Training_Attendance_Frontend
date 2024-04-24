@@ -10,6 +10,8 @@ import config from '../../config.json'
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import Report from "../Reports/Report"
 import moment from "moment";
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Table({ trainings, handleEdit, handleDelete, handleChangeDateRange, setFilteredDates, filteredDates }) {
   const [filterText, setFilterText] = useState('');
@@ -17,6 +19,25 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
   const handleFilter = ({ startDate, endDate }) => {
     setFilteredDates({ startDate, endDate });
   };
+  // const handleSendData = (upperData, expandedData, finalData) => {
+  //   console.log('fffff', upperData)
+  //   upperData.allEmployees = finalData;
+  //   axios.post(`${config.url}/training/complete`, upperData)
+
+  //     .then(response => {
+  //       console.log('Data sent successfully:', response.data);
+
+  //     })
+  //     .catch(error => {
+  //       console.error('Failed to send data:', error);
+
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   handleChangeDateRange(filteredDates);
+  // }, [filteredDates]);
+
   const handleSendData = (upperData, expandedData, finalData) => {
     console.log('fffff', upperData)
     upperData.allEmployees = finalData;
@@ -24,10 +45,12 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
 
       .then(response => {
         console.log('Data sent successfully:', response.data);
+        toast.success('Report is available after the acknowledge');
 
       })
       .catch(error => {
         console.error('Failed to send data:', error);
+        toast.error('Failed to send data');
 
       });
   };
@@ -35,8 +58,6 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
   useEffect(() => {
     handleChangeDateRange(filteredDates);
   }, [filteredDates]);
-
-
 
   const columns = [
     {
@@ -162,30 +183,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
     </>
   };
 
-  // const ExpandedComponent = ({ data }) => {
-  //   return (
-  //     <>
-  //       <ExpendedComponent data={data} empCodes={data.empCodes} plantId={data.plantId} />
-  //       <button onClick={() => handleSendData(data, data.empCodes)}>Send Mail</button>
-  //       <div className="d-flex justify-content-end">
-  //         {/* Ensure trainingData is available and pass it to FinalData */}
-  //         {data.trainingData && (
-  //           <PDFDownloadLink
-  //             document={<FinalData trainingData={data.trainingData} />}
-  //             fileName="TrainingAttendance.pdf"
-  //           >
-  //             {({ loading }) => (
-  //               <button disabled={loading} className="btn-login m-2">
-  //                 {loading ? "Downloading..." : "Download"}
-  //               </button>
-  //             )}
-  //           </PDFDownloadLink>
-  //         )}
-  //       </div>
-  //     </>
-  //   );
-  // };
-
+  
 
   const Test1 = ({ upperData, expandedData }) => {
     return <Test upperData={upperData} expandedData={expandedData} />;
@@ -205,9 +203,8 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
       </>
     );
   }, []);
-
   return (
-
+<div className='container'>
     <DataTable
       columns={columns}
       data={trainings}
@@ -218,5 +215,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
       subHeaderComponent={subHeaderComponentMemo}
       customStyles={expandTableCustomStyles}
     />
+    <ToastContainer />
+    </div>
   );
 }

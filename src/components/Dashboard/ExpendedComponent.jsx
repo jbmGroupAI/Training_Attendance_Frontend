@@ -114,12 +114,7 @@ function ExpandedComponent({ data, empCodes, plantId }) {
 
   const finalData = Object.values(employeeMap);
 
-  // console.log("guhuyhuhyu", finalData);
-
-
-  // const Test2=({upperData, expandedData})=>{
-  //   return <Test  upperData={data}  expandedData={finalData} />;
-  // }
+  
 
   return (
     <>
@@ -131,21 +126,6 @@ function ExpandedComponent({ data, empCodes, plantId }) {
         customStyles={expandCustomStyles}
         subHeaderComponent={<div></div>}
       />
-
-      {/* {error && <p style={{ color: "red" }}>{error}</p>}
-      <div className="d-flex justify-content-end">
-        <PDFDownloadLink
-          document={<Test trainingData={data} />}
-          fileName="TrainingAttendance.pdf"
-        >
-          {({ loading }) => (
-            <button disabled={loading} className="btn-login m-2">
-              {loading ? "Downloading..." : "Download"}
-            </button>
-          )}
-        </PDFDownloadLink>
-        
-      </div> */}
     </>
     
   );

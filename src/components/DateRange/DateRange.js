@@ -30,8 +30,7 @@ const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
   style={{ display: showFilterOptions ? 'none' : '' }} 
   onClick={handleShowOptions}
 >
-  Filter Icon
-  {/* <FontAwesomeIcon icon={faFilter} /> */}
+  <filter />
 </div>
       </div>
       {showFilterOptions && (
