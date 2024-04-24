@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Select from "react-select";
-import Header from "./Header"; 
+import Header from "./Header";
 import config from "../../config.json";
 import "../UI/Add.css"; 
 import { customDropdownStyles } from "../UI/Select";
@@ -19,8 +19,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [date, setDate] = useState("");
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
-  const [facultyMail, setFacultyMail] = useState(""); // New state for faculty mail
-  const [meetingDescription, setMeetingDescription] = useState(""); // New state for meeting description
+  const [facultyMail, setFacultyMail] = useState("");
+  const [meetingDescription, setMeetingDescription] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   useEffect(() => {
@@ -73,7 +73,6 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
     const selectedValues = selectedOptions.map((option) => option);
     setEmpCodes(selectedValues);
 
-    // If only one option is selected, update the selected employee name
     if (selectedOptions.length === 1) {
       const selectedEmployeeData = employeeCodes.employeeInfo.find(
         (emp) => emp.empOnlyId === selectedOptions[0].value
@@ -100,8 +99,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       !date ||
       !fromTime ||
       !toTime ||
-      !facultyMail || // Check if faculty mail is provided
-      !meetingDescription // Check if meeting description is provided
+      !facultyMail ||
+      !meetingDescription
     ) {
       return Swal.fire({
         icon: "error",
@@ -126,8 +125,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       date,
       fromTime,
       toTime,
-      facultyMail, // Add faculty mail to the newEmployee object
-      meetingDescription, // Add meeting description to the newEmployee object
+      facultyMail,
+      meetingDescription,
     };
     axios
       .post(`${config.url}/training`, newEmployee)
@@ -167,7 +166,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
             <div className="d-flex justify-content-between my-3 p-0 m-0">
               <div className="col-lg-4">
                 <label className="label" htmlFor="projectName">
-                Training Topic
+                  Training Topic
                 </label>
                 <input
                   id="projectName"
@@ -314,8 +313,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                 }))}
                 isMulti
               />
-            </div>
-           
+            </div>           
               </div>
             <div className="d-flex justify-content-between my-2">
               <div className="">

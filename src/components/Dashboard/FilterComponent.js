@@ -5,7 +5,6 @@ const FilterComponent = ({ onFilter }) => {
     <div>
       <input
         type="text"
-        // placeholder="Filter by Plant ID, Venue, or Training Topic"
         onChange={onFilter}
         className="form-control"
       />

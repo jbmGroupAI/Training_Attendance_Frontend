@@ -1,8 +1,3 @@
-
-
-
-
-
 import React from 'react';
 import { Document, Page, View, Text, Image, StyleSheet } from '@react-pdf/renderer';
 import logo from './Logo.png';
@@ -144,7 +139,7 @@ const Report = ({ upperData, expandedData }) => {
         { name: 'Date', key: 'date' },
         { name: 'From Time', key: 'fromTime' },
         { name: 'To Time', key: 'toTime' },
-        { name: 'Training Hours', key: 'trainingHours' }, // Add Training Hours field
+        { name: 'Training Hours', key: 'trainingHours' },
     ];
 
     const TableHead1 = () => (
@@ -157,28 +152,23 @@ const Report = ({ upperData, expandedData }) => {
         </View>
     );
 
-    
+
     const calculateTrainingHours = (fromTime, toTime) => {
-        // Split the time strings into hours and minutes
         const [fromHours, fromMinutes] = fromTime.split(":").map(Number);
         const [toHours, toMinutes] = toTime.split(":").map(Number);
-        
-        // Create Date objects with today's date and the specified hours and minutes
         const fromDate = new Date();
         fromDate.setHours(fromHours);
         fromDate.setMinutes(fromMinutes);
-        
+
         const toDate = new Date();
         toDate.setHours(toHours);
         toDate.setMinutes(toMinutes);
-    
-        // Calculate the difference in milliseconds
+
         const diffMs = toDate.getTime() - fromDate.getTime();
-        // Convert milliseconds to hours
         const diffHours = diffMs / (1000 * 60 * 60);
-        return diffHours.toFixed(2); // Return the result as a string with 2 decimal places
+        return diffHours.toFixed(2);
     };
-    
+
 
     const TableBody2 = () => {
         return (

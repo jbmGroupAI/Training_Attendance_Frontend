@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import Header from '../Header';
 import DataTable from 'react-data-table-component';
@@ -10,11 +8,9 @@ export default function Index() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the API when the component mounts
     fetch('http://localhost:3011/v1/employee')
       .then(response => response.json())
       .then(data => {
-        // Aggregate data to group by unique employeeName and employeeId
         const aggregatedData = {};
         data.forEach(employee => {
           const { employeeName, employeeId, trainingId } = employee;
@@ -26,7 +22,6 @@ export default function Index() {
               trainingId: [],
             };
           }
-          // Concatenate trainingId arrays to include all training sessions for this employee
           aggregatedData[key].trainingId = aggregatedData[key].trainingId.concat(trainingId);
         });
         setData(Object.values(aggregatedData));
@@ -62,13 +57,13 @@ export default function Index() {
         expandableRowsComponent={(props) => (
           <ExpandableComponent
             {...props}
-            data={props.data.trainingId} // Assuming `trainingId` holds the array of meetings
+            data={props.data.trainingId} 
             employeeId={props.data.employeeId}
             employeeName={props.data.employeeName}
             parentTableData={props.data} // Pass the entire employee object if needed
             />
         )}
-        onRowClicked={(row) => console.log('Row clicked:', row)} // Handle row click event if needed
+        onRowClicked={(row) => console.log('Row clicked:', row)} 
         subHeader
         subHeaderComponent={
           <div className='col-3'>

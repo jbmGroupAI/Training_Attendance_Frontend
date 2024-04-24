@@ -20,24 +20,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
   const handleFilter = ({ startDate, endDate }) => {
     setFilteredDates({ startDate, endDate });
   };
-  // const handleSendData = (upperData, expandedData, finalData) => {
-  //   console.log('fffff', upperData)
-  //   upperData.allEmployees = finalData;
-  //   axios.post(`${config.url}/training/complete`, upperData)
-
-  //     .then(response => {
-  //       console.log('Data sent successfully:', response.data);
-
-  //     })
-  //     .catch(error => {
-  //       console.error('Failed to send data:', error);
-
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   handleChangeDateRange(filteredDates);
-  // }, [filteredDates]);
+ 
 
   const handleSendData = (upperData, expandedData, finalData) => {
     console.log('fffff', upperData)

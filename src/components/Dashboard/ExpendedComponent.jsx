@@ -7,7 +7,6 @@ import Test from "./Test";
 import moment from "moment";
 import { expandCustomStyles } from "../UI/Table";
 
-
 function ExpandedComponent({ data, empCodes, plantId }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -83,7 +82,6 @@ function ExpandedComponent({ data, empCodes, plantId }) {
     dateTime.setHours(dateTime.getHours() - 5);
     dateTime.setMinutes(dateTime.getMinutes() - 30);
 
-    // Format the time as desired (e.g., HH:mm)
     const formattedTime = `${dateTime.getHours()}:${String(
       dateTime.getMinutes()
     ).padStart(2, "0")}`;
@@ -114,8 +112,6 @@ function ExpandedComponent({ data, empCodes, plantId }) {
 
   const finalData = Object.values(employeeMap);
 
-  
-
   return (
     <>
       <DataTable
@@ -127,7 +123,6 @@ function ExpandedComponent({ data, empCodes, plantId }) {
         subHeaderComponent={<div></div>}
       />
     </>
-    
   );
 }
 

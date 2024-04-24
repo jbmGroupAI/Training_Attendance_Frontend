@@ -7,20 +7,6 @@ import { expandCustomStyles, expandTableCustomStyles, tableCustomStyles } from "
 function ExpandableComponent({ employeeId, employeeName, data ,parentTableData}) {
   const [meetings, setMeetings] = useState([]);
  
-//const [data, setData] = useState([]);
-
-  // useEffect(() => {
-  //   const filteredMeetings = data.filter(
-  //     (item) =>
-  //       item &&
-  //       item.empCodes &&
-  //       item.empCodes.some((emp) =>
-  //         emp.includes(`${employeeName} - ${employeeId}`)
-  //       )
-  //   );
-  //   setMeetings(filteredMeetings);
-  // }, [employeeId, employeeName, data]);
-  // console.log('data1',data)
 
   useEffect(() => {
     const filteredMeetings = data.filter(
@@ -33,23 +19,7 @@ function ExpandableComponent({ employeeId, employeeName, data ,parentTableData})
     );
     setMeetings(filteredMeetings);
   }, [employeeId, employeeName, data]);
-  
 
-  // useEffect(() => {
-  //   if (data && Array.isArray(data)) {
-  //     const filteredMeetings = data.filter(
-  //       (item) =>
-  //         item &&
-  //         item.empCodes &&
-  //         item.empCodes.some((emp) =>
-  //           emp.includes(`${employeeName} - ${employeeId}`)
-  //         )
-  //     );
-  //     setMeetings(filteredMeetings);
-  //   }
-  // }, [employeeId, employeeName, data]);
-  
-console.log('ggggggg',data)
   const columns = [
     {
       name: "Training Topic",
