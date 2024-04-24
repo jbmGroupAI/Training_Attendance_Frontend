@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import "./DateRangeFilter.css"; // Import the CSS file for styling
+import { FilterIcon } from "../GlobalSVG/GlobalSVG";
 
 const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
   const [startDate, setStartDate] = useState(new Date(defaultStartDate));
@@ -30,7 +31,7 @@ const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
   style={{ display: showFilterOptions ? 'none' : '' }} 
   onClick={handleShowOptions}
 >
-  <filter />
+  <FilterIcon/>
 </div>
       </div>
       {showFilterOptions && (

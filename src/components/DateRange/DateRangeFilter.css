@@ -1,6 +1,6 @@
 /* DateRangeFilter.css */
 
-.container {
+/* .container {
     background-color: #f9f9f9;
     padding: 10px;
     border: 1px solid #ccc;
@@ -8,10 +8,9 @@
     margin-bottom: 20px;
     width: 50px;
    
-  }
+  } */
   
   .filter-icon {
-    background-image: "/home/rishabh/Desktop/trainingAttendance/public/filter-svgrepo-com.svg"; /* Replace 'filter-icon.svg' with the path to your filter icon image */
     background-size:contain;
     display: inline-block;
     width: 20px;

@@ -74,8 +74,8 @@ export const tableCustomStyles = {
       style: {
         backgroundColor: 'var(--white-color)',
         margin: '0.2rem',
-        width: '57% !important',
-        height: '4vh !important',
+        width: '30px !important',
+        height: '30px !important',
         color: 'var(--grey-200) !important',
         borderRadius: '100%',
         border: '2px solid var(--grey-100)',
@@ -146,7 +146,7 @@ export const tableCustomStyles = {
     headRow: {
       style: {
         fontSize: '14px !important',
-        padding: '0% 2%', // override the cell padding for head cells
+        padding: '0% 0%', // override the cell padding for head cells
         background: 'var(--secondary2-trans) !important',
         border: '1px solid var(--primary-trans)',
         color: 'var(--primary)',
@@ -156,6 +156,7 @@ export const tableCustomStyles = {
     expanderRow: {
       style: {
         margin: '1%',
+        padding:'1%',
         width:'98%',
         border:'1px solid var(--grey-100)',
         borderRadius:'10px',
@@ -164,9 +165,9 @@ export const tableCustomStyles = {
     expanderButton: {
       style: {
         backgroundColor: 'var(--white-color)',
-        margin: '0.2rem',
-        width: '57% !important',
-        height: '4vh !important',
+        margin: '10px',
+        width: '30px !important',
+        height: '30px !important',
         color: 'var(--grey-400) !important',
         borderRadius: '100%',
         border: '1.5px solid var(--grey-400)',

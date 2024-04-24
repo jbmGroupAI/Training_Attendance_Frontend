@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import Report from './Report'
+import { expandCustomStyles, expandTableCustomStyles, tableCustomStyles } from "../../UI/Table";
 
 function ExpandableComponent({ employeeId, employeeName, data ,parentTableData}) {
   const [meetings, setMeetings] = useState([]);
@@ -53,13 +54,16 @@ function ExpandableComponent({ employeeId, employeeName, data ,parentTableData})
 
   return (
     <>
+    <div className="">
     <DataTable
       columns={columns}
       data={meetings}
       pagination
       subHeader
       subHeaderComponent={<div></div>}
+      customStyles={expandCustomStyles}
     />
+    </div>
     {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
       <div className='d-flex justify-content-end'>
         <PDFDownloadLink
