@@ -8,8 +8,8 @@ import AuthRequired from "../Authorization/AuthRequired";
 import Acknowledge from "../Dashboard/Acknowledge/TrainingTable.js"
 
 import Logout from "../Logout/index.js";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareMinus } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSquareMinus } from '@fortawesome/free-solid-svg-icons';
 import TrainingTable from "../Dashboard/Acknowledge/TrainingTable.js";
 
 
