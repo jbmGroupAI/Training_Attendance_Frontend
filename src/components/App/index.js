@@ -1,16 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
-import { Link } from 'react-router-dom';
 import React from 'react';
 import Dashboard from "../Dashboard";
 import Login from "../Login";
 import '../UI/style.css';
 import AuthRequired from "../Authorization/AuthRequired";
-import Acknowledge from "../Dashboard/Acknowledge/TrainingTable.js"
-import Logout from "../Logout/index.js";
-
 import TrainingTable from "../Dashboard/Acknowledge/TrainingTable.js";
-//import PartcipantTable from "../Dashboard/ParticipantTable/index.js"
 import Index from "../Dashboard/ParticipantTable/index.js";
 import Add from "../Dashboard/Add.js";
 
@@ -26,7 +20,6 @@ function App() {
           path="/"
           element={
             <AuthRequired>
-              {/* <EmployeeModule /> */}
               <Dashboard />
             </AuthRequired>
           }
@@ -34,41 +27,31 @@ function App() {
         <Route
           path="/login"
           element={
-            // <AuthRequired>
             <Login />
-            // </AuthRequired>
           }
         />
         <Route
-            path="/reports"
-            element={
-              // <AuthRequired>
-              <Index/>
-              // </AuthRequired>
-            }
-          />
-           <Route
-            path="/schedule"
-            element={
-              // <AuthRequired>
-              <Add/>
-              // </AuthRequired>
-            }
-          />
+          path="/reports"
+          element={
+            <Index />
+          }
+        />
+        <Route
+          path="/schedule"
+          element={
+            <Add />
+          }
+        />
 
         <Route
           path="/table/:id"
           element={
-            // <AuthRequired>
             <TrainingTable />
-            // </AuthRequired>
           }
         />
 
       </Routes>
     </div>
-    // </div>
-
   );
 }
 

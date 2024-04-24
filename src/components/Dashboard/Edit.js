@@ -15,17 +15,17 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
     plantId: selectedEmployee ? selectedEmployee.plantId : "",
     empCodes: selectedEmployee
       ? selectedEmployee.empCodes.map((empCode) => ({
-          value: empCode,
-          label: empCode,
-        }))
+        value: empCode,
+        label: empCode,
+      }))
       : [],
     date: selectedEmployee ? selectedEmployee.date : "",
     fromTime: selectedEmployee ? selectedEmployee.fromTime : "",
     toTime: selectedEmployee ? selectedEmployee.toTime : "",
-    facultyMail: selectedEmployee ? selectedEmployee.facultyMail : "", // Add faculty mail
+    facultyMail: selectedEmployee ? selectedEmployee.facultyMail : "",
     meetingDescription: selectedEmployee
       ? selectedEmployee.meetingDescription
-      : "", // Add meeting description
+      : "",
   });
 
   const [plantOptions, setPlantOptions] = useState([]);
@@ -91,8 +91,8 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
       !formData.date ||
       !formData.fromTime ||
       !formData.toTime ||
-      !formData.facultyMail || // Check if faculty mail is provided
-      !formData.meetingDescription // Check if meeting description is provided
+      !formData.facultyMail ||
+      !formData.meetingDescription
     ) {
       return Swal.fire({
         icon: "error",
