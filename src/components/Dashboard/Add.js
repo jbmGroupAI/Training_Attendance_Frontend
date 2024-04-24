@@ -5,6 +5,7 @@ import Select from "react-select";
 import Header from "./Header"; 
 import config from "../../config.json";
 import "../UI/Add.css"; 
+import { customDropdownStyles } from "../UI/Select";
 
 const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [projectName, setProjectName] = useState("");
@@ -159,12 +160,12 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
     <div className="container-fluid p-0">
       {/* Include the Header component here */}
       <Header setIsAdding={setIsAdding} handleChangeDateRange={() => {}} />
-      <div className="mx-5 my-2">
+      <div className="mx-5 my-3">
         <form onSubmit={handleAdd}>
-          <div className="bg-white p-5 rounded-4 border">
-          <h2>Training Schedule</h2>
-            <div className="d-flex gap-2 my-3">
-              <div className="col">
+        <div><h5>Training Schedule</h5></div>
+          <div className="bg-white px-5 py-2 my-4 rounded-4 border">
+            <div className="d-flex justify-content-between my-3 p-0 m-0">
+              <div className="col-lg-4">
                 <label className="label" htmlFor="projectName">
                 Training Topic
                 </label>
@@ -174,12 +175,10 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   name="projectName"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
-                  className="login-input"
+                  className="input-field"
                 />
               </div>
-              </div>
-              <div className="d-flex gap-2 my-3">
-              <div className="col">
+              <div className="col-lg-3">
                 <label className="label" htmlFor="trainerName">
                   Faculty Name
                 </label>
@@ -189,12 +188,10 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   name="trainerName"
                   value={trainerName}
                   onChange={(e) => setTrainerName(e.target.value)}
-                  className="login-input"
+                  className="input-field"
                 />
-              </div>
-               {/* Add input fields for Faculty Mail and Meeting Description */}
-            <div className="d-flex gap-2 my-3">
-              <div className="col">
+                </div>
+              <div className="col-lg-4">
                 <label className="label" htmlFor="facultyMail">
                   Faculty Email
                 </label>
@@ -204,15 +201,12 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   name="facultyMail"
                   value={facultyMail}
                   onChange={(e) => setFacultyMail(e.target.value)}
-                  className="login-input"
+                  className="input-field"
                 />
               </div>
-              
-            </div>
-
-            </div>
-            <div className="d-flex gap-2 my-3">
-              <div className="col">
+              </div>
+              <div className="d-flex justify-content-between my-3">
+              <div className="col-lg-5">
                 <label htmlFor="date" className="label">
                   Date
                 </label>
@@ -225,9 +219,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="date-picker"
                 />
               </div>
-              </div>
-              <div className="d-flex gap-2 my-3">
-              <div className="col">
+              <div className="col-lg-3">
                 <label htmlFor="fromTime" className="label">
                   From Time:
                 </label>
@@ -239,7 +231,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="date-picker"
                 />
               </div>
-              <div className="col">
+              <div className="col-lg-3">
                 <label htmlFor="toTime" className="label">
                   To Time:
                 </label>
@@ -251,10 +243,10 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="date-picker"
                 />
               </div>
-            </div>
+              </div>
            
-            <div className="d-flex gap-2 my-3">
-              <div className="col">
+              <div className="d-flex flex-wrap justify-content-between my-3">
+            <div className="col-lg-4">
                 <label className="label" htmlFor="plantName">
                   Venue
                 </label>
@@ -262,7 +254,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   id="plantName"
                   value={plantName}
                   onChange={(e) => setPlantName(e.target.value)}
-                  className="login-input"
+                  className="input-field"
                 >
                   <option value="">Select Venue</option>
                   {plantOptions.map((plant) => (
@@ -272,9 +264,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   ))}
                 </select>
               </div>
-              </div>
-              <div className="d-flex gap-2 my-3">
-              <div className="col">
+              <div className="col-lg-3">
                 <label className="label" htmlFor="plantId">
                   Plant Code
                 </label>
@@ -282,7 +272,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   id="plantId"
                   value={plantId}
                   onChange={(e) => setPlantId(e.target.value)}
-                  className="login-input"
+                  className="input-field"
                 >
                   <option value="">Select Plant Code</option>
                   {plantIds.map((id) => (
@@ -292,28 +282,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   ))}
                 </select>
               </div>
-            </div>
-
-            <div className="col">
-              <label htmlFor="empCode" className="label">
-                Participants List
-              </label>
-              <Select
-                id="empCode"
-                value={empCodes.map((code) => ({
-                  value: code.value,
-                  label: code.label,
-                }))}
-                onChange={handleEmpCodeChange}
-                options={employeeCodes?.employeeInfo?.map((emp) => ({
-                  value: emp.empOnlyId,
-                  label: `${emp.empFName} - ${emp.empOnlyId}`,
-                }))}
-                isMulti
-                className="login-input"
-              />
-            </div>
-            <div className="col">
+              <div className="col-lg-4">
                 <label className="label" htmlFor="meetingDescription">
                   Meeting Description
                 </label>
@@ -323,11 +292,32 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   name="meetingDescription"
                   value={meetingDescription}
                   onChange={(e) => setMeetingDescription(e.target.value)}
-                  className="login-input"
+                  className="input-field"
                 />
               </div>
 
-            <div className="d-flex justify-content-between mt-5">
+            <div className="col-lg-12 my-2">
+              <label htmlFor="empCode" className="label">
+                Participants List
+              </label>
+              <Select
+                id="empCode"
+                value={empCodes.map((code) => ({
+                  value: code.value,
+                  label: code.label,
+                }))}
+                styles={customDropdownStyles}
+                onChange={handleEmpCodeChange}
+                options={employeeCodes?.employeeInfo?.map((emp) => ({
+                  value: emp.empOnlyId,
+                  label: `${emp.empFName} - ${emp.empOnlyId}`,
+                }))}
+                isMulti
+              />
+            </div>
+           
+              </div>
+            <div className="d-flex justify-content-between my-2">
               <div className="">
                 <input
                   className="btn-schedule"
