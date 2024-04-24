@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../Header';
 import DataTable from 'react-data-table-component';
 import ExpandableComponent from './ExpandableComponent';
+import { expandTableCustomStyles, tableCustomStyles } from '../../UI/Table';
 
 export default function Index() {
   const [data, setData] = useState([]);
@@ -51,12 +52,13 @@ export default function Index() {
   return (
     <div className='container-fluid p-0'>
     <Header/>
-    <div className='container'>
+    <div className='container mb-5'>
       <DataTable
         columns={columns}
         data={data}
         pagination
         expandableRows
+        customStyles={expandTableCustomStyles}
         expandableRowsComponent={(props) => (
           <ExpandableComponent
             {...props}
@@ -64,11 +66,12 @@ export default function Index() {
             employeeId={props.data.employeeId}
             employeeName={props.data.employeeName}
             parentTableData={props.data} // Pass the entire employee object if needed
-          />
+            />
         )}
         onRowClicked={(row) => console.log('Row clicked:', row)} // Handle row click event if needed
         subHeader
         subHeaderComponent={
+          <div className='col-3'>
           <input
             type="text"
             placeholder="Search..."
@@ -79,7 +82,9 @@ export default function Index() {
                 item.employeeId.toLowerCase().includes(keyword)
               ));
             }}
+            className='input-field'
           />
+          </div>
         }
       />
       </div>

@@ -207,7 +207,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
     );
   }, []);
   return (
-<div className='container'>
+<div className='p-0'>
     <DataTable
       columns={columns}
       data={trainings}
