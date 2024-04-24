@@ -50,7 +50,6 @@ const TrainingTable = () => {
 
     const handleSubmit = async () => {
         try {
-            // Submit the updated data to the server
             await axios.post('http://localhost:3011/v1/training/acknowledge/' + id, trainingData);
             alert('Acknowledgement submitted successfully!');
         } catch (error) {
@@ -140,7 +139,7 @@ const TrainingTable = () => {
                                 <td>
                                     <input
                                         type="checkbox"
-                                        checked={employee.acknowledgement} // Use 'acknowledgement' instead of 'acknowledgment'
+                                        checked={employee.acknowledgement} 
                                         onChange={() => handleAcknowledgeChange(employee._id, !employee.acknowledgement)}
                                         className="input-checkbox"
                                     />

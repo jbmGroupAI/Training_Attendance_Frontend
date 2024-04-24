@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Select from "react-select";
-import Header from "./Header"; 
+import Header from "./Header";
 import config from "../../config.json";
-import "../UI/Add.css"; 
+import "../UI/Add.css";
 
 const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [projectName, setProjectName] = useState("");
@@ -18,8 +18,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [date, setDate] = useState("");
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
-  const [facultyMail, setFacultyMail] = useState(""); // New state for faculty mail
-  const [meetingDescription, setMeetingDescription] = useState(""); // New state for meeting description
+  const [facultyMail, setFacultyMail] = useState("");
+  const [meetingDescription, setMeetingDescription] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   useEffect(() => {
@@ -72,7 +72,6 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
     const selectedValues = selectedOptions.map((option) => option);
     setEmpCodes(selectedValues);
 
-    // If only one option is selected, update the selected employee name
     if (selectedOptions.length === 1) {
       const selectedEmployeeData = employeeCodes.employeeInfo.find(
         (emp) => emp.empOnlyId === selectedOptions[0].value
@@ -99,8 +98,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       !date ||
       !fromTime ||
       !toTime ||
-      !facultyMail || // Check if faculty mail is provided
-      !meetingDescription // Check if meeting description is provided
+      !facultyMail ||
+      !meetingDescription
     ) {
       return Swal.fire({
         icon: "error",
@@ -125,8 +124,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       date,
       fromTime,
       toTime,
-      facultyMail, // Add faculty mail to the newEmployee object
-      meetingDescription, // Add meeting description to the newEmployee object
+      facultyMail,
+      meetingDescription,
     };
     axios
       .post(`${config.url}/training`, newEmployee)
@@ -157,17 +156,16 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
 
   return (
     <div className="container">
-      {/* Include the Header component here */}
-      <Header setIsAdding={setIsAdding} handleChangeDateRange={() => {}} />
+      <Header setIsAdding={setIsAdding} handleChangeDateRange={() => { }} />
       <div className="container m-5 p-5">
         <form onSubmit={handleAdd}>
-         
+
           <div className="bg-white p-5 rounded-4 border">
-          <h2>Training Schedule</h2>
+            <h2>Training Schedule</h2>
             <div className="d-flex gap-2 my-3">
               <div className="col">
                 <label className="label" htmlFor="projectName">
-                Training Topic
+                  Training Topic
                 </label>
                 <input
                   id="projectName"
@@ -178,8 +176,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="login-input"
                 />
               </div>
-              </div>
-              <div className="d-flex gap-2 my-3">
+            </div>
+            <div className="d-flex gap-2 my-3">
               <div className="col">
                 <label className="label" htmlFor="trainerName">
                   Faculty Name
@@ -193,23 +191,22 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="login-input"
                 />
               </div>
-               {/* Add input fields for Faculty Mail and Meeting Description */}
-            <div className="d-flex gap-2 my-3">
-              <div className="col">
-                <label className="label" htmlFor="facultyMail">
-                  Faculty Email
-                </label>
-                <input
-                  id="facultyMail"
-                  type="email"
-                  name="facultyMail"
-                  value={facultyMail}
-                  onChange={(e) => setFacultyMail(e.target.value)}
-                  className="login-input"
-                />
+              <div className="d-flex gap-2 my-3">
+                <div className="col">
+                  <label className="label" htmlFor="facultyMail">
+                    Faculty Email
+                  </label>
+                  <input
+                    id="facultyMail"
+                    type="email"
+                    name="facultyMail"
+                    value={facultyMail}
+                    onChange={(e) => setFacultyMail(e.target.value)}
+                    className="login-input"
+                  />
+                </div>
+
               </div>
-              
-            </div>
 
             </div>
             <div className="d-flex gap-2 my-3">
@@ -226,8 +223,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="date-picker"
                 />
               </div>
-              </div>
-              <div className="d-flex gap-2 my-3">
+            </div>
+            <div className="d-flex gap-2 my-3">
               <div className="col">
                 <label htmlFor="fromTime" className="label">
                   From Time:
@@ -253,7 +250,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                 />
               </div>
             </div>
-           
+
             <div className="d-flex gap-2 my-3">
               <div className="col">
                 <label className="label" htmlFor="plantName">
@@ -273,8 +270,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   ))}
                 </select>
               </div>
-              </div>
-              <div className="d-flex gap-2 my-3">
+            </div>
+            <div className="d-flex gap-2 my-3">
               <div className="col">
                 <label className="label" htmlFor="plantId">
                   Plant Code
@@ -315,18 +312,18 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
               />
             </div>
             <div className="col">
-                <label className="label" htmlFor="meetingDescription">
-                  Meeting Description
-                </label>
-                <input
-                  id="meetingDescription"
-                  type="text"
-                  name="meetingDescription"
-                  value={meetingDescription}
-                  onChange={(e) => setMeetingDescription(e.target.value)}
-                  className="login-input"
-                />
-              </div>
+              <label className="label" htmlFor="meetingDescription">
+                Meeting Description
+              </label>
+              <input
+                id="meetingDescription"
+                type="text"
+                name="meetingDescription"
+                value={meetingDescription}
+                onChange={(e) => setMeetingDescription(e.target.value)}
+                className="login-input"
+              />
+            </div>
 
             <div className="d-flex justify-content-between mt-5">
               <div className="">

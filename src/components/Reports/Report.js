@@ -35,22 +35,7 @@ const Report = ({data}) => {
     fetchTrainingData();
   }, []);
 
-  // useEffect(() => {
-  //   if (trainingData) {
-     
-  //     const plannedEmployees = trainingData.allEmployees.filter(employee => employee.planned);
-  //     setPlannedCount(plannedEmployees.length);
-
-     
-  //     const actualEmployees = plannedEmployees.filter(employee => employee.timeInfo && employee.timeInfo.length > 0);
-  //     setActualCount(actualEmployees.length);
-
-     
-  //     setPlannedVsActual(plannedCount - actualCount);
-
-     
-  //    }
-  // }, [trainingData, plannedCount, actualCount]);
+  
 
   useEffect(() => {
     if (trainingData) {
