@@ -273,7 +273,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                 />
               </div>
 
-              <div className="form-group">
+              <div className="col-lg-12">
                 <label htmlFor="participantsList">Participants List</label>
                 <Select
                   value={formData.empCodes}
@@ -286,19 +286,19 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                     label: `${emp.empFName} - ${emp.empOnlyId}`,
                   }))}
                   isMulti
+                  styles={customDropdownStyles}
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary">
-                Update
-              </button>
-
               <button
                 type="button"
-                className="btn btn-secondary ml-2"
+                className="btn-schedule"
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
+              </button>
+              <button type="submit" className="btn-login">
+                Update
               </button>
             </div>
             </div>
