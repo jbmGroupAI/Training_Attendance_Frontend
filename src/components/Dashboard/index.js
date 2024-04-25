@@ -6,7 +6,7 @@ import Table from './Table';
 import Add from './Add';
 import Edit from './Edit';
 import axios from 'axios';
-import { employeesData } from '../../data';
+
 import Index from './ParticipantTable';
 
 const Dashboard = () => {
@@ -84,24 +84,14 @@ const Dashboard = () => {
     <div className="container-fluid m-0 p-0">
       {!isAdding && !isEditing && !showReport && (
         <>
-          {/* <Header
-            handleChangeDateRange={handleChangeDateRange}
-            setIsAdding={setIsAdding}
-            setShowReport={setShowReport}
-          /> */}
 
           <Header
             handleChangeDateRange={handleChangeDateRange}
             setIsAdding={setIsAdding}
             setShowReport={setShowReport}
-            isReportPage={showReport} // Pass the isReportPage state
+            isReportPage={showReport} 
           />
           <div className='container'>
-            {/* <Table
-              trainings={employees}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            /> */}
             <Table
               filteredDates={filteredDates}
               setFilteredDates={setFilteredDates}
@@ -121,7 +111,7 @@ const Dashboard = () => {
       )}
       {isEditing && (
         <Edit
-          selectedEmployee={selectedEmployee} // Pass the selected employee data to Edit component
+          selectedEmployee={selectedEmployee} 
           setEmployees={setEmployees}
           setIsEditing={setIsEditing}
         />

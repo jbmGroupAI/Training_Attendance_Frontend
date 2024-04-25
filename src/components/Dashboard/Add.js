@@ -7,6 +7,7 @@ import config from "../../config.json";
 import "../UI/Add.css";
 import { useNavigate } from "react-router-dom";
 import { customDropdownStyles } from "../UI/Select";
+
 const Add = ({  }) => {
   const [projectName, setProjectName] = useState("");
   const [trainerName, setTrainerName] = useState("");
@@ -21,6 +22,7 @@ const Add = ({  }) => {
   const [toTime, setToTime] = useState("");
   const [facultyMail, setFacultyMail] = useState("");
   const [meetingDescription, setMeetingDescription] = useState("");
+  // const [loaction, setLocation] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const navigate = useNavigate()
 
@@ -101,7 +103,8 @@ const Add = ({  }) => {
       !fromTime ||
       !toTime ||
       !facultyMail ||
-      !meetingDescription
+      !meetingDescription 
+      // !loaction
     ) {
       return Swal.fire({
         icon: "error",
@@ -128,6 +131,7 @@ const Add = ({  }) => {
       toTime,
       facultyMail,
       meetingDescription,
+      // loaction,
     };
      axios
       .post(`${config.url}/training`, newEmployee)
@@ -295,6 +299,19 @@ const Add = ({  }) => {
                   className="input-field"
                 />
               </div>
+              {/* <div className="col-lg-4">
+                <label className="label" htmlFor="location">
+                  Location Name
+                </label>
+                <input
+                  id="location"
+                  type="text"
+                  name="location"
+                  value={loaction}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="input-field"
+                />
+              </div> */}
 
             <div className="col-lg-12 my-2">
               <label htmlFor="empCode" className="label">

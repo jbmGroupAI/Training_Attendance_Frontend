@@ -3,12 +3,13 @@ import Header from '../Header';
 import DataTable from 'react-data-table-component';
 import ExpandableComponent from './ExpandableComponent';
 import { expandTableCustomStyles, tableCustomStyles } from '../../UI/Table';
+import config from "../../../config.json";
 
 export default function Index() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3011/v1/employee')
+    fetch(`${config.url}/employee`)
       .then(response => response.json())
       .then(data => {
         const aggregatedData = {};

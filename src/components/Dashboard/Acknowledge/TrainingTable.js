@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './TrainingTable.css';
+import config from "../../../config.json";
 import { useParams } from 'react-router-dom';
 
 const TrainingTable = () => {
@@ -11,7 +12,7 @@ const TrainingTable = () => {
         const fetchTrainingData = async () => {
             try {
 
-                const response = await axios.get(`http://localhost:3011/v1/training/final/${id}`);
+                const response = await axios.get(`${config.url}/training/final/${id}`);
                 setTrainingData(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -50,7 +51,7 @@ const TrainingTable = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:3011/v1/training/acknowledge/' + id, trainingData);
+            await axios.post(`${config.url}/training/acknowledge/` + id, trainingData);
             alert('Acknowledgement submitted successfully!');
         } catch (error) {
             console.error('Error submitting acknowledgement:', error);

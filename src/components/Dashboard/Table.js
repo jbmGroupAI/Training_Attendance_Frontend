@@ -20,6 +20,22 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
   const handleFilter = ({ startDate, endDate }) => {
     setFilteredDates({ startDate, endDate });
   };
+
+  const filteredTrainings = trainings.filter((row) => {
+    const { projectName, trainerName, plantName, plantId, date, fromTime, toTime, totalMeetingTime, status } = row;
+    const searchText = filterText.toLowerCase();
+    return (
+      projectName.toLowerCase().includes(searchText) ||
+      trainerName.toLowerCase().includes(searchText) ||
+      plantName.toLowerCase().includes(searchText) ||
+      plantId.toLowerCase().includes(searchText) ||
+      new Date(date).toLocaleDateString('en-US', { timeZone: 'UTC' }).includes(searchText) ||
+      fromTime.toLowerCase().includes(searchText) ||
+      toTime.toLowerCase().includes(searchText) ||
+      totalMeetingTime.toLowerCase().includes(searchText) ||
+      status.toLowerCase().includes(searchText)
+    );
+  });
  
 
   const handleSendData = (upperData, expandedData, finalData) => {
@@ -81,15 +97,40 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
       name: 'Status',
       selector: (row) => row.status,
     },
+    // {
+    //   name: 'Actions',
+    //   cell: (row) => (
+    //     <div style={{ display: 'flex' }} className="action-buttons">
+    //       <button className='btn-edit' onClick={() => handleEdit(row)}><Edit/></button>
+    //       <button className='btn-delete' onClick={() => handleDelete(row._id)}><Delete/></button>
+
+    //     </div>
+    //   ),
+    // }
+
     {
       name: 'Actions',
-      cell: (row) => (
-        <div style={{ display: 'flex' }} className="action-buttons">
-          <button className='btn-edit' onClick={() => handleEdit(row)}><Edit/></button>
-          <button className='btn-delete' onClick={() => handleDelete(row._id)}><Delete/></button>
-
-        </div>
-      ),
+      cell: (row) => {
+        const isCompleted = row.status === "Completed";
+        return (
+          <div style={{ display: 'flex' }} className="action-buttons">
+            <button 
+              className='btn-edit' 
+              onClick={() => handleEdit(row)} 
+              disabled={isCompleted}
+            >
+              <Edit/>
+            </button>
+            <button 
+              className='btn-delete' 
+              onClick={() => handleDelete(row._id)} 
+              disabled={isCompleted}
+            >
+              <Delete/>
+            </button>
+          </div>
+        );
+      },
     }
   ];
 
@@ -149,6 +190,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
 
       <ExpendedComponent data={data} empCodes={data.empCodes} plantId={data.plantId} />
      {!data.acknowledgement&& <div className='d-flex justify-content-between'><div className='p-1'> </div><div><button className='btn-login' onClick={() => handleSendData(data, data.empCodes, finalData)}>Send Mail</button></div></div>}
+     {/* <div className='d-flex justify-content-between'><div className='p-1'> </div><div><button className='btn-login' onClick={() => handleSendData(data, data.empCodes, finalData)}>Send Mail</button></div></div> */}
       {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
      {data.acknowledgement&& <div className="d-flex justify-content-end">
         <PDFDownloadLink
@@ -193,7 +235,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
 <div className='p-0'>
     <DataTable
       columns={columns}
-      data={trainings}
+      data={filteredTrainings}
       expandableRows
       expandableRowsComponent={ExpandedComponent}
       pagination

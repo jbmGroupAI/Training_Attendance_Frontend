@@ -4,8 +4,7 @@ import logo from './Logo.png';
 import logoo from './third-eye.png';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
-
+import config from "../../config.json"
 
 const Report = ({data}) => {
   console.log("xcvbnm,.", data)
@@ -23,7 +22,7 @@ const Report = ({data}) => {
   useEffect(() => {
     const fetchTrainingData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3011/v1/training/final?meetingId=${data?._id}`);
+        const response = await axios.get(`${config.url}/training/final?meetingId=${data?._id}`);
         setTrainingData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -86,86 +85,192 @@ const Report = ({data}) => {
     return <Text>Loading...</Text>;
   }
 
+  // const styles = StyleSheet.create({
+  //   page: {
+  //     fontSize: 11,
+  //     paddingTop: 20,
+  //     paddingLeft: 40,
+  //     paddingRight: 40,
+  //     lineHeight: 1.5,
+  //     flexDirection: 'column'
+  //   },
+  //   spaceBetween: {
+  //     flex: 1,
+  //     flexDirection: 'row',
+  //     alignItems: 'center',
+  //     justifyContent: 'space-between',
+  //     color: "#3E3E3E"
+  //   },
+  //   titleContainer: {
+  //     flexDirection: 'row',
+  //     marginTop: 24
+  //   },
+  //   logo: {
+  //     width: 120,
+  //     marginLeft: 10,
+  //     position: 'absolute',
+  //     top: 0,
+  //     left: 0
+  //   },
+  //   logoo: {
+  //     width: 120,
+  //     marginRight: 10,
+  //     position: 'absolute',
+  //     top: 0,
+  //     right: 0
+  //   },
+  //   reportTitle: {
+  //     fontSize: 20,
+  //     textAlign: 'center',
+  //     fontStyle: 'bold',
+  //     alignItems: 'center'
+  //   },
+  //   addressTitle: {
+  //     fontSize: 11,
+  //     fontStyle: 'bold'
+  //   },
+  //   invoice: {
+  //     fontWeight: 'bold',
+  //     fontSize: 20
+  //   },
+  //   invoiceNumber: {
+  //     fontSize: 11,
+  //     fontWeight: 'bold'
+  //   },
+  //   address: {
+  //     fontWeight: 400,
+  //     fontSize: 10
+  //   },
+  //   theader: {
+  //     marginTop: 20,
+  //     fontSize: 10,
+  //     fontStyle: 'bold',
+  //     paddingTop: 4,
+  //     flex: '1 1 3',
+  //     // height: fit-content,
+  //     backgroundColor: 'transparent',
+  //     borderColor: 'rgba(0, 0, 0, 0.2 )',
+  //     border:'none',
+  //     width:'100%',
+  //     borderRightWidth: 1,
+  //     // borderBottomWidth: 1
+  //   },
+  //   tbody: {
+  //     fontSize: 9,
+  //     paddingTop: 4,
+  //     paddingLeft: 7,
+  //     flex: 1,
+  //     borderColor: 'whitesmoke',
+  //     borderRightWidth: 1,
+  //     borderBottomWidth: 1
+  //   }
+  // });
+
   const styles = StyleSheet.create({
     page: {
-      fontSize: 11,
-      paddingTop: 20,
-      paddingLeft: 40,
-      paddingRight: 40,
-      lineHeight: 1.5,
-      flexDirection: 'column'
+        fontSize: 11,
+        paddingTop: 20,
+        paddingLeft: 40,
+        paddingRight: 40,
+        lineHeight: 1.5,
+        flexDirection: 'column'
     },
+
     spaceBetween: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      color: "#3E3E3E"
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        color: "#3E3E3E"
     },
+
     titleContainer: {
-      flexDirection: 'row',
-      marginTop: 24
+        flexDirection: 'row',
+        marginTop: 24
     },
+
     logo: {
-      width: 120,
-      marginLeft: 10,
-      position: 'absolute',
-      top: 0,
-      left: 0
+        width: 120,
+        marginLeft: 10,
+        position: 'absolute',
+        top: 0,
+        left: 0
     },
     logoo: {
-      width: 120,
-      marginRight: 10,
-      position: 'absolute',
-      top: 0,
-      right: 0
+        width: 120,
+        marginRight: 10,
+        position: 'absolute',
+        top: 0,
+        right: 0
     },
+
     reportTitle: {
-      fontSize: 20,
-      textAlign: 'center',
-      fontStyle: 'bold',
-      alignItems: 'center'
+        fontSize: 20,
+        textAlign: 'center',
+        fontStyle: 'bold',
+        alignItems: 'center'
     },
+
     addressTitle: {
-      fontSize: 11,
-      fontStyle: 'bold'
+        fontSize: 11,
+        fontStyle: 'bold'
     },
+
     invoice: {
-      fontWeight: 'bold',
-      fontSize: 20
+        fontWeight: 'bold',
+        fontSize: 20
     },
+
     invoiceNumber: {
-      fontSize: 11,
-      fontWeight: 'bold'
+        fontSize: 11,
+        fontWeight: 'bold'
     },
+
     address: {
-      fontWeight: 400,
-      fontSize: 10
+        fontWeight: 400,
+        fontSize: 10
     },
-    theader: {
+    tfooter: {
       marginTop: 20,
       fontSize: 10,
       fontStyle: 'bold',
       paddingTop: 4,
-      flex: '1 1 3',
-      // height: fit-content,
-      backgroundColor: 'transparent',
-      borderColor: 'rgba(0, 0, 0, 0.2 )',
-      border:'none',
-      width:'100%',
-      borderRightWidth: 1,
-      // borderBottomWidth: 1
-    },
-    tbody: {
-      fontSize: 9,
-      paddingTop: 4,
       paddingLeft: 7,
       flex: 1,
+      height: 30,
+
+      backgroundColor: '#DEDEDE',
       borderColor: 'whitesmoke',
       borderRightWidth: 1,
       borderBottomWidth: 1
+  },
+
+    theader: {
+        marginTop: 20,
+        fontSize: 10,
+        fontStyle: 'bold',
+        paddingTop: 4,
+        paddingLeft: 7,
+        flex: 1,
+        height: 50,
+
+        backgroundColor: '#DEDEDE',
+        borderColor: 'whitesmoke',
+        borderRightWidth: 1,
+        borderBottomWidth: 1
+    },
+    
+
+    tbody: {
+        fontSize: 9,
+        paddingTop: 4,
+        paddingLeft: 7,
+        flex: 1,
+        borderColor: 'whitesmoke',
+        borderRightWidth: 1,
+        borderBottomWidth: 1
     }
-  });
+});
 
   const InvoiceTitle = () => (
     <View style={{ position: 'relative', alignItems: 'center' }} >
@@ -284,7 +389,7 @@ const Report = ({data}) => {
 
   const TableFooter = () => (
     <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
-      <View style={styles.theader}>
+      <View style={styles.tfooter}>
         <Text>Total Planned Employees: {plannedCount}</Text>
       </View>
       {/* <View style={styles.theader}>
@@ -293,10 +398,10 @@ const Report = ({data}) => {
       <View style={styles.theader}>
         <Text>Planned vs Actual: {plannedVsActual}</Text>
       </View> */}
-      <View style={styles.theader}>
+      <View style={styles.tfooter}>
         <Text>Total Present:{totalPresent}</Text>
       </View>
-      <View style={styles.theader}>
+      <View style={styles.tfooter}>
         <Text>Total Absent:{totalAbsent}</Text>
       </View>
       
@@ -305,7 +410,7 @@ const Report = ({data}) => {
 
   const TableFooter2 = () => (
     <View style={{ width: '100%', flexDirection: 'row', marginTop: 10,  }}>
-      <View style={styles.theader}>
+      <View style={styles.tfooter}>
         <Text>Meeting Description: {trainingData.meetingDescription}</Text>
       </View>
     </View>
