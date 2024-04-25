@@ -313,8 +313,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                 }))}
                 isMulti
               />
-            </div>
-           
+            </div>           
               </div>
             <div className="d-flex justify-content-between my-2">
               <div className="">
