@@ -1,0 +1,134 @@
+:root {
+  --primary-gradient: linear-gradient(to bottom right, #0000b1, #4c89ff);
+  --secondary-gradient: linear-gradient(to bottom right, #ff2400, #ff8350);
+  --primary: rgba(6, 11, 183, 1);
+  --primary-trans: rgba(6, 11, 183, 0.1);
+  --primary-trans-100: rgba(6, 11, 183, 0.05);
+  --secondary: rgb(255, 36, 0);
+  --secondary-trans: rgba(255, 36, 0, 0.1);
+  --secondary-100: rgba(255, 36, 0, 0.05);
+  --secondary1: rgba(255, 131, 80, 1);
+  --secondary1-trans: rgba(255, 131, 80, 0.05);
+  --secondary1-trans-200: rgba(255, 131, 80, 0.2);
+  --secondary2: rgb(5, 102, 252);
+  --secondary2-trans-100: rgba(5, 102, 252, 0.05);
+  --secondary2-trans: rgba(5, 102, 252, 0.1);
+  --secondary-light: rgba(5, 102, 252, 0.05);
+  --background-color: rgba(6, 11, 183, 0.03);
+  --text-title: rgb(63, 27, 22);
+  --text-subtitle: rgb(30, 27, 22);
+  --bs-table-bg: rgb(255, 255, 255, 0) !important;
+  --rs-bg-active: rgba(6, 11, 183, 1);
+  --rs-calendar-date-selected-text: white;
+
+  /* //------------ Grey Color -------------// */
+
+  --white-color: rgb(255, 255, 255);
+  --white-trans: rgba(255, 255, 255, 0.1);
+  --grey-000: rgba(72, 73, 86, 0.03);
+  --grey-050: rgba(107, 108, 133, 0.05);
+  --grey-100: rgba(107, 108, 133, 0.1);
+  --grey-200: rgba(107, 108, 133, 0.2);
+  --grey-300: rgba(107, 108, 133, 0.3);
+  --grey-400: rgba(107, 108, 133, 0.4);
+  --grey-500: rgba(107, 108, 133, 0.5);
+  --grey-600: rgba(107, 108, 133, 0.6);
+  --grey-700: rgba(107, 108, 133, 0.7);
+  --grey-800: rgba(107, 108, 133, 0.8);
+  --grey-900: rgba(107, 108, 133, 0.9);
+  --grey-dark: rgb(56, 57, 72);
+
+  /* //------------ font -------------// */
+
+  --font-title: "josefin-sans", sans-serif;
+  --font-para: "poppins", sans-serif;
+
+  /* //------------ Default color -------------// */
+
+  --danger: rgb(255, 14, 86);
+  --danger-100: rgb(255, 14, 86, 0.05);
+  --danger-200: rgba(255, 14, 86, 0.2);
+  --success: rgb(74, 192, 136);
+  --success-100: rgb(74, 192, 136, 0.05);
+  --success-200: rgb(74, 192, 136, 0.2);
+  --info: rgb(0, 133, 255);
+  --info-100: rgb(0, 133, 255, 0.05);
+  --info-200: rgb(0, 133, 255, 0.2);
+  --warning: rgba(255, 131, 80, 1);
+  --warning-100: rgb(255, 205, 2, 0.1);
+  --warning-200: rgb(255, 205, 2, 0.2);
+}
+
+.btn-delete {
+  background-color: transparent;
+  color: var(--danger);
+  /* // width: 100%;
+    // padding: 5.5%;
+    // padding-right: 20px; */
+  text-align: end;
+  transition: all 0.4s ease-in;
+  border: none;
+}
+.btn-delete svg {
+  width: 17px;
+  fill: var(--danger-100);
+}
+
+.btn-edit {
+  background-color: transparent;
+  border: none;
+  color: var(--secondary2);
+  /* // width: 100%;
+    // padding: 5.5%;
+    // padding-right: 20px; */
+  text-align: end;
+  transition: all 0.4s ease-in;
+}
+.btn-edit svg {
+  width: 20px;
+  fill: var(--secondary2-trans);
+}
+.border-red {
+  border: 1px solid red;
+}
+
+.label {
+  color: var(--grey-900);
+  font-size: 12px;
+  font-weight: 400;
+  padding-bottom: 5px;
+  align-self: center;
+}
+
+.input-field {
+  border: 1.5px solid var(--grey-100) !important;
+  width: 100%;
+  border-radius: 10px;
+  height: 43px;
+  padding: 0 1rem !important;
+  font-size: 13px;
+  color: var(--grey-dark) !important;
+  transition: all 0.5s ease-in-out;
+  outline: 3px solid transparent;
+}
+.input-field:hover {
+  box-shadow: none !important;
+  outline: 3px solid var(--secondary2-trans);
+  border: 1.5px solid var(--secondary2) !important;
+}
+.input-field:active {
+  box-shadow: none !important;
+  outline: 3px solid var(--secondary2-trans) !important;
+  border: 1.5px solid var(--secondary2) !important;
+}
+.input-field:active .icon-search {
+  display: none;
+}
+.input-field:focus {
+  box-shadow: none !important;
+  outline: 3px solid var(--secondary2-trans) !important;
+  border: 1.5px solid var(--secondary2) !important;
+}
+.input-field:active .icon-search {
+  display: none;
+}

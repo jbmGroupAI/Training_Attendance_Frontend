@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import React from 'react';
 import Dashboard from "../Dashboard";
 import Login from "../Login";
+import '../UI/style.css';
 import AuthRequired from "../Authorization/AuthRequired";
 import TrainingTable from "../Dashboard/Acknowledge/TrainingTable.js";
 import Index from "../Dashboard/ParticipantTable/index.js";
