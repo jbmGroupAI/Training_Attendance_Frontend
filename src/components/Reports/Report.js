@@ -37,26 +37,50 @@ const Report = ({data}) => {
 
   
 
+  // useEffect(() => {
+  //   if (trainingData) {
+  //     const plannedEmployees = trainingData.allEmployees.filter(employee => employee.planned);
+  //     setPlannedCount(plannedEmployees.length);
+
+  //     const actualEmployees = plannedEmployees.filter(employee => employee.timeInfo && employee.timeInfo.length > 0);
+  //     setActualCount(actualEmployees.length);
+
+  //     setPlannedVsActual(plannedCount - actualCount);
+
+  //     // Calculate total present and total absent
+  //     const presentEmployees = actualEmployees.filter(employee => {
+  //       const punchInTime = employee.timeInfo[0].time;
+  //       const punchOutTime = employee.timeInfo[employee.timeInfo.length - 1].time;
+  //       return punchInTime && punchOutTime;
+  //     });
+  //     setTotalPresent(presentEmployees.length);
+  //     setTotalAbsent(actualEmployees.length - presentEmployees.length);
+  //   }
+  // }, [trainingData, plannedCount, actualCount]);
+
   useEffect(() => {
     if (trainingData) {
       const plannedEmployees = trainingData.allEmployees.filter(employee => employee.planned);
       setPlannedCount(plannedEmployees.length);
-
+  
       const actualEmployees = plannedEmployees.filter(employee => employee.timeInfo && employee.timeInfo.length > 0);
       setActualCount(actualEmployees.length);
-
+  
       setPlannedVsActual(plannedCount - actualCount);
-
+  
       // Calculate total present and total absent
       const presentEmployees = actualEmployees.filter(employee => {
-        const punchInTime = employee.timeInfo[0].time;
-        const punchOutTime = employee.timeInfo[employee.timeInfo.length - 1].time;
+        const punchInTime = employee.timeInfo[0]?.time;
+        const punchOutTime = employee.timeInfo[employee.timeInfo.length - 1]?.time;
         return punchInTime && punchOutTime;
       });
+  
       setTotalPresent(presentEmployees.length);
-      setTotalAbsent(actualEmployees.length - presentEmployees.length);
+      // Total absent employees are those who are planned but not present
+      setTotalAbsent(plannedEmployees.length - presentEmployees.length);
     }
-  }, [trainingData, plannedCount, actualCount]);
+  }, [trainingData]);
+  
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -123,13 +147,14 @@ const Report = ({data}) => {
       fontSize: 10,
       fontStyle: 'bold',
       paddingTop: 4,
-      paddingLeft: 7,
-      flex: 1,
-      height: 50,
-      backgroundColor: '#DEDEDE',
-      borderColor: 'whitesmoke',
+      flex: '1 1 3',
+      // height: fit-content,
+      backgroundColor: 'transparent',
+      borderColor: 'rgba(0, 0, 0, 0.2 )',
+      border:'none',
+      width:'100%',
       borderRightWidth: 1,
-      borderBottomWidth: 1
+      // borderBottomWidth: 1
     },
     tbody: {
       fontSize: 9,
@@ -180,7 +205,7 @@ const Report = ({data}) => {
       {test.map(({ name }, index) => {
         return (
           <View key={index} style={styles.theader}>
-            <Text>{name}</Text>
+            <Text>{name} :</Text>
           </View>
         )
       })}
@@ -219,7 +244,7 @@ const Report = ({data}) => {
   
 
   const TableHead2 = () => (
-    <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
+    <View style={{ width: '100%', flexDirection: 'row', flexWrap:'wrap', marginTop: 10 }}>
       {test1.map(({ name }, index) => {
         return (
           <View key={index} style={styles.theader}>
@@ -262,18 +287,24 @@ const Report = ({data}) => {
       <View style={styles.theader}>
         <Text>Total Planned Employees: {plannedCount}</Text>
       </View>
-      <View style={styles.theader}>
+      {/* <View style={styles.theader}>
         <Text>Total Actual Employees: {actualCount}</Text>
       </View>
       <View style={styles.theader}>
         <Text>Planned vs Actual: {plannedVsActual}</Text>
-      </View>
+      </View> */}
       <View style={styles.theader}>
         <Text>Total Present:{totalPresent}</Text>
       </View>
       <View style={styles.theader}>
         <Text>Total Absent:{totalAbsent}</Text>
       </View>
+      
+    </View>
+  );
+
+  const TableFooter2 = () => (
+    <View style={{ width: '100%', flexDirection: 'row', marginTop: 10,  }}>
       <View style={styles.theader}>
         <Text>Meeting Description: {trainingData.meetingDescription}</Text>
       </View>
@@ -289,6 +320,7 @@ const Report = ({data}) => {
         <TableHead2 trainingData={trainingData} />
         <TableBody1 trainingData={trainingData} />
         <TableFooter />
+        <TableFooter2/>
       </Page>
     </Document>
   );

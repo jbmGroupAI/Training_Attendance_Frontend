@@ -4,10 +4,10 @@ import Swal from "sweetalert2";
 import Select from "react-select";
 import Header from "./Header";
 import config from "../../config.json";
-import "../UI/Add.css"; 
+import "../UI/Add.css";
+import { useNavigate } from "react-router-dom";
 import { customDropdownStyles } from "../UI/Select";
-
-const Add = ({ employees, setEmployees, setIsAdding }) => {
+const Add = ({  }) => {
   const [projectName, setProjectName] = useState("");
   const [trainerName, setTrainerName] = useState("");
   const [plantName, setPlantName] = useState("");
@@ -22,6 +22,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [facultyMail, setFacultyMail] = useState("");
   const [meetingDescription, setMeetingDescription] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -87,7 +88,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
     }
   };
 
-  const handleAdd = (e) => {
+  const handleAdd = async(e) => {
     e.preventDefault();
 
     if (
@@ -114,9 +115,9 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       return code.label;
     });
 
-    const id = employees.length + 1;
+    // const id = employees.length + 1;
     const newEmployee = {
-      id,
+      // id,
       projectName,
       trainerName,
       plantName,
@@ -128,21 +129,22 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       facultyMail,
       meetingDescription,
     };
-    axios
+     axios
       .post(`${config.url}/training`, newEmployee)
-      .then(() => {
-        const updatedEmployees = [...employees, newEmployee];
-        localStorage.setItem("employees_data", JSON.stringify(updatedEmployees));
-        setEmployees(updatedEmployees);
-        setIsAdding(false);
+      .then(async() => {
+        // const updatedEmployees = [...employees, newEmployee];
+        // localStorage.setItem("employees_data", JSON.stringify(updatedEmployees));
+        // setEmployees(updatedEmployees);
+        // setIsAdding(false);
 
-        Swal.fire({
+        await Swal.fire({
           icon: "success",
           title: "Added!",
           text: `${projectName}'s data has been Added.`,
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate('/')
       })
       .catch((error) => {
         console.error("Error adding new employee:", error);
@@ -156,10 +158,9 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   };
 
   return (
-    <div className="container-fluid p-0">
-      {/* Include the Header component here */}
-      <Header setIsAdding={setIsAdding} handleChangeDateRange={() => {}} />
-      <div className="mx-5 my-3">
+    <div className="container">
+      <Header  handleChangeDateRange={() => { }} />
+      <div className="container m-5 p-5">
         <form onSubmit={handleAdd}>
         <div><h5>Training Schedule</h5></div>
           <div className="bg-white px-5 py-2 my-4 rounded-4 border">
@@ -321,7 +322,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="btn-schedule"
                   type="button"
                   value="Cancel"
-                  onClick={() => setIsAdding(false)}
+                  onClick={() => navigate('/')}
                 />
               </div>
               <div className="">
