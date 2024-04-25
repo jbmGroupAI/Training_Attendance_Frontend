@@ -5,8 +5,8 @@ import Select from "react-select";
 import Header from "./Header";
 import config from "../../config.json";
 import "../UI/Add.css";
-
-const Add = ({ employees, setEmployees, setIsAdding }) => {
+import { useNavigate } from "react-router-dom";
+const Add = ({  }) => {
   const [projectName, setProjectName] = useState("");
   const [trainerName, setTrainerName] = useState("");
   const [plantName, setPlantName] = useState("");
@@ -21,6 +21,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [facultyMail, setFacultyMail] = useState("");
   const [meetingDescription, setMeetingDescription] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -86,7 +87,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
     }
   };
 
-  const handleAdd = (e) => {
+  const handleAdd = async(e) => {
     e.preventDefault();
 
     if (
@@ -113,9 +114,9 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       return code.label;
     });
 
-    const id = employees.length + 1;
+    // const id = employees.length + 1;
     const newEmployee = {
-      id,
+      // id,
       projectName,
       trainerName,
       plantName,
@@ -127,21 +128,22 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       facultyMail,
       meetingDescription,
     };
-    axios
+     axios
       .post(`${config.url}/training`, newEmployee)
-      .then(() => {
-        const updatedEmployees = [...employees, newEmployee];
-        localStorage.setItem("employees_data", JSON.stringify(updatedEmployees));
-        setEmployees(updatedEmployees);
-        setIsAdding(false);
+      .then(async() => {
+        // const updatedEmployees = [...employees, newEmployee];
+        // localStorage.setItem("employees_data", JSON.stringify(updatedEmployees));
+        // setEmployees(updatedEmployees);
+        // setIsAdding(false);
 
-        Swal.fire({
+        await Swal.fire({
           icon: "success",
           title: "Added!",
           text: `${projectName}'s data has been Added.`,
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate('/')
       })
       .catch((error) => {
         console.error("Error adding new employee:", error);
@@ -156,7 +158,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
 
   return (
     <div className="container">
-      <Header setIsAdding={setIsAdding} handleChangeDateRange={() => { }} />
+      <Header  handleChangeDateRange={() => { }} />
       <div className="container m-5 p-5">
         <form onSubmit={handleAdd}>
 
@@ -331,7 +333,7 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
                   className="btn-schedule"
                   type="button"
                   value="Cancel"
-                  onClick={() => setIsAdding(false)}
+                  onClick={() => navigate('/')}
                 />
               </div>
               <div className="">

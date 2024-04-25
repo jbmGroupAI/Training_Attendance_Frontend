@@ -259,10 +259,12 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
           <Select
             value={formData.empCodes}
             onChange={(selectedOptions) =>
-              setFormData({ ...formData, empCodes: selectedOptions })
+              {
+                console.log("nbvc", formData, selectedOptions)
+                setFormData({ ...formData, empCodes: selectedOptions })}
             }
             options={employeeCodes?.employeeInfo?.map((emp) => ({
-              value: emp.empOnlyId,
+              value: `${emp.empFName} - ${emp.empOnlyId}`,
               label: `${emp.empFName} - ${emp.empOnlyId}`,
             }))}
             isMulti

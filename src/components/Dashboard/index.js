@@ -10,7 +10,7 @@ import { employeesData } from '../../data';
 import Index from './ParticipantTable';
 
 const Dashboard = () => {
-  const [employees, setEmployees] = useState(employeesData);
+  const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [filteredDates, setFilteredDates] = useState({
     startDate: new Date().setHours(0, 0, 0),
@@ -31,7 +31,8 @@ const Dashboard = () => {
 
   const handleEdit = row => {
   
-    const employee = employees.find(employee => employee.id === row.id);
+    const employee = employees.find(employee => employee._id === row._id);
+    console.log("vvvvv", employees, row)
     setSelectedEmployee(employee); // Set the selected employee data
     setIsEditing(true);
   };
@@ -40,7 +41,7 @@ const Dashboard = () => {
     if (refresh) handleChangeDateRange(filteredDates)
   }, [refresh])
 
-
+  console.log("aaaa", employees)
   const handleDelete = async id => {
     try {
       const [employee] = employees.filter(employee => employee.id === id);
