@@ -6,6 +6,7 @@ import Header from "./Header";
 import config from "../../config.json";
 import "../UI/Add.css";
 import { useNavigate } from "react-router-dom";
+import { customDropdownStyles } from "../UI/Select";
 const Add = ({  }) => {
   const [projectName, setProjectName] = useState("");
   const [trainerName, setTrainerName] = useState("");
