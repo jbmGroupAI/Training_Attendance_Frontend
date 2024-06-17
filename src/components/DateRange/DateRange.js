@@ -52,7 +52,7 @@ const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
               onClick={handleFilter}
               className="btn-login"
             >
-              Apply Filter
+              Submit
             </button>
           </div>
         </div>

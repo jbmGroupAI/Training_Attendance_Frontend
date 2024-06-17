@@ -87,8 +87,8 @@ const TrainingTable = () => {
                         <tr>
                             <th>Project Name</th>
                             <th>Trainer Name</th>
-                            <th>Plant Name</th>
-                            <th>Plant ID</th>
+                            <th>Plant Names</th>
+                            <th>Plant IDs</th>
                             <th>Date</th>
                             <th>From Time</th>
                             <th>To Time</th>
@@ -100,8 +100,8 @@ const TrainingTable = () => {
                         <tr>
                             <td>{trainingData.projectName}</td>
                             <td>{trainingData.trainerName}</td>
-                            <td>{trainingData.plantName}</td>
-                            <td>{trainingData.plantId}</td>
+                            <td>{trainingData.plantNames}</td>
+                            <td>{trainingData.plantIds}</td>
                             <td>{new Date(trainingData.date).toLocaleDateString()}</td>
                             <td>{trainingData.fromTime}</td>
                             <td>{trainingData.toTime}</td>

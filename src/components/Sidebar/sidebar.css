@@ -1,0 +1,61 @@
+/* sidebar.css */
+
+.sidebar-container {
+    position: relative;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #f4f4f4;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar.collapsed {
+    transform: translateX(-250px);
+}
+
+.sidebar .sidebar-card {
+    width: 250px; /* Adjust this width to match your design */
+    border: none;
+    box-shadow: none;
+    background: none;
+}
+
+.sidebar .toggle-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+}
+
+.sidebar h2 {
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
