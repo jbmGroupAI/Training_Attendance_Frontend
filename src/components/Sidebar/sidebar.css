@@ -1,44 +1,39 @@
-/* sidebar.css */
-
-.sidebar-container {
-    position: relative;
-}
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
+.sidebar{
     width: 250px;
-    background-color: #f4f4f4;
-    transition: transform 0.3s ease;
-    z-index: 1000;
+    height: 100vh;
+    color: white;
+    padding: 15px;
+    position: fixed;
+    background-color: rgb(247,247,252) !important;
+    left: -180px; /* Hidden by default */
+    transition: left 0.3s ease;
 }
 
-.sidebar.collapsed {
-    transform: translateX(-250px);
-}
 
-.sidebar .sidebar-card {
-    width: 250px; /* Adjust this width to match your design */
-    border: none;
-    box-shadow: none;
-    background: none;
-}
+.sidebar.open {
+    left: 0;
+  }
+  
+  .sidebar.closed {
+    left: -180px;
+  }
 
-.sidebar .toggle-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1001;
-}
+  /* .toggle-btn{
+    margin-left: 160px;
+  } */
 
-.sidebar h2 {
-    margin: 0;
-    padding: 10px;
-    text-align: center;
-    background-color: #f4f4f4;
-}
+  .toggle-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: gray;
+  }
+
+  .sidebar-card{
+  background-color: transparent !important;
+  border: none !important;
+  }
+
 
 .sidebar ul {
     list-style-type: none;
@@ -49,13 +44,45 @@
 .sidebar ul li {
     padding: 10px;
     text-align: center;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .sidebar ul li a {
     text-decoration: none;
-    color: #000;
 }
 
 .sidebar ul li a:hover {
     text-decoration: underline;
 }
+
+.card-body{
+  padding: 0 !important; 
+}
+.sidebar-heading{
+  font-weight: bold;
+}
+
+.sidebar-icons > a,
+.sidebar-icons > span{
+  background-color: transparent;
+  padding: 3px;
+  overflow: hidden ;
+}
+
+.sidebar-icons > a:hover,
+.sidebar-icons > span:hover{
+  box-shadow: 0 5px 15px rgba(151, 150, 150, 0.8);
+  border-radius: 20%;
+}
+/* 
+.sidebar-icons > span{
+  background-color: transparent;
+  padding: 3px;
+  overflow: hidden ;
+}
+
+.sidebar-icons > span:hover{
+  box-shadow: 0 5px 15px rgba(151, 150, 150, 0.8);
+  border-radius: 20%;
+} */

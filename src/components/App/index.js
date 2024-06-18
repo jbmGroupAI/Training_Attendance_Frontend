@@ -161,7 +161,7 @@ function App() {
       <AuthProvider>
           <div className="main" style={{ display: 'flex', height: '100%', minHeight: '400px', width: '100%' }}>
               {isAuthenticated && !hideSidebar && <Sidebar />}
-              <div className="content" style={{ marginLeft: hideSidebar ? '0' : '250px', padding: '20px', width: '100%' }}>
+              <div className="content" style={{ padding: '20px', width: '100%' }}>
                   <Routes>
                       {/* <Route path="/login" element={<Login />} />
                       <Route path="/signup" element={<SignUpForm />} />
