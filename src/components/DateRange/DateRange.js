@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import "./DateRangeFilter.css"; // Import the CSS file for styling
+import "./DateRangeFilter.css"; 
 import { FilterIcon } from "../GlobalSVG/GlobalSVG";
 
 const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
@@ -12,14 +10,11 @@ const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
   const [showFilterOptions, setShowFilterOptions] = useState(false);
 
   const handleFilter = () => {
-    // Pass the selected date range to the parent component
     onFilter({ startDate, endDate });
-    // Hide the filter options after applying the filter
     setShowFilterOptions(false);
   };
 
   const handleShowOptions = () => {
-    // Show the filter options when the filter button is clicked
     setShowFilterOptions(!showFilterOptions);
   };
 
@@ -36,7 +31,6 @@ const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
       </div>
       {showFilterOptions && (
         <div className="filter-options">
-          {/* <div className="align-self-center p-auto my-auto">Date Range Filter</div> */}
           <div>
             <label className="label">Start Date</label>
             <DatePicker
@@ -58,7 +52,7 @@ const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
               onClick={handleFilter}
               className="btn-login"
             >
-              Apply Filter
+              Submit
             </button>
           </div>
         </div>

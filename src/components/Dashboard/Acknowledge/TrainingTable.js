@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './TrainingTable.css';
+import config from "../../../config.json";
 import { useParams } from 'react-router-dom';
 
 const TrainingTable = () => {
@@ -11,7 +12,7 @@ const TrainingTable = () => {
         const fetchTrainingData = async () => {
             try {
 
-                const response = await axios.get(`http://localhost:3011/v1/training/final/${id}`);
+                const response = await axios.get(`${config.url}/training/final/${id}`);
                 setTrainingData(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -50,7 +51,7 @@ const TrainingTable = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:3011/v1/training/acknowledge/' + id, trainingData);
+            await axios.post(`${config.url}/training/acknowledge/` + id, trainingData);
             alert('Acknowledgement submitted successfully!');
         } catch (error) {
             console.error('Error submitting acknowledgement:', error);
@@ -86,8 +87,8 @@ const TrainingTable = () => {
                         <tr>
                             <th>Project Name</th>
                             <th>Trainer Name</th>
-                            <th>Plant Name</th>
-                            <th>Plant ID</th>
+                            <th>Plant Names</th>
+                            <th>Plant IDs</th>
                             <th>Date</th>
                             <th>From Time</th>
                             <th>To Time</th>
@@ -99,8 +100,8 @@ const TrainingTable = () => {
                         <tr>
                             <td>{trainingData.projectName}</td>
                             <td>{trainingData.trainerName}</td>
-                            <td>{trainingData.plantName}</td>
-                            <td>{trainingData.plantId}</td>
+                            <td>{trainingData.plantNames}</td>
+                            <td>{trainingData.plantIds}</td>
                             <td>{new Date(trainingData.date).toLocaleDateString()}</td>
                             <td>{trainingData.fromTime}</td>
                             <td>{trainingData.toTime}</td>
@@ -122,7 +123,7 @@ const TrainingTable = () => {
                             <th>Department</th>
                             <th>Plant ID</th>
                             <th>Punch In</th>
-                            <th>Punch Out</th>
+                            {/* <th>Punch Out</th> */}
                             <th>Acknowledge</th>
                         </tr>
                     </thead>
@@ -135,7 +136,7 @@ const TrainingTable = () => {
                                 <td>{employee.department.join(', ')}</td>
                                 <td>{employee.empPlantId.join(', ')}</td>
                                 <td>{employee.timeInfo.length > 0 ? formatTime(employee.timeInfo[0].time) : '-'}</td>
-                                <td>{employee.timeInfo.length > 0 ? formatTime(employee.timeInfo[0].time) : '-'}</td>
+                                {/* <td>{employee.timeInfo.length > 1 ? formatTime(employee.timeInfo[1].time) : '-'}</td> */}
                                 <td>
                                     <input
                                         type="checkbox"

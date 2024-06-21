@@ -3,22 +3,24 @@ import Header from '../Header';
 import DataTable from 'react-data-table-component';
 import ExpandableComponent from './ExpandableComponent';
 import { expandTableCustomStyles, tableCustomStyles } from '../../UI/Table';
+import config from "../../../config.json";
 
 export default function Index() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3011/v1/employee')
+    fetch(`${config.url}/employee`)
       .then(response => response.json())
       .then(data => {
         const aggregatedData = {};
         data.forEach(employee => {
-          const { employeeName, employeeId, trainingId } = employee;
+          const { employeeName, employeeId, trainingId, plantIds } = employee;
           const key = `${employeeName}-${employeeId}`;
           if (!aggregatedData[key]) {
             aggregatedData[key] = {
               employeeName,
               employeeId,
+              plantIds,
               trainingId: [],
             };
           }
@@ -39,11 +41,15 @@ export default function Index() {
       selector: 'employeeId',
     },
     {
+      name: 'Plant ID',
+      selector: 'plantIds',
+    },
+    {
       name: 'Training Count',
       selector: (row) => row.trainingId.length,
     },
   ];
-
+  console.log("data", data)
   return (
     <div className='container-fluid p-0'>
     <Header/>
