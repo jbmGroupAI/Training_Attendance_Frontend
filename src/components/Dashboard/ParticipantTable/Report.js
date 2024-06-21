@@ -97,7 +97,7 @@ const Report = ({ upperData, expandedData }) => {
 
     const InvoiceTitle = () => (
         <View style={{ position: 'relative', alignItems: 'center' }} >
-            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>JAY BHARAT MARUTI LIMITED</Text>
+            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>JBM Group</Text>
             <Text style={{ fontSize: 12 }}>Individual Training Record</Text>
             <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
             <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} />
@@ -108,6 +108,7 @@ const Report = ({ upperData, expandedData }) => {
     const test1 = [
         { name: 'Employee Name', key: 'employeeName' },
         { name: 'Employee ID', key: 'employeeId' },
+        { name: 'Plant ID', key: 'plantIds' },
         { name: 'Training Count', key: 'trCount' },
     ];
 
@@ -134,8 +135,8 @@ const Report = ({ upperData, expandedData }) => {
     const test2 = [
         { name: 'Training Topic', key: 'projectName' },
         { name: 'Trainer Name', key: 'trainerName' },
-        { name: 'Venue', key: 'plantName' },
-        { name: 'Plant ID', key: 'plantId' },
+        { name: 'Venue', key: 'plantNames' },
+        { name: 'Plant ID', key: 'plantIds' },
         { name: 'Date', key: 'date' },
         { name: 'From Time', key: 'fromTime' },
         { name: 'To Time', key: 'toTime' },

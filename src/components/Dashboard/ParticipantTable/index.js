@@ -14,12 +14,13 @@ export default function Index() {
       .then(data => {
         const aggregatedData = {};
         data.forEach(employee => {
-          const { employeeName, employeeId, trainingId } = employee;
+          const { employeeName, employeeId, trainingId, plantIds } = employee;
           const key = `${employeeName}-${employeeId}`;
           if (!aggregatedData[key]) {
             aggregatedData[key] = {
               employeeName,
               employeeId,
+              plantIds,
               trainingId: [],
             };
           }
@@ -40,11 +41,15 @@ export default function Index() {
       selector: 'employeeId',
     },
     {
+      name: 'Plant ID',
+      selector: 'plantIds',
+    },
+    {
       name: 'Training Count',
       selector: (row) => row.trainingId.length,
     },
   ];
-
+  console.log("data", data)
   return (
     <div className='container-fluid p-0'>
     <Header/>
