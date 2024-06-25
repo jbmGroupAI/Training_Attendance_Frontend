@@ -336,6 +336,7 @@ const Report = ({ data }) => {
   const [plannedVsActual, setPlannedVsActual] = useState(0);
   const [totalPresent, setTotalPresent] = useState(0);
   const [totalAbsent, setTotalAbsent] = useState(0);
+  const [legalCodes, setLegalCodes] = useState({});
 
   useEffect(() => {
     const fetchTrainingData = async () => {
@@ -353,7 +354,24 @@ const Report = ({ data }) => {
   }, [data]);
 
   useEffect(() => {
+    if (trainingData && trainingData.plantNames) {
+      const fetchLegalCodes = async () => {
+        const fetchedLegalCodes = {};
+        for (const plantName of trainingData.plantNames) {
+          if (config.plantcodes && config.plantcodes[plantName]) {
+            fetchedLegalCodes[plantName] = config.plantcodes[plantName];
+          }
+        }
+        setLegalCodes(fetchedLegalCodes);
+      };
+
+      fetchLegalCodes();
+    }
+  }, [trainingData]);
+
+  useEffect(() => {
     if (trainingData) {
+      console.log("firstfffkkfk",trainingData)
       const plannedEmployees = trainingData.allEmployees.filter(employee => employee.planned);
       const unplannedEmployees = trainingData.allEmployees.filter(employee => !employee.planned);
       setPlannedCount(plannedEmployees.length);
@@ -368,6 +386,7 @@ const Report = ({ data }) => {
       const presentEmployees = actualEmployees.filter(employee => employee.acknowledgement);
       setTotalPresent(presentEmployees.length);
       setTotalAbsent(plannedEmployees.length+unplannedEmployees.length - presentEmployees.length);
+      
     }
   }, [trainingData, plannedCount]);
 
@@ -475,6 +494,14 @@ const Report = ({ data }) => {
       <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
       <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} />
       <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} />
+      {Object.keys(legalCodes).map((plantName, index) => (
+        <Text key={index} style={{ fontSize: 10 ,marginRight: 10,
+          position: 'absolute',
+          top: 0,
+          right: 0,fontWeight: 'bold'}}>
+          {legalCodes[plantName]}
+        </Text>
+      ))}
     </View>
   );
 
@@ -595,6 +622,12 @@ const Report = ({ data }) => {
     <Document>
       <Page size="A4" style={styles.page} wrap={false}>
         <InvoiceTitle />
+
+{/* {Object.keys(legalCodes).map((plantName, index) => (
+          <View key={index} style={{ marginTop: 10 }}>
+            <Text style={{ fontWeight: 'bold' }}>{plantName} Legal Code: {legalCodes[plantName]}</Text>
+          </View>
+        ))} */}
         <TableHead trainingData={trainingData} />
         <TableBody trainingData={trainingData} />
         <TableHead2 trainingData={trainingData} />

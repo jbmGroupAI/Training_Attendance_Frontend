@@ -11,7 +11,7 @@ import project_title from './project_title3.png'
 const Sidebar = () => {
     const { auth, logout } = useAuth();
     const navigate = useNavigate();
-    const [isCollapsed, setIsCollapsed] = useState(true); // Initially collapsed
+    const [isCollapsed, setIsCollapsed] = useState(true); 
 
     const handleLogout = () => {
         logout();
