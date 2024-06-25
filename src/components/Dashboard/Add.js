@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -26,7 +24,8 @@ const Add = () => {
   const [meetingDescription, setMeetingDescription] = useState("");
   const [participantEmails, setParticipantEmails] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [trainingLink, setTrainingLink] = useState(""); // New state for training link
+  const [trainingLink, setTrainingLink] = useState(""); 
+  const [topics, setTopics] = useState([]); 
   const navigate = useNavigate();
 
   const today = new Date().toISOString().split('T')[0];
@@ -42,6 +41,15 @@ const Add = () => {
       })
       .catch((error) => {
         console.error("Error fetching plant data:", error);
+      });
+
+    axios
+      .get(`${config.url}/topics`)
+      .then((response) => {
+        setTopics(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching topics:", error);
       });
   }, []);
 
@@ -143,7 +151,7 @@ const Add = () => {
     }));
 
     const newEmployee = {
-      projectName,
+      projectName:projectName?.value,
       trainerName,
       plantNames: plantNames.map(name => name.value),
       plantIds: plantIds.map(id => id.value),
@@ -154,7 +162,7 @@ const Add = () => {
       facultyMail,
       meetingDescription,
       participantEmails: participantEmails?.map(email => email.value),
-      trainingLink, // Add training link to the payload
+      trainingLink, 
     };
 
     try {
@@ -164,7 +172,7 @@ const Add = () => {
         await Swal.fire({
           icon: "success",
           title: "Added!",
-          text: `${projectName}'s data has been Added.`,
+          text: `${projectName?.value}'s data has been Added.`,
           showConfirmButton: false,
           timer: 1500,
         });
@@ -196,6 +204,23 @@ const Add = () => {
     }
   }
 
+  
+
+  const handleTopicChange = async(newValue,actionMeta) => {
+    // if (actionMeta.action === 'create-option') {
+    console.log("new Val", {name:newValue})
+      axios.post(`${config.url}/topics`,{name:newValue})
+        .then((response) => {
+          setTopics([...topics, response.data]);
+          setProjectName(response.data.name);
+        })
+        .catch((error) => {
+          console.error("Error creating topic:", error);
+        });
+      // }
+  };
+  
+
   return (
     <div className="container-fluid p-0">
       <Header handleChangeDateRange={() => { }} />
@@ -208,13 +233,17 @@ const Add = () => {
                 <label className="label" htmlFor="projectName">
                   Training Topic
                 </label>
-                <input
+                <Creatable
                   id="projectName"
-                  type="text"
-                  name="projectName"
-                  value={projectName}
-                  onChange={(e) => setProjectName(e.target.value)}
-                  className="input-field"
+                  value={topics.find((topic) => topic.name === projectName)}
+                  onChange={setProjectName}
+                  options={topics.map((topic) => ({
+                    value: topic.name,
+                    label: topic.name,
+                  }))}
+                  // className="input-field"
+                  styles={customDropdownStyles}
+                  onCreateOption={handleTopicChange}
                 />
               </div>
               <div className="col-lg-3">
@@ -401,4 +430,5 @@ const Add = () => {
 };
 
 export default Add;
+
 

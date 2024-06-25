@@ -37,52 +37,20 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
       status.toLowerCase().includes(searchText)
     );
   });
-  
-
-
-
-  // const handleSendData = (upperData, expandedData, finalData) => {
-  //   const currentTime = new Date() 
-  //   const updatedFinalData = finalData.map(employee => {
-  //     return {
-  //       ...employee,
-  //       timeInfo: employee.timeInfo ? [...employee.timeInfo, { time: currentTime }] : [{ time: currentTime }],
-  //     };
-  //   });
-  
-  //   console.log('Sending data:', upperData);
-  //   upperData.allEmployees = updatedFinalData;
-  //   upperData.endTraining = currentTime; 
-  //   axios.post(`${config.url}/training/complete`, upperData)
-  //     .then(response => {
-  //       console.log('Data sent successfully:', response.data);
-  //       toast.success('Report is available after the acknowledgement');
-  //     })
-  //     .catch(error => {
-  //       console.error('Failed to send data:', error);
-  //       toast.error('Failed to send data');
-  //     });
-  // };
 
   const handleSendData = (upperData, expandedData, finalData) => {
     const currentTime = new Date();
     
-    // Update endTraining time
     upperData.endTraining = currentTime;
     
-    // Process finalData to ensure each employee has the necessary fields (without adding timeInfo)
     const updatedFinalData = finalData.map(employee => ({
       ...employee,
-      // Remove the timeInfo update
     }));
     
-    // Assign the updated employee data to upperData
     upperData.allEmployees = updatedFinalData;
     
-    // Log the updated data for debugging
     console.log('Sending data:', upperData);
     
-    // Send the data via axios post request
     axios.post(`${config.url}/training/complete`, upperData)
       .then(response => {
         console.log('Data sent successfully:', response.data);
