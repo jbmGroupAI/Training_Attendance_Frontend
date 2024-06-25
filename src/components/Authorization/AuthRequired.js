@@ -14,4 +14,3 @@ const AuthRequired = ({ children }) => {
 
 export default AuthRequired;
 
-

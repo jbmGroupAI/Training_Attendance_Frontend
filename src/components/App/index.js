@@ -15,7 +15,6 @@ import { AuthProvider, useAuth } from '../../context/AuthContext.js';
 import ProtectedRoute from '../ProtectedRoute.js';
 
 
-
 function App() {
   const location = useLocation();
   const hideSidebar = location.pathname === '/login' || location.pathname === '/signup';
@@ -31,7 +30,7 @@ function App() {
                         <Route path="/" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
                         <Route path="/reports" element={isAuthenticated ? <Index /> : <Navigate to="/login" />} />
                         <Route path="/schedule" element={isAuthenticated ? <Add /> : <Navigate to="/login" />} />
-                        <Route path="/table/:id" element= <TrainingTable />  />
+                        <Route path="/table/:id" element= {<TrainingTable />}  />
                         <Route path="*" element={<Navigate to="/" />} />
                   </Routes>
               </div>

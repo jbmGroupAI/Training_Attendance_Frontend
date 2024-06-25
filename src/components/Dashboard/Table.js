@@ -103,6 +103,18 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
     useEffect(() => {
       const fetchAttendanceData = async () => {
         try {
+          // const response = await axios.get(
+          //   "http://fr.thirdeye-ai.com/face/getFaceInfo",
+          //   {
+          //     params: {
+          //       plantId: data.plantIds,
+          //       startDate: startTime,
+          //       endDate: endTime,
+          //       companyId: "JBMGroup",
+          //       camId: "TrainingProgram",
+          //     },
+          //   }
+          // );
           const response = await axios.get(
             "http://jbmgroup.fr.thirdeye-ai.com/face/getFaceInfo",
             {
