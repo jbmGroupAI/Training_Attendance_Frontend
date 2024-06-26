@@ -731,42 +731,10 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                 />
               </div>
 
-              <div className="col-lg-5">
-                <label className="label" htmlFor="meetingDescription">
-                  Meeting Description
-                </label>
-                <input
-                  type="text"
-                  className="input-field"
-                  id="meetingDescription"
-                  value={formData.meetingDescription}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      meetingDescription: e.target.value,
-                    })
-                  }
-                />
-              </div>
-
-              <div className="col-lg-5">
-                <label className="label" htmlFor="trainingLink">
-                  Training Link
-                </label>
-                <input
-                  type="text"
-                  className="input-field"
-                  id="trainingLink"
-                  value={formData.trainingLink}
-                  onChange={(e) =>
-                    setFormData({ ...formData, trainingLink: e.target.value })
-                  }
-                />
-              </div>
-
+             
               <div className="col-lg-5">
                 <label className="label" htmlFor="plantName">
-                  Plant Name
+                  Venue
                 </label>
                 <Select
                   id="plantName"
@@ -807,7 +775,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
 
               <div className="col-lg-5">
                 <label className="label" htmlFor="empCodes">
-                  Employee Codes
+                  Participant List
                 </label>
                 <Select
                   id="empCodes"
@@ -845,6 +813,40 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                   isMulti
                 />
               </div>
+              
+
+              <div className="col-lg-5">
+                <label className="label" htmlFor="trainingLink">
+                  Training Link
+                </label>
+                <input
+                  type="text"
+                  className="input-field"
+                  id="trainingLink"
+                  value={formData.trainingLink}
+                  onChange={(e) =>
+                    setFormData({ ...formData, trainingLink: e.target.value })
+                  }
+                />
+              </div>
+              <div className="col-lg-5">
+                <label className="label" htmlFor="meetingDescription">
+                  Description
+                </label>
+                <input
+                  type="text"
+                  className="input-field"
+                  id="meetingDescription"
+                  value={formData.meetingDescription}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      meetingDescription: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
             </div>
             <div className="d-flex justify-content-end mt-5">
               <button
