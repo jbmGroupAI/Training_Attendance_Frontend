@@ -222,9 +222,8 @@ const Add = () => {
   
 
   return (
-    <div className="container-fluid p-0">
-      <Header handleChangeDateRange={() => { }} />
-      <div className="container mt-4">
+    <div className="container-fluid p-0 ">
+      <div className=" mt-4 mx-2">
         <form onSubmit={handleAdd}>
           <div><h5>Training Schedule</h5></div>
           <div className="bg-white px-5 py-2 my-4 rounded-4 border">

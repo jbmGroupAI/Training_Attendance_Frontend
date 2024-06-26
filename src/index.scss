@@ -21,6 +21,95 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
+ :root {
+  --primary-gradient: linear-gradient(to bottom right, #0124B9, #027BFE);
+  --secondary-gradient: linear-gradient(to bottom right, #ff2400, #ff8350);
+  --primary: #0124B9;
+  --primary-trans: #0124B91a;
+  --primary-trans-100: #0124B90d;
+  --secondary: rgb(255, 36, 0);
+  --secondary-trans: rgba(255, 36, 0, 0.1);
+  --secondary-100: rgba(255, 36, 0, 0.05);
+  --secondary1: rgba(255, 131, 80, 1);
+  --secondary1-trans: rgba(255, 131, 80, 0.05);
+  --secondary1-trans-200: rgba(255, 131, 80, 0.2);
+  --secondary2: #0057FF;
+  --secondary2-trans-100: #0057FF0d;
+  --secondary2-trans: #0057FF1a;
+  --secondary-light: #0057FF0d;
+  // --background-color: rgba(0, 178, 255, 0.07);
+  --background-color: rgba(6, 11, 183, 0.03);
+  --text-title: rgb(63, 27, 22);
+  --text-subtitle: rgb(30, 27, 22);
+  --bs-table-bg: rgb(255, 255, 255, 0) !important;
+  --rs-bg-active: rgba(6, 11, 183, 1);
+  --rs-calendar-date-selected-text: white;
+  // --color:#008ffb;
+
+  //------------ Grey Color -------------//
+
+  --white-color: rgb(255, 255, 255);
+  --white-trans: rgba(255, 255, 255, 0.1);
+  --grey-000: rgba(72, 73, 86, 0.03);
+  --grey-050: rgba(107, 108, 133, 0.05);
+  --grey-100: rgba(107, 108, 133, 0.1);
+  --grey-200: rgba(107, 108, 133, 0.2);
+  --grey-300: rgba(107, 108, 133, 0.3);
+  --grey-400: rgba(107, 108, 133, 0.4);
+  --grey-500: rgba(107, 108, 133, 0.5);
+  --grey-600: rgba(107, 108, 133, 0.6);
+  --grey-700: rgba(107, 108, 133, 0.7);
+  --grey-800: rgba(107, 108, 133, 0.8);
+  --grey-900: rgba(107, 108, 133, 0.9);
+  --grey-dark: rgb(56, 57, 72);
+
+  //------------ font -------------//
+
+  --font-title: 'josefin-sans', sans-serif;
+  --font-para: 'poppins', sans-serif;
+
+  //------------ Default color -------------//
+
+  --danger: rgb(219, 19, 79);
+  --danger-100: rgb(255, 14, 86, 0.05);
+  --danger-200: rgba(255, 14, 86, 0.2);
+  --success: #057e39;
+  --success-100: rgb(74, 192, 136, 0.05);
+  --success-200: rgb(74, 192, 136, 0.2);
+  --info: rgb(0, 133, 255);
+  --info-100: rgb(0, 133, 255, 0.05);
+  --info-200: rgb(0, 133, 255, 0.2);
+  --warning: rgba(255, 131, 80, 1);
+  --warning-100: rgb(255, 205, 2, 0.1);
+  --warning-200: rgb(255, 205, 2, 0.2);
+
+  //------------ Chart Theme color -------------//
+  --chart-darkblue: #02337d;
+  --chart-blue: rgba(5, 102, 252, 1);
+  --chart-blue1: rgba(5, 102, 252, 0.90);
+  --chart-blue2: rgba(5, 102, 252, 0.80);
+  --chart-blue3: rgba(5, 102, 252, 0.70);
+  --chart-blue4: rgba(5, 102, 252, 0.60);
+  --chart-blue5: rgba(5, 102, 252, 0.50);
+  --chart-liteblue: #00CAF3;
+  --chart-darkgreen: #16B961;
+  --chart-green: #00bd8e;
+  --chart-pestalgreen: #92e1a2;
+  --chart-litegreen: #00B6CB;
+  --chart-orange: #FF7A00;
+  --chart-liteorange: #FFB000;
+  --chart-red: #fe4932;
+  --chart-voilet: #5C2AFE;
+  --chart-litevoilet: #8B5BC8;
+  
+
+
+  // --progress-sucess: #16b961;
+  // --progress-slight: #e2fff0;
+  // --progress-warning: #ff8350;
+  // --progress-danger: #ff0e56;
+}
+
 
  html {
   line-height: 1.15;
@@ -566,7 +655,7 @@ dd {
 .container,
 .small-container,
 .medium-container {
-  max-width: 1200px;
+  // max-width: 1200px;
   padding: 0 1rem;
   margin-left: auto;
   margin-right: auto;

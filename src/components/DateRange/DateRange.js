@@ -19,18 +19,17 @@ const DateRangeFilter = ({ onFilter, defaultStartDate, defaultEndDate }) => {
   };
 
   return (
-    <div className="container px-7 my-3 filter py-3">
+    <div className=" px-7 my-3 filter py-3 p-2"  onClick={handleShowOptions}>
       <div className="text-center">
       <div 
   className="filter-icon" 
   style={{ display: showFilterOptions ? 'none' : '' }} 
-  onClick={handleShowOptions}
 >
   <FilterIcon/>
 </div>
       </div>
       {showFilterOptions && (
-        <div className="filter-options">
+        <div className="filter-options px-2 gap-2">
           <div>
             <label className="label">Start Date</label>
             <DatePicker

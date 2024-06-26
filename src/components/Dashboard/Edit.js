@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -191,7 +190,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
     try {
       const response = await axios.put(
         `${config.url}/training/${selectedEmployee._id}`,
-        updatedFormData
+        // updatedFormData
       );
       const updatedData = response.data;
 
@@ -257,8 +256,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
   
 
   return (
-    <div className="container-fluid p-0">
-      <Header setIsEditing={setIsEditing} handleChangeDateRange={() => {}} />
+    <div className="container-fluid p-0 ">
       <div className="mx-5 my-3">
         <form onSubmit={handleUpdate}>
           <div>

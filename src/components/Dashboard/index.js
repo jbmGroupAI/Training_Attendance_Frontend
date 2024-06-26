@@ -79,16 +79,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container-fluid m-0 p-0">
+    <div className=" mx-2 p-0">
       {!isAdding && !isEditing && !showReport && (
         <>
-          <Header
-            handleChangeDateRange={handleChangeDateRange}
-            setIsAdding={setIsAdding}
-            setShowReport={setShowReport}
-            isReportPage={showReport}
-          />
-          <div className='container'>
+          <div >
             <Table
               filteredDates={filteredDates}
               setFilteredDates={setFilteredDates}

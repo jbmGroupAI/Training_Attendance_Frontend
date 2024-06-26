@@ -13,7 +13,7 @@ export default function Index() {
       .then(response => response.json())
       .then(data => {
         const aggregatedData = {};
-        data.forEach(employee => {
+        data?.forEach(employee => {
           const { employeeName, employeeId, trainingId, plantIds } = employee;
           const key = `${employeeName}-${employeeId}`;
           if (!aggregatedData[key]) {
@@ -51,9 +51,8 @@ export default function Index() {
   ];
   console.log("data", data)
   return (
-    <div className='container-fluid p-0'>
-    <Header/>
-    <div className='container mb-5'>
+    <div className='container-fluid p-0 '>
+    <div className='mx-2'>
       <DataTable
         columns={columns}
         data={data}
