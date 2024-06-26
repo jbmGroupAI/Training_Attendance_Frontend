@@ -143,11 +143,6 @@ const Add = () => {
       });
     }
     console.log("empcodes", empCodes)
-    const selectedEmpData = empCodes.map((code) => ({
-      empOnlyId: code.value,
-      empFName: code.empFName,
-      plantIds:code.plant
-    }));
 
     const selectedEmpData = empCodes.map((code) => ({
       empOnlyId: code.value,
@@ -388,7 +383,6 @@ const Add = () => {
             </div>
 
             <div className="my-3">
-<<<<<<< HEAD
               <label className="label" htmlFor="trainingLink">
                 Training Link (Optional)
               </label>
@@ -403,8 +397,6 @@ const Add = () => {
             </div>
 
             <div className="my-3">
-=======
->>>>>>> d57d15a (add sidebar)
               <label className="label" htmlFor="meetingDescription">
                 Description
               </label>
