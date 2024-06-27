@@ -15,7 +15,7 @@ const Sidebar = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/ta/login');
         setIsCollapsed(true);
     };
 
@@ -56,9 +56,9 @@ const Sidebar = () => {
                     <CCard className="sidebar-card">
                         <CCardBody>
                             <ul className='d-grid gap-2'>
-                                <li><Link className='text-light-emphasis' to="/" onClick={handleLinkClick}>Dashboard</Link></li>
-                                <li><Link className='text-light-emphasis' to="/schedule" onClick={handleLinkClick}>Schedule Training</Link></li>
-                                <li><Link className='text-light-emphasis' to="/reports" onClick={handleLinkClick}>Report</Link></li>
+                                <li><Link className='text-light-emphasis' to="/ta/" onClick={handleLinkClick}>Dashboard</Link></li>
+                                <li><Link className='text-light-emphasis' to="/ta/schedule" onClick={handleLinkClick}>Schedule Training</Link></li>
+                                <li><Link className='text-light-emphasis' to="/ta/reports" onClick={handleLinkClick}>Report</Link></li>
                                 <li><a className='text-light-emphasis' href="#" onClick={handleLogout}>Logout</a></li>
                             </ul>
                         </CCardBody>
@@ -67,9 +67,9 @@ const Sidebar = () => {
             </div> : 
             <div className='d-flex justify-content-end text-light-emphasis mt-4'>
             <ul className='d-grid gap-4 sidebar-icons'>
-                <Link to="/" onClick={handleLinkClick} className=' text-light-emphasis' title='Dashboard'><HomeOutlined  style={{ fontSize: '32px' }} /></Link>
-                <Link to="/schedule" onClick={handleLinkClick} className='text-light-emphasis' title='Schedule Training'><ScheduleOutlined style={{ fontSize: '32px' }} /> </Link>
-                <Link to="/reports" onClick={handleLinkClick} className=' text-light-emphasis' title='Report'><FileDoneOutlined style={{ fontSize: '32px' }} /> </Link>
+                <Link to="/ta/" onClick={handleLinkClick} className=' text-light-emphasis' title='Dashboard'><HomeOutlined  style={{ fontSize: '32px' }} /></Link>
+                <Link to="/ta/schedule" onClick={handleLinkClick} className='text-light-emphasis' title='Schedule Training'><ScheduleOutlined style={{ fontSize: '32px' }} /> </Link>
+                <Link to="/ta/reports" onClick={handleLinkClick} className=' text-light-emphasis' title='Report'><FileDoneOutlined style={{ fontSize: '32px' }} /> </Link>
                 <a className='text-light-emphasis' href="#" onClick={handleLogout} title='Logout'> <LogoutOutlined  style={{ fontSize: '32px' }} /> </a>
             </ul>
             </div>
