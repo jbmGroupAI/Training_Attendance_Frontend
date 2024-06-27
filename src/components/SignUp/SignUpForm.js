@@ -22,7 +22,7 @@ const SignUpForm = () => {
         timer: 1500,
       });
 
-      navigate('/login', { replace: true });
+      navigate('/ta/login', { replace: true });
     } catch (error) {
       Swal.fire({
         icon: 'error',

@@ -20,7 +20,7 @@ const Layout = () => {
   };
 
   const handleLogout = () => {
-    navigate('/login');
+    navigate('/ta/login');
     logout();
     setCollapsed(true);
     localStorage.setItem('is_authenticated', false);

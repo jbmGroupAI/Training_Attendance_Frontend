@@ -259,7 +259,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
             <div className="d-flex justify-content-between flex-wrap gap-2">
               <div className="col-lg-3">
                 <label className="label" htmlFor="projectName">
-                  Project Name
+                  Training Topic
                 </label>
                 <Select
                   id="projectName"
@@ -297,50 +297,24 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                   }
                 />
               </div>
-
-              <div className="col-lg-3">
-                <label className="label" htmlFor="plantName">
-                  Plant Names
-                </label>
-                <Select
-                  id="plantName"
-                  value={formData.plantName}
-                  onChange={(selectedOptions) =>
-                    setFormData({
-                      ...formData,
-                      plantName: selectedOptions || [],
-                    })
-                  }
-                  options={plantOptions.map((plant) => ({
-                    value: plant.groupName,
-                    label: plant.groupName,
-                  }))}
-                  styles={customDropdownStyles}
-                  isMulti
-                />
-              </div>
-
               <div className="col-lg-2">
-                <label className="label" htmlFor="plantId">
-                  Plant IDs
+                <label className="label" htmlFor="facultyMail">
+                  Faculty Email
                 </label>
-                <Select
-                  id="plantId"
-                  value={formData.plantId}
-                  onChange={(selectedOptions) =>
+                <input
+                  type="email"
+                  className="input-field"
+                  id="facultyMail"
+                  value={formData.facultyMail}
+                  onChange={(e) =>
                     setFormData({
                       ...formData,
-                      plantId: selectedOptions || [],
+                      facultyMail: e.target.value,
                     })
                   }
-                  options={plantIds}
-                  styles={customDropdownStyles}
-                  isMulti
                 />
               </div>
-            </div>
-
-            <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
+              <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
               <div className="col-lg-2">
                 <label className="label" htmlFor="date">
                   Date
@@ -394,46 +368,62 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                   }
                 />
               </div>
+              </div>
 
-              <div className="col-lg-2">
-                <label className="label" htmlFor="facultyMail">
-                  Faculty Email
+             
+
+            
+
+              
+            
+
+            <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
+            <div className="col-lg-3">
+                <label className="label" htmlFor="plantName">
+                  Venue
                 </label>
-                <input
-                  type="email"
-                  className="input-field"
-                  id="facultyMail"
-                  value={formData.facultyMail}
-                  onChange={(e) =>
+                <Select
+                  id="plantName"
+                  value={formData.plantName}
+                  onChange={(selectedOptions) =>
                     setFormData({
                       ...formData,
-                      facultyMail: e.target.value,
+                      plantName: selectedOptions || [],
                     })
                   }
+                  options={plantOptions.map((plant) => ({
+                    value: plant.groupName,
+                    label: plant.groupName,
+                  }))}
+                  styles={customDropdownStyles}
+                  isMulti
                 />
               </div>
+
+              <div className="col-lg-2">
+                <label className="label" htmlFor="plantId">
+                  Plant IDs
+                </label>
+                <Select
+                  id="plantId"
+                  value={formData.plantId}
+                  onChange={(selectedOptions) =>
+                    setFormData({
+                      ...formData,
+                      plantId: selectedOptions || [],
+                    })
+                  }
+                  options={plantIds}
+                  styles={customDropdownStyles}
+                  isMulti
+                />
+              </div>
+            </div> 
+              
             </div>
 
             <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
-              <div className="col-lg-4">
-                <label className="label" htmlFor="meetingDescription">
-                  Meeting Description
-                </label>
-                <textarea
-                  className="input-field"
-                  id="meetingDescription"
-                  rows="3"
-                  value={formData.meetingDescription}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      meetingDescription: e.target.value,
-                    })
-                  }
-                />
-              </div>
-
-              <div className="col-lg-4">
+            <div className="col-lg-4">
                 <label className="label" htmlFor="empCodes">
                   Participant List
                 </label>
@@ -453,9 +443,6 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                   isMulti
                 />
               </div>
-            </div>
-
-            <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
               <div className="col-lg-4">
                 <label className="label" htmlFor="participantEmails">
                   Participant Emails
@@ -503,19 +490,38 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                   }
                 />
               </div>
+              <div className="col-lg-4">
+                <label className="label" htmlFor="meetingDescription">
+                  Meeting Description
+                </label>
+                <textarea
+                  className="input-field"
+                  id="meetingDescription"
+                  rows="3"
+                  value={formData.meetingDescription}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      meetingDescription: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
             </div>
 
-            <div className="mt-4 d-flex justify-content-end gap-3">
-              <button type="submit" className="btn btn-primary">
-                Update
-              </button>
-              <button
+            <div className="d-flex justify-content-between my-2">
+            <button
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
               </button>
+              <button type="submit" className="btn btn-primary">
+                Update
+              </button>
+             
             </div>
           </div>
         </form>

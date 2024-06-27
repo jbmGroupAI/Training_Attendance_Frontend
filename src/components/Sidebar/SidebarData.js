@@ -6,20 +6,20 @@ export const MMRevamp = () => {
       {
         label: 'Dashboard',
         icon: <Dashboard />,
-        link: '/',
+        link: '/ta',
         key: 1
       },
       {
         label: 'Schedule Training',
         icon: <Training />,
-        link:'schedule',
+        link:'/ta/schedule',
         key: 2,
         
       },
       {
         label: 'Report',
         icon: <Reporting />,
-        link:'reports',
+        link:'/ta/reports',
         key:3
       },
       {

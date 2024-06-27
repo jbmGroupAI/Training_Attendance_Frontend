@@ -6,7 +6,7 @@ const AuthRequired = ({ children }) => {
     const { isAuthenticated } = useAuth();
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/ta/login" />;
     }
 
     return children;
