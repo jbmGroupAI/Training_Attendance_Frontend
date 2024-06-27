@@ -23,6 +23,7 @@ const Layout = () => {
     navigate('/login');
     logout();
     setCollapsed(true);
+    localStorage.setItem('is_authenticated', false);
   };
 
   const sidebarCollapse = () => {

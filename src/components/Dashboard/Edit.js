@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Select from "react-select";
-import Creatable from "react-select/creatable";
 import Header from "./Header";
 import config from "../../config.json";
 import "../UI/Edit.css";
 import { customDropdownStyles } from "../UI/Select";
+
+
 
 const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
   const [formData, setFormData] = useState({
@@ -26,20 +27,12 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
       : [],
     empCodes: selectedEmployee
       ? selectedEmployee.empCodes?.map((empCode) => ({
-          value: empCode.empOnlyId.empOnlyId || empCode.empOnlyId,
-          label: `${empCode.empFName} ${empCode.empOnlyId.empOnlyId || empCode.empOnlyId}`,
+          value: empCode.empOnlyId,
+          label: `${empCode.empFName} ${empCode.empOnlyId}`,
           empFName: empCode.empFName,
-          empOnlyId: empCode.empOnlyId.empOnlyId || empCode.empOnlyId,
-          plantIds: empCode.empOnlyId.plantIds || empCode.plantIds,
-          _id: empCode.empOnlyId._id,
-        }))
-      : [],
-    plantName: selectedEmployee ? selectedEmployee.plantName : "",
-    plantId: selectedEmployee ? selectedEmployee.plantId : "",
-    empCodes: selectedEmployee
-      ? selectedEmployee.empCodes.map((empCode) => ({
-          value: empCode,
-          label: empCode,
+          empOnlyId: empCode.empOnlyId,
+          plantIds: empCode.plantIds,
+          _id: empCode._id,
         }))
       : [],
     date: selectedEmployee
@@ -64,24 +57,6 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
   const [plantIds, setPlantIds] = useState([]);
   const [employeeCodes, setEmployeeCodes] = useState([]);
   const [projectOptions, setProjectOptions] = useState([]);
-
-  const requests = plantIds.map((id) =>
-    axios.get(`http://jbmgroup.fr.thirdeye-ai.com/face/getEmpInfo?companyId=JBMGroup&plantId=${id.value}`)
-  );
-  
-  Promise.all(requests)
-    .then((responses) => {
-      const resCodes = responses.reduce((acc, response) => {
-        return acc.concat(response.data);
-      }, []);
-      let allEmpCodes = resCodes.reduce((acc, response) => {
-        return acc.concat(response.employeeInfo);
-      }, []);
-      setEmployeeCodes(allEmpCodes);
-    })
-    .catch((error) => {
-      console.error('Error fetching employee data:', error);
-    });
 
   useEffect(() => {
     // Fetch plant data
@@ -140,7 +115,6 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
         })
         .catch((error) => {
           console.error("Error fetching employee data:", error);
-          setEmployeeCodes([]); // Set to empty array on error
         });
     } else {
       setEmployeeCodes([]);
@@ -180,17 +154,18 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
         plantIds: code.plantIds,
         _id: code._id,
       })),
-      participantEmails: formData.participantEmails.map((email) => email.value),
+      participantEmails: formData.empCodes.map((code) => {
+        const employee = employeeCodes.find(
+          (emp) => emp.empOnlyId === code.empOnlyId
+        );
+        return employee ? employee?.userInfo?.email : code.empOnlyId;
+      }),
     };
-    formData.empCodes = formData.empCodes?.map((code) => code.value);
-    formData.participantEmails = formData.participantEmails?.map(
-      (email) => email.value
-    );
-
+    console.log("updatedData", updatedFormData)
     try {
       const response = await axios.put(
         `${config.url}/training/${selectedEmployee._id}`,
-        // updatedFormData
+        updatedFormData
       );
       const updatedData = response.data;
 
@@ -253,13 +228,32 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
     }
   };
 
+  const handleEmpCodesChange = (selectedOptions) => {
+    const updatedEmpCodes = selectedOptions || [];
   
+    const updatedParticipantEmails = updatedEmpCodes.map((option) => {
+      const employee = employeeCodes.find(
+        (emp) => emp.empOnlyId === option.value
+      );
+      return {
+        // value: employee ? employee.email : option.value,
+        // label: employee ? employee.email : option.label,
+        value: employee?.userInfo?.email, label: employee?.userInfo?.email,
+      };
+    });
+    console.log("empcodes", updatedEmpCodes, selectedOptions)
+    setFormData({
+      ...formData,
+      empCodes: updatedEmpCodes,
+      participantEmails: updatedParticipantEmails,
+    });
+  };
 
   return (
-    <div className="container-fluid p-0 ">
+    <div className="container-fluid p-0">
+      {/* <Header setIsEditing={setIsEditing} handleChangeDateRange={() => {}} /> */}
       <div className="mx-5 my-3">
         <form onSubmit={handleUpdate}>
-          <div>
           <h5>Edit Meeting</h5>
           <div className="bg-white p-5 rounded-4 border">
             <div className="d-flex justify-content-between flex-wrap gap-2">
@@ -282,119 +276,31 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                   options={projectOptions}
                   styles={customDropdownStyles}
                   isClearable
+                  onCreateOption={handleProjectNameUpdate}
                 />
-                </div>
+              </div>
 
-              <div className="col-lg-2">
+              <div className="col-lg-3">
                 <label className="label" htmlFor="trainerName">
                   Trainer Name
                 </label>
                 <input
-                  type="text"
                   className="input-field"
                   id="trainerName"
-                  value={formData.trainerName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, trainerName: e.target.value })
-                  }
-                />
-              </div>
-              <div className="col-lg-5">
-                <label className="label" htmlFor="facultyMail">
-                  Faculty Mail
-                </label>
-                <input
-                  type="email"
-                  className="input-field"
-                  id="facultyMail"
-                  value={formData.facultyMail}
-                  onChange={(e) =>
-                    setFormData({ ...formData, facultyMail: e.target.value })
-                  }
-                />
-              </div>
-              <div className="col-lg-5">
-                <label className="label" htmlFor="date">
-                  Date
-                </label>
-                <input
-                  type="date"
-                  className="input-field"
-                  id="date"
-                  value={formData.date}
-                  onChange={(e) =>
-                    setFormData({ ...formData, date: e.target.value })
-                  }
-                />
-              </div>
-
-              <div className="col-lg-3">
-                <label className="label" htmlFor="fromTime">
-                  From Time
-                </label>
-                <input
-                  type="time"
-                  className="input-field"
-                  id="fromTime"
-                  value={formData.fromTime}
-                  onChange={(e) =>
-                    setFormData({ ...formData, fromTime: e.target.value })
-                  }
-                />
-              </div>
-
-              <div className="col-lg-3">
-                <label className="label" htmlFor="toTime">
-                  To Time
-                </label>
-                <input
-                  type="time"
-                  className="input-field"
-                  id="toTime"
-                  value={formData.toTime}
-                  onChange={(e) =>
-                    setFormData({ ...formData, toTime: e.target.value })
-                  }
-                />
-              </div>
-
-              <div className="col-lg-5">
-                <label className="label" htmlFor="meetingDescription">
-                  Meeting Description
-                </label>
-                <input
                   type="text"
-                  className="input-field"
-                  id="meetingDescription"
-                  value={formData.meetingDescription}
+                  value={formData.trainerName}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      meetingDescription: e.target.value,
+                      trainerName: e.target.value,
                     })
                   }
                 />
               </div>
 
-              <div className="col-lg-5">
-                <label className="label" htmlFor="trainingLink">
-                  Training Link
-                </label>
-                <input
-                  type="text"
-                  className="input-field"
-                  id="trainingLink"
-                  value={formData.trainingLink}
-                  onChange={(e) =>
-                    setFormData({ ...formData, trainingLink: e.target.value })
-                  }
-                />
-              </div>
-            </div>
-
-              <div className="col-lg-5">
+              <div className="col-lg-3">
                 <label className="label" htmlFor="plantName">
-                  Plant Name
+                  Plant Names
                 </label>
                 <Select
                   id="plantName"
@@ -414,9 +320,9 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                 />
               </div>
 
-              <div className="col-lg-5">
+              <div className="col-lg-2">
                 <label className="label" htmlFor="plantId">
-                  Plant ID
+                  Plant IDs
                 </label>
                 <Select
                   id="plantId"
@@ -432,30 +338,125 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                   isMulti
                 />
               </div>
+            </div>
 
-              <div className="col-lg-5">
+            <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
+              <div className="col-lg-2">
+                <label className="label" htmlFor="date">
+                  Date
+                </label>
+                <input
+                  type="date"
+                  className="input-field"
+                  id="date"
+                  value={formData.date}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      date: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div className="col-lg-2">
+                <label className="label" htmlFor="fromTime">
+                  From Time
+                </label>
+                <input
+                  type="time"
+                  className="input-field"
+                  id="fromTime"
+                  value={formData.fromTime}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      fromTime: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div className="col-lg-2">
+                <label className="label" htmlFor="toTime">
+                  To Time
+                </label>
+                <input
+                  type="time"
+                  className="input-field"
+                  id="toTime"
+                  value={formData.toTime}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      toTime: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div className="col-lg-2">
+                <label className="label" htmlFor="facultyMail">
+                  Faculty Email
+                </label>
+                <input
+                  type="email"
+                  className="input-field"
+                  id="facultyMail"
+                  value={formData.facultyMail}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      facultyMail: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
+              <div className="col-lg-4">
+                <label className="label" htmlFor="meetingDescription">
+                  Meeting Description
+                </label>
+                <textarea
+                  className="input-field"
+                  id="meetingDescription"
+                  rows="3"
+                  value={formData.meetingDescription}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      meetingDescription: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div className="col-lg-4">
                 <label className="label" htmlFor="empCodes">
-                  Employee Codes
+                  Participant List
                 </label>
                 <Select
                   id="empCodes"
                   value={formData.empCodes}
-                  onChange={(selectedOptions) =>
-                    setFormData({
-                      ...formData,
-                      empCodes: selectedOptions || [],
-                    })
-                  }
-                  options={employeeCodes.map((code) => ({
-                    value: code,
-                    label: `${code.empFName} (${code.empOnlyId})`,
+                  onChange={handleEmpCodesChange}
+                  options={employeeCodes.map((employee) => ({
+                    value: employee.empOnlyId,
+                    label: `${employee.empFName} ${employee.empOnlyId}`,
+                    empFName: employee.empFName,
+                    empOnlyId: employee.empOnlyId,
+                    plantIds: employee.plant,
+                    _id: employee._id,
                   }))}
                   styles={customDropdownStyles}
                   isMulti
                 />
               </div>
+            </div>
 
-              <div className="col-lg-5">
+            <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
+              <div className="col-lg-4">
                 <label className="label" htmlFor="participantEmails">
                   Participant Emails
                 </label>
@@ -468,29 +469,59 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                       participantEmails: selectedOptions || [],
                     })
                   }
-                  options={formData.participantEmails}
+                  options={formData.empCodes.map((employee) => {
+                    const empData = employeeCodes.find(
+                      (emp) => emp.empOnlyId === employee.value
+                    );
+                    console.log("empdata",empData,empData?.userInfo?.email)
+                    return {
+                      value: empData?.userInfo?.email ,
+                      label: empData?.userInfo?.email ,
+                    };
+                  })}
                   styles={customDropdownStyles}
                   isMulti
                 />
               </div>
             </div>
-            <div className="d-flex justify-content-end mt-5">
+
+            <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
+              <div className="col-lg-4">
+                <label className="label" htmlFor="trainingLink">
+                  Training Link
+                </label>
+                <input
+                  type="url"
+                  className="input-field"
+                  id="trainingLink"
+                  value={formData.trainingLink}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      trainingLink: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="mt-4 d-flex justify-content-end gap-3">
+              <button type="submit" className="btn btn-primary">
+                Update
+              </button>
               <button
                 type="button"
-                className="btn btn-secondary me-2"
+                className="btn btn-secondary"
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
-              </button>
-              <button type="submit" className="btn btn-primary">
-                Update
               </button>
             </div>
           </div>
         </form>
       </div>
     </div>
-  )
+  );
 };
 
 export default Edit;

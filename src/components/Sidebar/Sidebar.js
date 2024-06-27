@@ -224,9 +224,16 @@ export function SideBar({ collapsed,activeSidebarItem,sidebarOpen,logout,handleC
                 </React.Fragment>
               );
             })}
+             <StyledTooltip
+                      TransitionProps={{ timeout: 0 }}
+                      title={collapsed ? 'Logout' : ''}
+                      placement="right"
+                      // style={CustomTooltip}
+                    >
             <MenuItem  onClick={logout} className='logout-list'>
               <Logout /> {!collapsed && 'Logout'}
             </MenuItem>
+            </StyledTooltip>
           </Menu>
         </Sidebar>
       

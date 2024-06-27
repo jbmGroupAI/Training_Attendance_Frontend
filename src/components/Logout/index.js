@@ -7,6 +7,7 @@ const Logout = () => {
   const navigate = useNavigate()
 
   const handleLogout = () => {
+    localStorage.setItem('is_authenticated', false);
     Swal.fire({
       icon: 'question',
       iconColor:"var(--primary)",
