@@ -23,7 +23,7 @@ const Login = () => {
       });
       console.log('Login successful:', response.data);
       localStorage.setItem('is_authenticated', true);
-      navigate('/', { replace: true });
+      navigate('/ta/', { replace: true });
 
       Swal.fire({
         icon: 'success',

@@ -176,7 +176,7 @@ const Add = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate('/');
+        navigate('/ta/');
       } else {
         throw new Error('Failed to create meeting');
       }
@@ -416,7 +416,7 @@ const Add = () => {
                 className="btn-schedule"
                 type="button"
                 value="Cancel"
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/ta/')}
               />
             </div>
             <div className="">
