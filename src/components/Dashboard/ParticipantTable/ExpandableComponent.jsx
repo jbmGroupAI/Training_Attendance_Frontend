@@ -22,7 +22,7 @@ function ExpandableComponent({ employeeId, employeeName, data, parentTableData }
   }, [employeeId, employeeName, data]);
 
 
-  console.log("gghhhh",data,meetings)
+ 
 
 
   const handleSearch = (event) => {
@@ -32,7 +32,7 @@ function ExpandableComponent({ employeeId, employeeName, data, parentTableData }
   const filteredData = meetings.filter(meeting =>
     meeting.projectName.toLowerCase().includes(searchTerm.toLowerCase())
   );
-console.log("hhh",meetings)
+
   const columns = [
     {
       name: "Training Topic",

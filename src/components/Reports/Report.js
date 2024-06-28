@@ -76,7 +76,7 @@ const Report = ({ data }) => {
 
       const presentEmployees = actualEmployees.filter(employee => employee.acknowledgement);
       setTotalPresent(presentEmployees.length);
-      setTotalAbsent(plannedEmployees.length+unplannedEmployees.length - presentEmployees.length);
+      setTotalAbsent(plannedEmployees.length - presentEmployees.length);
       
     }
   }, [trainingData, plannedCount]);
@@ -178,23 +178,50 @@ const Report = ({ data }) => {
     }
   });
 
+  // const InvoiceTitle = () => (
+  //   <View style={{ position: 'relative', alignItems: 'center' }} >
+  //     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>JAY BHARAT MARUTI LIMITED</Text>
+  //     <Text style={{ fontSize: 12 }}>Attendance Sheet</Text>
+  //     <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
+  //     <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} />
+  //     <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} />
+  //     {/* {Object.keys(legalCodes).map((plantName, index) => (
+  //       <Text key={index} style={{ fontSize: 10 ,marginRight: 10,
+  //         position: 'absolute',
+  //         top: 0,
+  //         right: 0,fontWeight: 'bold'}}>
+  //         {legalCodes[plantName]}
+  //       </Text>
+  //     ))} */}
+  //   </View>
+    
+  // );
+
   const InvoiceTitle = () => (
     <View style={{ position: 'relative', alignItems: 'center' }} >
       <Text style={{ fontSize: 15, fontWeight: 'bold' }}>JAY BHARAT MARUTI LIMITED</Text>
       <Text style={{ fontSize: 12 }}>Attendance Sheet</Text>
-      <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
+       <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
       <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} />
       <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} />
-      {Object.keys(legalCodes).map((plantName, index) => (
-        <Text key={index} style={{ fontSize: 10 ,marginRight: 10,
-          position: 'absolute',
-          top: 0,
-          right: 0,fontWeight: 'bold'}}>
-          {legalCodes[plantName]}
-        </Text>
-      ))}
+      
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {Object.keys(legalCodes).map((plantName, index) => (
+          <Text
+            key={index}
+            style={{
+              fontSize: 10,
+              marginRight: 10,
+              fontWeight: 'bold'
+            }}
+          >
+            {legalCodes[plantName]}
+          </Text>
+        ))}
+      </View>
     </View>
   );
+  
 
   function formatTime(date) {
     const dateTime = new Date(date);
@@ -283,15 +310,16 @@ const Report = ({ data }) => {
 
   const TableFooter = () => (
     <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
+       <View style={styles.tfooter}>
+        <Text>Total Employees: {totalEmployees}</Text>
+      </View>
       <View style={styles.tfooter}>
         <Text>Total Planned Employees: {plannedCount}</Text>
       </View>
       {/* <View style={styles.tfooter}>
         <Text>Total Unplanned Employees: {unplannedCount}</Text>
       </View> */}
-      <View style={styles.tfooter}>
-        <Text>Total Employees: {totalEmployees}</Text>
-      </View>
+     
       <View style={styles.tfooter}>
         <Text>Total Present: {totalPresent}</Text>
       </View>
