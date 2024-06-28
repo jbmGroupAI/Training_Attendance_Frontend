@@ -15,25 +15,25 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
     trainerName: selectedEmployee ? selectedEmployee.trainerName : "",
     plantName: selectedEmployee
       ? selectedEmployee.plantNames?.map((plant) => ({
-          value: plant,
-          label: plant,
-        }))
+        value: plant,
+        label: plant,
+      }))
       : [],
     plantId: selectedEmployee
       ? selectedEmployee.plantIds?.map((id) => ({
-          value: id,
-          label: id,
-        }))
+        value: id,
+        label: id,
+      }))
       : [],
     empCodes: selectedEmployee
       ? selectedEmployee.empCodes?.map((empCode) => ({
-          value: empCode.empOnlyId,
-          label: `${empCode.empFName} ${empCode.empOnlyId}`,
-          empFName: empCode.empFName,
-          empOnlyId: empCode.empOnlyId,
-          plantIds: empCode.plantIds,
-          _id: empCode._id,
-        }))
+        value: empCode.empOnlyId,
+        label: `${empCode.empFName} ${empCode.empOnlyId}`,
+        empFName: empCode.empFName,
+        empOnlyId: empCode.empOnlyId,
+        plantIds: empCode.plantIds,
+        _id: empCode._id,
+      }))
       : [],
     date: selectedEmployee
       ? new Date(selectedEmployee.date).toISOString().split("T")[0]
@@ -46,9 +46,9 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
       : "",
     participantEmails: selectedEmployee
       ? selectedEmployee.participantEmails?.map((email) => ({
-          value: email,
-          label: email,
-        }))
+        value: email,
+        label: email,
+      }))
       : [],
     trainingLink: selectedEmployee ? selectedEmployee.trainingLink : "",
   });
@@ -230,7 +230,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
 
   const handleEmpCodesChange = (selectedOptions) => {
     const updatedEmpCodes = selectedOptions || [];
-  
+
     const updatedParticipantEmails = updatedEmpCodes.map((option) => {
       const employee = employeeCodes.find(
         (emp) => emp.empOnlyId === option.value
@@ -315,115 +315,115 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                 />
               </div>
               <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
-              <div className="col-lg-2">
-                <label className="label" htmlFor="date">
-                  Date
-                </label>
-                <input
-                  type="date"
-                  className="input-field"
-                  id="date"
-                  value={formData.date}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      date: e.target.value,
-                    })
-                  }
-                />
+                <div className="col-lg-2">
+                  <label className="label" htmlFor="date">
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    className="input-field"
+                    id="date"
+                    value={formData.date}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        date: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+
+                <div className="col-lg-2">
+                  <label className="label" htmlFor="fromTime">
+                    From Time
+                  </label>
+                  <input
+                    type="time"
+                    className="input-field"
+                    id="fromTime"
+                    value={formData.fromTime}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        fromTime: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+
+                <div className="col-lg-2">
+                  <label className="label" htmlFor="toTime">
+                    To Time
+                  </label>
+                  <input
+                    type="time"
+                    className="input-field"
+                    id="toTime"
+                    value={formData.toTime}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        toTime: e.target.value,
+                      })
+                    }
+                  />
+                </div>
               </div>
 
-              <div className="col-lg-2">
-                <label className="label" htmlFor="fromTime">
-                  From Time
-                </label>
-                <input
-                  type="time"
-                  className="input-field"
-                  id="fromTime"
-                  value={formData.fromTime}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      fromTime: e.target.value,
-                    })
-                  }
-                />
+
+
+
+
+
+
+
+              <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
+                <div className="col-lg-3">
+                  <label className="label" htmlFor="plantName">
+                    Venue
+                  </label>
+                  <Select
+                    id="plantName"
+                    value={formData.plantName}
+                    onChange={(selectedOptions) =>
+                      setFormData({
+                        ...formData,
+                        plantName: selectedOptions || [],
+                      })
+                    }
+                    options={plantOptions.map((plant) => ({
+                      value: plant.groupName,
+                      label: plant.groupName,
+                    }))}
+                    styles={customDropdownStyles}
+                    isMulti
+                  />
+                </div>
+
+                <div className="col-lg-2">
+                  <label className="label" htmlFor="plantId">
+                    Plant IDs
+                  </label>
+                  <Select
+                    id="plantId"
+                    value={formData.plantId}
+                    onChange={(selectedOptions) =>
+                      setFormData({
+                        ...formData,
+                        plantId: selectedOptions || [],
+                      })
+                    }
+                    options={plantIds}
+                    styles={customDropdownStyles}
+                    isMulti
+                  />
+                </div>
               </div>
 
-              <div className="col-lg-2">
-                <label className="label" htmlFor="toTime">
-                  To Time
-                </label>
-                <input
-                  type="time"
-                  className="input-field"
-                  id="toTime"
-                  value={formData.toTime}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      toTime: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              </div>
-
-             
-
-            
-
-              
-            
-
-            <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
-            <div className="col-lg-3">
-                <label className="label" htmlFor="plantName">
-                  Venue
-                </label>
-                <Select
-                  id="plantName"
-                  value={formData.plantName}
-                  onChange={(selectedOptions) =>
-                    setFormData({
-                      ...formData,
-                      plantName: selectedOptions || [],
-                    })
-                  }
-                  options={plantOptions.map((plant) => ({
-                    value: plant.groupName,
-                    label: plant.groupName,
-                  }))}
-                  styles={customDropdownStyles}
-                  isMulti
-                />
-              </div>
-
-              <div className="col-lg-2">
-                <label className="label" htmlFor="plantId">
-                  Plant IDs
-                </label>
-                <Select
-                  id="plantId"
-                  value={formData.plantId}
-                  onChange={(selectedOptions) =>
-                    setFormData({
-                      ...formData,
-                      plantId: selectedOptions || [],
-                    })
-                  }
-                  options={plantIds}
-                  styles={customDropdownStyles}
-                  isMulti
-                />
-              </div>
-            </div> 
-              
             </div>
 
             <div className="d-flex justify-content-between flex-wrap mt-2 gap-2">
-            <div className="col-lg-4">
+              <div className="col-lg-4">
                 <label className="label" htmlFor="empCodes">
                   Participant List
                 </label>
@@ -460,10 +460,10 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                     const empData = employeeCodes.find(
                       (emp) => emp.empOnlyId === employee.value
                     );
-                    console.log("empdata",empData,empData?.userInfo?.email)
+                    console.log("empdata", empData, empData?.userInfo?.email)
                     return {
-                      value: empData?.userInfo?.email ,
-                      label: empData?.userInfo?.email ,
+                      value: empData?.userInfo?.email,
+                      label: empData?.userInfo?.email,
                     };
                   })}
                   styles={customDropdownStyles}
@@ -511,7 +511,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
             </div>
 
             <div className="d-flex justify-content-between my-2">
-            <button
+              <button
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => setIsEditing(false)}
@@ -521,7 +521,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
               <button type="submit" className="btn btn-primary">
                 Update
               </button>
-             
+
             </div>
           </div>
         </form>

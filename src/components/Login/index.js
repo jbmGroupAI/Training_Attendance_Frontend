@@ -89,7 +89,7 @@ const Login = () => {
               </Form.Item>
             </Form>
             <div className='mt-3'>
-              Don't have an account? <Link to='/signup'>Sign up</Link>
+              Don't have an account? <Link to='/ta/signup'>Sign up</Link>
             </div>
           </div>
         </div>
