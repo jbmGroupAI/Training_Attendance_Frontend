@@ -7,7 +7,7 @@ export const customDropdownStyles = {
       color: isSelected ? 'var(--grey-700) !important' : 'var(--grey-700) !important',
       backgroundColor: isFocused ? 'var(--white-color)' : 'var(--white-color)',
       padding: '0.12rem 0.5rem',
-      height: '43px',
+      // height: '43px',
       borderColor: isSelected ? 'var(--secondary2)' : 'var(--secondary2)',
       outline: isFocused ? '3px solid var(--secondary2-trans) !important' : 'transparent',
       boxShadow: isSelected ? 'none' : 'none',

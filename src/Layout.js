@@ -34,7 +34,7 @@ const Layout = () => {
   return (
     <div className='layout'>
       <Header />
-      <div className='d-flex'>
+      <div className='d-flex gap-2'>
         <div className={`${collapsed ? 'collapsed' : 'opened'}`}>
           <Sidebar
             collapsed={collapsed}
@@ -46,7 +46,7 @@ const Layout = () => {
           />
         </div>
 
-        <div className={`hero-section`}>
+        <div className={`hero-section ${collapsed ? '' : 'opened-hero'}`}>
           <Outlet />
         </div>
       </div>

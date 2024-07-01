@@ -1,36 +1,30 @@
-/* Layout.css */
 .layout {
-    display: flex;
-    width: 100%;
-    z-index: 1;
-  }
-  
-  .d-flex {
-    display: flex;
-    width: 100%;
-  }
-  
-  .collapsed {
-    width: 5%;
-    transition: width 0.5s;
-  }
-  
-  .opened {
-    width: 14.5%;
-    transition: width 0.5s;
-  }
-  
-  .hero-section {
-    flex-grow: 1;
-    margin-top: 5rem;
-    /* transition: margin-left 0.5s; */
-  }
-  
-  /* .hero-section.collapsed {
-    margin-left: 5.5%;
-  } */
-  
-  /* .hero-section.opened {
-    margin-left: 16%;
-  } */
-  
+  display: flex;
+  width: 100%;
+  z-index: 1;
+}
+
+.d-flex {
+  display: flex;
+  width: 100%;
+}
+
+.collapsed {
+  width: 5%;
+  transition: width 0.5s;
+}
+
+.opened {
+  width: 14%;
+  transition: width 0.5s;
+}
+
+.hero-section {
+  flex-grow: 1;
+  margin-top: 5rem;
+  transition: width 0.5s;
+}
+
+/* .opened-hero{
+  margin-left: 2.5%;
+} */
