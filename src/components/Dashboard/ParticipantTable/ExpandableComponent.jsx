@@ -163,13 +163,16 @@ console.log("hhh",meetings)
           
 
         /> */}
+        <div className="d-flex justify-content-end">
         <input
   type="text"
   placeholder="Search Training Topic"
   value={searchTerm}
   onChange={handleSearch}
-  style={{ marginBottom: '10px', padding: '5px', width: '20%', right: '10px', position: 'absolute', zIndex: 10 }}
+  className="input-field"
+  style={{ marginBottom: '10px', padding: '5px', width: '20%', }}
 />
+</div>
         <DataTable
           columns={columns}
           data={filteredData}

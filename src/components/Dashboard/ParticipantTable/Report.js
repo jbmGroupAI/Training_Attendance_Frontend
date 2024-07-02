@@ -76,11 +76,9 @@ const Report = ({ upperData, expandedData }) => {
             paddingTop: 4,
             paddingLeft: 7,
             flex: 1,
-            height: 50,
-            backgroundColor: '#DEDEDE',
-            borderColor: 'whitesmoke',
-            borderRightWidth: 1,
-            borderBottomWidth: 1
+            backgroundColor: '#0566fc1a',
+            borderColor: '#0566fc1a',
+            color:'#060bb7'
         },
 
         tbody: {
@@ -115,7 +113,14 @@ const Report = ({ upperData, expandedData }) => {
     const TableHead = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
             {test1.map(({ name }, index) => (
-                <View key={index} style={styles.theader}>
+                <View key={index}   style={[
+                    styles.theader,
+                    {
+                      borderTopLeftRadius: index === 0 ? 4 : 0,
+                      borderTopRightRadius: index === test1.length - 1 ? 4 : 0,
+                      borderColor: index === 0 ? '#060bb71a' : 'none',
+                    },
+                  ]}>
                     <Text>{name}</Text>
                 </View>
             ))}
@@ -146,7 +151,15 @@ const Report = ({ upperData, expandedData }) => {
     const TableHead1 = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
             {test2.map(({ name }, index) => (
-                <View key={index} style={styles.theader}>
+                <View key={index}  style={[
+                    styles.theader,
+                    {
+                        backgroundColor:'#6b6c851a',
+                      borderTopLeftRadius: index === 0 ? 8 : 0,
+                      borderTopRightRadius: index === test2.length - 1 ? 8 : 0,
+                      borderColor: index === 0 ? '#060bb71a' : 'none',
+                    },
+                  ]}>
                     <Text>{name}</Text>
                 </View>
             ))}
