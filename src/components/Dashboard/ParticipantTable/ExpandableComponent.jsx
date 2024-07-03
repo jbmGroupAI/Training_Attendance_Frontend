@@ -44,11 +44,11 @@ function ExpandableComponent({ employeeId, employeeName, data, parentTableData }
     },
     {
       name: "Venue",
-      selector: (row) => row.plantNames,
+      selector: (row) => row.plantNames.join(', '),
     },
     {
       name: "Plant ID",
-      selector: (row) => row.plantIds,
+      selector: (row) => row.plantIds.join(', '),
     },
     {
       name: "Date",

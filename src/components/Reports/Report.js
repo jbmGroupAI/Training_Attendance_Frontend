@@ -623,7 +623,11 @@ const Report = ({ data }) => {
                 <Text>{receipt.timeInfo && receipt.timeInfo.length > 0 ? formatTime(receipt.timeInfo[0].time) : '-'}</Text>
               )}
               {key === 'Punch Out' && (
-                <Text>{receipt.acknowledgement ? new Date(trainingData.endTraining).toLocaleTimeString('sv-SE') : '-'}</Text>
+                <Text>{receipt.acknowledgement ? new Date(trainingData.endTraining).toLocaleString('en-GB', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false,
+                  }) : '-'}</Text>
               )}
               {key !== 'Punch In' && key !== 'Punch Out' && (
                 <Text>
