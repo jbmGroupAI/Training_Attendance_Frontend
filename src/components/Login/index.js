@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserOutlined, LockOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import loginImg from './login.png';
+import loginImg from './LoginScreen.png';
 import "../../components/Login/index.css";
 import config from "../../config.json"
 
@@ -43,12 +43,14 @@ const Login = () => {
 
   return (
     <>
-      <div className='container align-items-center p-5 m-5'>
-        <div className='d-flex justify-content-between m-auto'>
-          <div className='col-7 m-auto'>
-            <img src={loginImg} width='300' alt='login' />
+      <div className=' d-flex align-items-center justify-content-between' style={{width:'100vw', height:'100vh'}}>
+        <div className='row w-100' >
+          <div className='col-md-5 d-none d-md-block'>
+            <img className='w-100' src={loginImg} style={{height:'100vh'}} alt='login' />
           </div>
-          <div className='col-5 border bg-white p-5 rounded-4'>
+          <div className='col-md-7'>
+            <div className='d-flex justify-content-center align-items-center h-100 w-100'>
+          <div className='border bg-white  rounded-4 p-4'>
             <h3>Welcome Back!</h3>
             <Form onFinish={onFinish}>
               <Form.Item>
@@ -92,6 +94,9 @@ const Login = () => {
               Don't have an account? <Link to='/signup'>Sign up</Link>
             </div>
           </div>
+          </div>
+          </div>
+
         </div>
       </div>
       <div className='footer'>
