@@ -87,6 +87,7 @@ const TrainingTable = () => {
                         <tr>
                             <th>Project Name</th>
                             <th>Trainer Name</th>
+                            <th>Venue</th>
                             <th>Plant Names</th>
                             <th>Plant IDs</th>
                             <th>Date</th>
@@ -100,6 +101,7 @@ const TrainingTable = () => {
                         <tr>
                             <td>{trainingData.projectName}</td>
                             <td>{trainingData.trainerName}</td>
+                            <td>{trainingData.venue}</td>
                             <td>{trainingData.plantNames?.join(', ')}</td>
                             <td>{trainingData.plantIds?.join(', ')}</td>
                             <td>{new Date(trainingData.date).toLocaleDateString()}</td>

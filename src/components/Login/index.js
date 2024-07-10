@@ -22,6 +22,7 @@ const Login = () => {
         password,
       });
       console.log('Login successful:', response.data);
+      localStorage.setItem('userType',response.data.user.role)
       localStorage.setItem('is_authenticated', true);
       navigate('/ta/', { replace: true });
 

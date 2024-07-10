@@ -11,6 +11,8 @@ import SignUpForm from "../components/SignUp/SignUpForm.js";
 import "./index.css";
 import { AuthProvider, useAuth } from "../context/AuthContext.js";
 import Layout from "../Layout.js";
+import Admin from "../components/Admin/Index.js"
+import RequireAuth from "./RequiredAuth.js";
 
 function App() {
   const location = useLocation();
@@ -30,6 +32,11 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="reports" element={<Index />} />
             <Route path="schedule" element={<Add />} />
+            {/* <Route path="admin" element={<Admin />} /> */}
+
+            <Route element={<RequireAuth allowedRoles={['admin']}/>}>
+<Route path="admin" element={<Admin />} />
+</Route>
            
           </Route>
           <Route path="table/:id" element={<TrainingTable />} />

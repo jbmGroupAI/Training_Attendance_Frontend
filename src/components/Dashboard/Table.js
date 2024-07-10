@@ -72,7 +72,8 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
   const columns = [
     { name: 'Training Topic', selector: row => row.projectName },
     { name: 'Trainer Name', selector: row => row.trainerName },
-    { name: 'Venue', selector: row => row.plantNames.join(', ') },
+    { name: 'Venue', selector: row => row.venue },
+    { name: 'Plant Names', selector: row => row.plantNames.join(', ') },
     { name: 'Plant ID', selector: row => row.plantIds.join(', ') },
     { name: 'Date', selector: row => new Date(row.date).toLocaleDateString('en-US', { timeZone: 'UTC' }) },
     { name: 'From Time', selector: row => row.fromTime },

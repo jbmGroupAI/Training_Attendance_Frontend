@@ -602,8 +602,8 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
       .get(`${config.url}/topics`)
       .then((response) => {
         const projectData = response.data.map((project) => ({
-          value: project.name,
-          label: project.name,
+          value: project.trainingTopic,
+          label: project.trainingTopic,
         }));
         setProjectOptions(projectData);
       })
@@ -722,36 +722,36 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
     }
   };
 
-  const handleProjectNameUpdate = async (newValue) => {
-    try {
-      const response = await axios.post(`${config.url}/topics`, {
-        name: newValue,
-      });
+  // const handleProjectNameUpdate = async (newValue) => {
+  //   try {
+  //     const response = await axios.post(`${config.url}/topics`, {
+  //       name: newValue,
+  //     });
 
-      // Update projectOptions state with new project
-      const newProject = {
-        value: response.data._id,
-        label: response.data.projectName,
-      };
-      setProjectOptions([...projectOptions, newProject]);
+  //     // Update projectOptions state with new project
+  //     const newProject = {
+  //       value: response.data._id,
+  //       label: response.data.projectName,
+  //     };
+  //     setProjectOptions([...projectOptions, newProject]);
 
-      Swal.fire({
-        icon: "success",
-        title: "Success!",
-        text: `${newValue} added successfully.`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
-      console.error("Error adding project:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error!",
-        text: "Failed to add project.",
-        showConfirmButton: true,
-      });
-    }
-  };
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Success!",
+  //       text: `${newValue} added successfully.`,
+  //       showConfirmButton: false,
+  //       timer: 1500,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error adding project:", error);
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error!",
+  //       text: "Failed to add project.",
+  //       showConfirmButton: true,
+  //     });
+  //   }
+  // };
 
   const handleEmpCodesChange = (selectedOptions) => {
     const updatedEmpCodes = selectedOptions || [];
@@ -799,7 +799,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
                   options={projectOptions}
                   styles={customDropdownStyles}
                   isClearable
-                  onCreateOption={handleProjectNameUpdate}
+                  // onCreateOption={handleProjectNameUpdate}
                 />
               </div>
 
@@ -896,7 +896,7 @@ const Edit = ({ selectedEmployee, setEmployees, setIsEditing }) => {
             <div className="d-flex flex-wrap justify-content-between my-3">
               <div className="col-lg-5">
                 <label className="label" htmlFor="plantName">
-                  Venue
+                  Plant Names
                 </label>
                 <Select
                   id="plantName"

@@ -22,6 +22,12 @@ export const MMRevamp = () => {
         link:'/ta/reports',
         key:3
       },
+      {
+        label: 'Admin',
+        icon: <Reporting />,
+        link:'/ta/admin',
+        key:4
+      },
       
       {
         type: 'separator'
