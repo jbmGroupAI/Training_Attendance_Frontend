@@ -5,6 +5,7 @@ const FilterComponent = ({ onFilter }) => {
     <div>
       <input
         type="text"
+         placeholder="Search..."
         onChange={onFilter}
         className="form-control"
       />

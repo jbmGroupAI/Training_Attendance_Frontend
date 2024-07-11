@@ -54,8 +54,8 @@ const TrainingTable = () => {
             await axios.post(`${config.url}/training/acknowledge/` + id, trainingData);
             alert('Acknowledgement submitted successfully!');
         } catch (error) {
-            console.error('Error submitting acknowledgement:', error);
-            alert('Failed to submit acknowledgement. Please try again.');
+            console.error('This meeting has already been acknowledged:', error);
+            alert('This meeting has already been acknowledged.');
         }
     };
 
@@ -87,6 +87,7 @@ const TrainingTable = () => {
                         <tr>
                             <th>Project Name</th>
                             <th>Trainer Name</th>
+                            <th>Venue</th>
                             <th>Plant Names</th>
                             <th>Plant IDs</th>
                             <th>Date</th>
@@ -100,8 +101,9 @@ const TrainingTable = () => {
                         <tr>
                             <td>{trainingData.projectName}</td>
                             <td>{trainingData.trainerName}</td>
-                            <td>{trainingData.plantNames}</td>
-                            <td>{trainingData.plantIds}</td>
+                            <td>{trainingData.venue}</td>
+                            <td>{trainingData.plantNames?.join(', ')}</td>
+                            <td>{trainingData.plantIds?.join(', ')}</td>
                             <td>{new Date(trainingData.date).toLocaleDateString()}</td>
                             <td>{trainingData.fromTime}</td>
                             <td>{trainingData.toTime}</td>

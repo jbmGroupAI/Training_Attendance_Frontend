@@ -27,7 +27,7 @@ const Report = ({ data }) => {
   const [plannedVsActual, setPlannedVsActual] = useState(0);
   const [totalPresent, setTotalPresent] = useState(0);
   const [totalAbsent, setTotalAbsent] = useState(0);
-  const [legalCodes, setLegalCodes] = useState({});
+  const [legalCodes, setLegalCodes] = useState("");
 
   useEffect(() => {
     const fetchTrainingData = async () => {
@@ -44,25 +44,83 @@ const Report = ({ data }) => {
     fetchTrainingData();
   }, [data]);
 
-  useEffect(() => {
-    if (trainingData && trainingData.plantNames) {
-      const fetchLegalCodes = async () => {
-        const fetchedLegalCodes = {};
-        for (const plantName of trainingData.plantNames) {
-          if (config.plantcodes && config.plantcodes[plantName]) {
-            fetchedLegalCodes[plantName] = config.plantcodes[plantName];
-          }
-        }
-        setLegalCodes(fetchedLegalCodes);
-      };
+  // async function getlegalcode(id){
+  //   try {
+  //     const res = await axios.get(`${config.url}/post?vanueId=${id}`)
+  //   const data = res.data
+  //   return data
+  //   } catch (error) {
+  //     console.log("error while getting legal code",error)
+  //   }  
+  // }
 
-      fetchLegalCodes();
+ 
+
+
+  useEffect(() => {
+    async function getLegalCode(){
+    try {
+      console.log("ss",trainingData)
+      const res = await axios.get(`${config.url}/post?venueId=${trainingData.venueId}`);
+      const data = res.data;
+      const temp = data.find((d)=> d.venueId === trainingData.venueId)
+      console.log("temp",temp)
+      if(data){
+      setLegalCodes(temp.legalCode)
+      }
+      // if (trainingData && trainingData.venueId) {
+      //   for (const venueId of trainingData.venueId) {
+      //     const data = data.find((d)=> d.venueId === venueId);
+      //     if (data) {
+      //       setLegalCodes(data.legalCode);
+      //     }
+      //   }
+      // }
+    } catch (error) {
+      console.log("error while getting legal code", error);
     }
+  }
+  if(trainingData){
+    getLegalCode()
+  }
   }, [trainingData]);
+  
+
+  // useEffect(() => {
+  //   if (trainingData && trainingData.plantNames) {
+  //     const fetchLegalCodes = async () => {
+  //       const fetchedLegalCodes = {};
+  //       for (const plantName of trainingData.plantNames) {
+  //         if (config.plantcodes && config.plantcodes[plantName]) {
+  //           fetchedLegalCodes[plantName] = config.plantcodes[plantName];
+  //         }
+  //       }
+  //       setLegalCodes(fetchedLegalCodes);
+  //     };
+
+  //     fetchLegalCodes();
+  //   }
+  // }, [trainingData]);
+
+  // useEffect(() => {
+  //   if (trainingData && trainingData.venueId) {
+  //     const fetchLegalCodes = async () => {
+  //       const fetchedLegalCodes = {};
+  //       for (const venueId of trainingData.venueId) {
+  //         if (data.venueId && data.venueId) {
+  //           const data = getlegalcode(vanueId)
+  //           fetchedLegalCodes[venueId] = plantcodes[plantName];
+  //         }
+  //       }
+  //       setLegalCodes(fetchedLegalCodes);
+  //     };
+
+  //     fetchLegalCodes();
+  //   }
+  // }, [trainingData]);
 
   useEffect(() => {
     if (trainingData) {
-      console.log("firstfffkkfk",trainingData)
       const plannedEmployees = trainingData.allEmployees.filter(employee => employee.planned);
       const unplannedEmployees = trainingData.allEmployees.filter(employee => !employee.planned);
       setPlannedCount(plannedEmployees.length);
@@ -76,8 +134,7 @@ const Report = ({ data }) => {
 
       const presentEmployees = actualEmployees.filter(employee => employee.acknowledgement);
       setTotalPresent(presentEmployees.length);
-      setTotalAbsent(plannedEmployees.length+unplannedEmployees.length - presentEmployees.length);
-      
+      setTotalAbsent(plannedEmployees.length - presentEmployees.length);
     }
   }, [trainingData, plannedCount]);
 
@@ -145,10 +202,10 @@ const Report = ({ data }) => {
       marginTop: 20,
       fontSize: 10,
       fontStyle: 'bold',
-      paddingTop: 4,
+      paddingTop: 8,
       paddingLeft: 7,
       flex: 1,
-      height: 30,
+      height: 28,
       backgroundColor: '#DEDEDE',
       borderColor: 'whitesmoke',
       borderRightWidth: 1,
@@ -158,7 +215,7 @@ const Report = ({ data }) => {
       marginTop: 20,
       fontSize: 10,
       fontStyle: 'bold',
-      paddingTop: 4,
+      paddingTop: 8,
       paddingLeft: 7,
       flex: 1,
       backgroundColor: '#0566fc1a',
@@ -183,16 +240,44 @@ const Report = ({ data }) => {
       <Text style={{ fontSize: 10 }}>Internal Training Programme</Text>
       <Image source={logo} style={{ width: 80, height: 80, ...styles.logo }} />
       <Image source={logoo} style={{ width: 80, height: 80, ...styles.logoo }} />
-      {Object.keys(legalCodes).map((plantName, index) => (
-        <Text key={index} style={{ fontSize: 10 ,marginRight: 10,
-          position: 'absolute',
-          top: 0,
-          right: 0,fontWeight: 'bold'}}>
-          {legalCodes[plantName]}
-        </Text>
-      ))}
+      
+      {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {Object.keys(legalCodes).map((plantName, index) => (
+          <Text
+            key={index}
+            style={{
+              fontSize: 10,
+              marginRight: 10,
+              fontWeight: 'bold'
+            }}
+          >
+            {legalCodes[plantName]}
+          </Text>
+        ))}
+      </View> */}
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {/* {Object.keys(legalCodes).map((venueId, index) => (
+          <Text
+            key={index}
+            style={{
+              fontSize: 10,
+              marginRight: 10,
+              fontWeight: 'bold'
+            }}
+          >
+            {legalCodes[venueId]}
+          </Text>
+        ))} */}
+        <Text style={{
+              fontSize: 10,
+              marginRight: 10,
+              fontWeight: 'bold'
+            }}>{legalCodes}</Text>
+      </View>
+
     </View>
   );
+  
 
   function formatTime(date) {
     const dateTime = new Date(date);
@@ -301,7 +386,11 @@ const Report = ({ data }) => {
                 <Text>{receipt.timeInfo && receipt.timeInfo.length > 0 ? formatTime(receipt.timeInfo[0].time) : '-'}</Text>
               )}
               {key === 'Punch Out' && (
-                <Text>{receipt.acknowledgement ? new Date(trainingData.endTraining).toLocaleTimeString('sv-SE') : '-'}</Text>
+                <Text>{receipt.acknowledgement ? new Date(trainingData.endTraining).toLocaleString('en-GB', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false,
+                  }) : '-'}</Text>
               )}
               {key !== 'Punch In' && key !== 'Punch Out' && (
                 <Text>
@@ -321,19 +410,16 @@ const Report = ({ data }) => {
   const TableFooter = () => (
     <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
       <View style={styles.tfooter}>
-        <Text>Total Planned Employees: {plannedCount}</Text>
-      </View>
-      {/* <View style={styles.tfooter}>
-        <Text>Total Unplanned Employees: {unplannedCount}</Text>
-      </View> */}
-      <View style={styles.tfooter}>
         <Text>Total Employees: {totalEmployees}</Text>
       </View>
       <View style={styles.tfooter}>
-        <Text>Total Present: {totalPresent}</Text>
+        <Text>Total Planned Employees: {plannedCount}</Text>
       </View>
       <View style={styles.tfooter}>
-        <Text>Total Absent: {totalAbsent}</Text>
+        <Text>Total Present(Planned): {totalPresent}</Text>
+      </View>
+      <View style={styles.tfooter}>
+        <Text>Total Absent(Planned): {totalAbsent}</Text>
       </View>
     </View>
   );
@@ -351,11 +437,6 @@ const Report = ({ data }) => {
       <Page size="A4" style={styles.page} wrap={false}>
         <InvoiceTitle />
 
-{/* {Object.keys(legalCodes).map((plantName, index) => (
-          <View key={index} style={{ marginTop: 10 }}>
-            <Text style={{ fontWeight: 'bold' }}>{plantName} Legal Code: {legalCodes[plantName]}</Text>
-          </View>
-        ))} */}
         <TableHead trainingData={trainingData} />
         <TableBody trainingData={trainingData} />
         <TableHead2 trainingData={trainingData} />
@@ -368,4 +449,3 @@ const Report = ({ data }) => {
 };
 
 export default Report;
-

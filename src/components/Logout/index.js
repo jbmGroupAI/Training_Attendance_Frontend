@@ -28,7 +28,7 @@ const Logout = () => {
           },
           willClose: () => {
             localStorage.setItem('is_authenticated', false);
-            navigate('/login', { replace: true });
+            navigate('/ta/login', { replace: true });
           },
         });
       }

@@ -22,8 +22,9 @@ const Login = () => {
         password,
       });
       console.log('Login successful:', response.data);
+      localStorage.setItem('userType',response.data.user.role)
       localStorage.setItem('is_authenticated', true);
-      navigate('/', { replace: true });
+      navigate('/ta/', { replace: true });
 
       Swal.fire({
         icon: 'success',
@@ -91,7 +92,7 @@ const Login = () => {
               </Form.Item>
             </Form>
             <div className='mt-3'>
-              Don't have an account? <Link to='/signup'>Sign up</Link>
+              Don't have an account? <Link to='/ta/signup'>Sign up</Link>
             </div>
           </div>
           </div>
