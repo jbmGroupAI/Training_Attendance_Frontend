@@ -69,6 +69,7 @@ export default function TopicTable() {
           <DataTable
             columns={columns}
             data={data}
+            customStyles={expandTableCustomStyles}
           />
         </div>
       </div>

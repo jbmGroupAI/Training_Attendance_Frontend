@@ -1,3 +1,4 @@
+import { Settings } from "@mui/icons-material";
 import {Dashboard,Logout,Reporting,Training} from "../UI/SVG";
 
 export const MMRevamp = () => {
@@ -24,7 +25,7 @@ export const MMRevamp = () => {
       },
       {
         label: 'Admin',
-        icon: <Reporting />,
+        icon: <Settings />,
         link:'/ta/admin',
         key:4
       },

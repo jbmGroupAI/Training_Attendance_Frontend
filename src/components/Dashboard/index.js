@@ -79,7 +79,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className=" mx-2 p-0">
+    <div className=" mx-2 p-4">
       {!isAdding && !isEditing && !showReport && (
         <>
           <div >

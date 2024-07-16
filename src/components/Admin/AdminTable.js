@@ -73,6 +73,7 @@ const DataTablePage = () => {
           <DataTable
             columns={columns}
             data={data}
+            customStyles={expandTableCustomStyles}
           />
         </div>
       </div>

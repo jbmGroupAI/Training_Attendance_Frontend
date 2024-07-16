@@ -212,8 +212,8 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
   }, [filteredDates]);
 
   return (
-    <div className="container-fluid p-0">
-      <div className="mx-4 my-2">
+    <div className="container-fluid p-7">
+      <div className="mx-4 my-2 py-7 ">
       <DataTable
         columns={columns}
         data={filteredTrainings}
