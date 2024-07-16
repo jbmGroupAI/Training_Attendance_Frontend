@@ -34,7 +34,7 @@ const TrainingForm = ({ show, onHide, data, onSave }) => {
     try {
       let response;
       if (data) {
-        response = await axios.put(`${config.url}/topics${data._id}`, newTraining);
+        response = await axios.put(`${config.url}/topics/${data._id}`, newTraining);
       } else {
         response = await axios.post(`${config.url}/topics`, newTraining);
       }

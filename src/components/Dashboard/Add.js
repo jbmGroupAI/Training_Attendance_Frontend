@@ -869,16 +869,19 @@ const Add = () => {
               />
             </div>
 
+            
+
             <div className="my-3">
               <label className="label" htmlFor="meetingDescription">
                 Description
               </label>
-              <textarea
+              <input
                 id="meetingDescription"
+                type="text"
                 name="meetingDescription"
                 value={meetingDescription}
                 onChange={(e) => setMeetingDescription(e.target.value)}
-                className="input-field textarea"
+                className="input-field"
               />
             </div>
           </div>

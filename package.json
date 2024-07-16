@@ -38,6 +38,7 @@
     "react-scroll": "^1.9.0",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
+    "react-tooltip": "^5.27.1",
     "sass": "^1.77.6",
     "styled-components": "^4.4.1",
     "sweetalert2": "^11.4.18"

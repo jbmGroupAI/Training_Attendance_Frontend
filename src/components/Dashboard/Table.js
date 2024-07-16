@@ -13,6 +13,10 @@ import moment from "moment";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Delete, Edit } from '../GlobalSVG/GlobalSVG';
+import { Tooltip } from 'react-tooltip';
+
+
+
 
 
 export default function Table({ trainings, handleEdit, handleDelete, handleChangeDateRange, setFilteredDates, filteredDates }) {
@@ -70,16 +74,16 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
   }, [filteredDates]);
 
   const columns = [
-    { name: 'Training Topic', selector: row => row.projectName },
-    { name: 'Trainer Name', selector: row => row.trainerName },
-    { name: 'Venue', selector: row => row.venue },
-    { name: 'Plant Names', selector: row => row.plantNames.join(', ') },
-    { name: 'Plant ID', selector: row => row.plantIds.join(', ') },
-    { name: 'Date', selector: row => new Date(row.date).toLocaleDateString('en-US', { timeZone: 'UTC' }) },
-    { name: 'From Time', selector: row => row.fromTime },
-    { name: 'To Time', selector: row => row.toTime },
-    { name: 'Meeting hours', selector: row => row.totalMeetingTime },
-    { name: 'Status', selector: row => row.status },
+    { name: 'Training Topic', selector: row => <div data-tooltip-id={`tooltip-projectName-${row.id}`} data-tooltip-content={row.projectName}>{row.projectName}</div> },
+    { name: 'Trainer Name', selector: row => <div data-tooltip-id={`tooltip-trainerName-${row.id}`} data-tooltip-content={row.trainerName}>{row.trainerName}</div> },
+    { name: 'Venue', selector: row => <div data-tooltip-id={`tooltip-venue-${row.id}`} data-tooltip-content={row.venue}>{row.venue}</div> },
+    { name: 'Plant Names', selector: row => <div data-tooltip-id={`tooltip-plantNames-${row.id}`} data-tooltip-content={row.plantNames.join(', ')}>{row.plantNames.join(', ')}</div> },
+    { name: 'Plant ID', selector: row => <div data-tooltip-id={`tooltip-plantIds-${row.id}`} data-tooltip-content={row.plantIds.join(', ')}>{row.plantIds.join(', ')}</div> },
+    { name: 'Date', selector: row => <div data-tooltip-id={`tooltip-date-${row.id}`} data-tooltip-content={new Date(row.date).toLocaleDateString('en-US', { timeZone: 'UTC' })}>{new Date(row.date).toLocaleDateString('en-US', { timeZone: 'UTC' })}</div> },
+    { name: 'From Time', selector: row => <div data-tooltip-id={`tooltip-fromTime-${row.id}`} data-tooltip-content={row.fromTime}>{row.fromTime}</div> },
+    { name: 'To Time', selector: row => <div data-tooltip-id={`tooltip-toTime-${row.id}`} data-tooltip-content={row.toTime}>{row.toTime}</div> },
+    { name: 'Meeting hours', selector: row => <div data-tooltip-id={`tooltip-totalMeetingTime-${row.id}`} data-tooltip-content={row.totalMeetingTime}>{row.totalMeetingTime}</div> },
+    { name: 'Status', selector: row => <div data-tooltip-id={`tooltip-status-${row.id}`} data-tooltip-content={row.status}>{row.status}</div> },
     {
       name: 'Actions',
       cell: row => {
@@ -93,7 +97,6 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
       },
     }
   ];
-
   const ExpandedComponent = ({ data }) => {
     console.log('Expanded data:', data);
     const [employeeData, setEmployeeData] = useState([]);
@@ -222,6 +225,20 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
         customStyles={expandTableCustomStyles}
       />
       <ToastContainer />
+      {filteredTrainings.map(row => (
+          <>
+            <Tooltip id={`tooltip-projectName-${row.id}`} />
+            <Tooltip id={`tooltip-trainerName-${row.id}`} />
+            <Tooltip id={`tooltip-venue-${row.id}`} />
+            <Tooltip id={`tooltip-plantNames-${row.id}`} />
+            <Tooltip id={`tooltip-plantIds-${row.id}`} />
+            <Tooltip id={`tooltip-date-${row.id}`} />
+            <Tooltip id={`tooltip-fromTime-${row.id}`} />
+            <Tooltip id={`tooltip-toTime-${row.id}`} />
+            <Tooltip id={`tooltip-totalMeetingTime-${row.id}`} />
+            <Tooltip id={`tooltip-status-${row.id}`} />
+          </>
+        ))}
     </div>
     </div>
   );
