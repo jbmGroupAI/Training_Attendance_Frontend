@@ -218,20 +218,18 @@ const Report = ({ data }) => {
       paddingTop: 8,
       paddingLeft: 7,
       flex: 1,
-      height: 28,
-      backgroundColor: '#DEDEDE',
-      borderColor: 'whitesmoke',
-      borderRightWidth: 1,
-      borderBottomWidth: 1
+      backgroundColor: '#0566fc1a',
+      borderColor: '#0566fc1a',
+      color:'#060bb7'
     },
     tbody: {
       fontSize: 9,
       paddingTop: 4,
       paddingLeft: 7,
       flex: 1,
+      border:1,
       borderColor: 'whitesmoke',
-      borderRightWidth: 1,
-      borderBottomWidth: 1
+      width:400
     }
   });
 
@@ -289,71 +287,101 @@ const Report = ({ data }) => {
   }
 
   const test = [
-    { name: 'Training Topic', key: 'projectName' },
-    { name: 'Trainer Name', key: 'trainerName' },
-    { name: 'Venue', key: 'venue' },
-    { name: 'Plant Names', key: 'plantNames' },
-    { name: 'Plant ID', key: 'plantIds' },
-    { name: 'Date', key: 'date' },
-    { name: 'From Time', key: 'fromTime' },
-    { name: 'To Time', key: 'toTime' },
+    { name: 'Training Topic', key: 'projectName', size: '20%' },
+    { name: 'Trainer Name', key: 'trainerName', size: '20%' },
+    { name: 'Venue', key: 'plantNames', size: '20%' },
+    { name: 'Plant ID', key: 'plantIds', size: '10%' },
+    { name: 'Date', key: 'date', size: '10%' },
+    { name: 'From Time', key: 'fromTime', size: '10%' },
+    { name: 'To Time', key: 'toTime', size: '10%' },
   ];
 
-  const TableHead = () => (
-    <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 , alignItems: 'center'}}>
-      {test.map(({ name }, index) => (
-        <View key={index} style={styles.theader}>
-          <Text>{name} </Text>
-        </View>
-      ))}
-    </View>
-  );
 
+  const TableHead = () => (
+    <div style={{ flexDirection: 'row', marginTop: 10 }}>
+      {test.map(({ name, size }, index) => {
+        return(
+        <View
+          key={index}
+          style={
+            
+            {
+              width: size,
+            marginTop: 20,
+            fontSize: 10,
+            fontStyle: "bold",
+            paddingTop: 4,
+            paddingLeft: 7,
+            backgroundColor: "#0566fc1a",
+            color: "#060bb7",
+            border: "1px solid lightskyblue",
+            borderTopLeftRadius: index === 0 ? 5 : 0,
+            borderTopRightRadius: index === (test.length - 1) ? 5 : 0,
+            borderLeft: index === 0 ? "1px solid lightskyblue" : 0,
+            borderRight: index === (test.length -1) ? "1px solid lightskyblue" : 0 
+            }
+          }
+        >
+          <Text>{name}</Text>
+        </View>
+      )})}
+    </div>
+  );
   const TableBody = ({ trainingData }) => (
-    <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-      {test.map(({ key }, index) => (
-        <View style={styles.tbody} key={index}>
-          <Text>
-            {key === "plantNames"
-              ? trainingData[key]?.join(', ')
-              : key === "plantIds"
-              ? trainingData[key]?.join(', ')
-              : key === "date"
-              ? new Date(trainingData[key]).toLocaleDateString('sv-SE')
-              : trainingData[key]}
-          </Text>
+    <div style={{ width: '100%', flexDirection: 'row' }}>
+      {test.map(({ key,size }, index) => (
+        <View style={ {width: size,
+          border: 1,
+          borderColor: "whitesmoke",
+          fontSize: 9,
+          paddingTop: 6,
+          paddingLeft: 7,}} key={index}>
+          <Text>{key === "date" ? new Date(trainingData[key]).toLocaleDateString('sv-SE') : trainingData[key]}</Text>
         </View>
       ))}
-    </View>
+    </div>
   );
 
   const test1 = [
-    { name: 'Employee Name', key: "empFName[0]" },
-    { name: 'Employee ID', key: "empOnlyId" },
-    { name: 'Category', key: "planned ? 'Planned' : 'Unplanned'" },
-    { name: 'Department', key: "department.join(', ')" },
-    { name: 'Plant ID', key: "empPlantId.join(', ')" },
-    { name: 'Acknowledgement', key: "acknowledgement ? 'Yes' : 'No'" },
-    { name: 'Punch In', key: "Punch In" },
-    { name: 'Punch Out', key: "Punch Out" },
+    { name: 'Employee Name', key: "empFName[0]",size:'20%' },
+    { name: 'Employee ID', key: "empOnlyId",size:'10%' },
+    { name: 'Category', key: "planned ? 'Planned' : 'Unplanned'",size:'20%' },
+    { name: 'Department', key: "department.join(', ')",size:'10%' },
+    { name: 'Plant ID', key: "empPlantId.join(', ')",size:'10%' },
+    { name: 'Acknowledgement', key: "acknowledgement ? 'Yes' : 'No'",size:'10%' },
+    { name: 'Punch In', key: "Punch In",size:'10%' },
+    { name: 'Punch Out', key: "Punch Out",size:'10%' },
   ];
 
   const TableHead2 = () => (
-    <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', marginTop: 10 , alignItems: 'center'}}>
-      {test1.map(({ name }, index) => (
-        <View key={index} style={styles.theader}>
+    <div style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
+      {test1.map(({ name,size }, index) => (
+        <View key={index}  style={{ width: size,
+          fontSize: 10,
+          fontStyle: "bold",
+          paddingTop: 4,
+          paddingLeft: 7,
+          backgroundColor: "#6b6c851a",
+          borderTopLeftRadius: index === 0 ? 5 : 0,
+          borderTopRightRadius: index === (test1.length-1)  ? 5 : 0,
+          borderColor: index === 0 ? "#060bb71a" : "none",}}>
           <Text>{name}</Text>
         </View>
       ))}
-    </View>
+    </div>
   );
 
   const TableBody1 = ({ trainingData }) => (
-    <Fragment>
+    <>
       {trainingData.allEmployees.map((receipt, index) => (
-        <View style={{ width: '100%', flexDirection: 'row' , alignItems: 'center'}} key={index}>
-          {test1.map(({ key }, innerIndex) => (
-            <View style={styles.tbody} key={innerIndex}>
+        <div style={{ width: '100%', flexDirection: 'row' }} key={index}>
+          {test1.map(({ key,size }, innerIndex) => (
+            <View style={{width: size,
+              border: 1,
+              borderColor: "whitesmoke",
+              fontSize: 9,
+              paddingTop: 6,
+              paddingLeft: 7,}} key={innerIndex}>
               {key === 'Punch In' && (
                 <Text>{receipt.timeInfo && receipt.timeInfo.length > 0 ? formatTime(receipt.timeInfo[0].time) : '-'}</Text>
               )}
@@ -373,9 +401,10 @@ const Report = ({ data }) => {
               )}
             </View>
           ))}
-        </View>
+        </div>
+        
       ))}
-    </Fragment>
+      </>
   );
 
   const TableFooter = () => (
