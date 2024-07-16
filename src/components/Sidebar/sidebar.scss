@@ -15,6 +15,9 @@
     height: 100%;
     overflow: visible !important;
     background-color: rgb(255, 255, 255);
+    width: unset;
+    min-width: unset;
+    width: 14%;
   }
   &-collapser {
     &-tab {
@@ -43,7 +46,7 @@
 .sb-button-open {
   position: fixed;
   top: 5.2rem !important;
-  left: 14.7rem;
+  left: 13%;
   background-image: linear-gradient(to bottom right, #ff2400, #ff8350);
   width: 25px;
   height: 25px;
@@ -159,6 +162,10 @@
     }
   }
   .sidebar {
+    aside{
+      width: auto;
+      width: auto;
+    }
     &-tab{
       width: 100%;
       background-color: rgba(107, 108, 133, 0.9);
@@ -170,6 +177,7 @@
       }
       &-tab {
         display: block;
+        border: none;
       }
     }
   }

@@ -767,6 +767,7 @@ const Add = () => {
                 <Select
                   id="plantName"
                   value={plantNames}
+                  styles={customDropdownStyles}
                   onChange={handleVanueChange}
                   options={plantOptions.map((plant) => ({
                     value: plant.groupName,
@@ -782,6 +783,7 @@ const Add = () => {
                 <Select
                   id="plantId"
                   value={plantIds}
+                  styles={customDropdownStyles}
                   onChange={setPlantIds}
                   options={plantIds}
                   isMulti
