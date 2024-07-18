@@ -91,9 +91,9 @@ const Login = () => {
                 </div>
               </Form.Item>
             </Form>
-            <div className='mt-3'>
+            {/* <div className='mt-3'>
               Don't have an account? <Link to='/ta/signup'>Sign up</Link>
-            </div>
+            </div> */}
           </div>
           </div>
           </div>

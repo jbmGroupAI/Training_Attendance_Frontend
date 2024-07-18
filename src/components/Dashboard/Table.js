@@ -173,7 +173,7 @@ export default function Table({ trainings, handleEdit, handleDelete, handleChang
           <div className='d-flex justify-content-between'>
             <div className='p-1'></div>
             <div>
-              <button className='btn-login' onClick={() => handleSendData(data, data.empCodes, finalData)}>Send Mail</button>
+              <button className='btn-login' onClick={() => handleSendData(data, data.empCodes, finalData)}>Finish Training</button>
             </div>
           </div>
         }

@@ -1,35 +1,37 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
-import { PDFDownloadLink } from '@react-pdf/renderer';
-import Report from './Report';
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import Report from "./Report";
 import { expandCustomStyles } from "../../UI/Table";
 
-function ExpandableComponent({ employeeId, employeeName, data, parentTableData }) {
-
+function ExpandableComponent({
+  employeeId,
+  employeeName,
+  data,
+  parentTableData,
+}) {
   const [meetings, setMeetings] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-
+  const [searchTerm, setSearchTerm] = useState("");
+console.log("xcvbnm,", data)
   useEffect(() => {
     const filteredMeetings = data.filter(
       (item) =>
         item &&
         item.empCodes &&
-        item.empCodes.filter((emp) =>
-          emp.empFName === employeeName && emp.empOnlyId === employeeId
+        item.empCodes.filter(
+          (emp) => emp.empFName === employeeName && emp.empOnlyId === employeeId
         )
     );
+    console.log("upd", data, filteredMeetings);
+
     setMeetings(filteredMeetings);
   }, [employeeId, employeeName, data]);
-
-
- 
-
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredData = meetings.filter(meeting =>
+  const filteredData = meetings.filter((meeting) =>
     meeting.projectName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -44,11 +46,11 @@ function ExpandableComponent({ employeeId, employeeName, data, parentTableData }
     },
     {
       name: "Venue",
-      selector: (row) => row.plantNames.join(', '),
+      selector: (row) => row.plantNames.join(", "),
     },
     {
       name: "Plant ID",
-      selector: (row) => row.plantIds.join(', '),
+      selector: (row) => row.plantIds.join(", "),
     },
     {
       name: "Date",
@@ -63,30 +65,30 @@ function ExpandableComponent({ employeeId, employeeName, data, parentTableData }
       name: "To Time",
       selector: (row) => row.toTime,
     },
+    {
+      name: "Attendance",
+      selector: (row) => {
+        let temp = row?.allEmployees?.find(
+          (employee) => employee.empOnlyId == employeeId
+        );
+        return temp.acknowledgement ? "Present" : "Absent";
+      },
+    },
   ];
 
   return (
     <>
       <div className="">
-        {/* <input
-          type="text"
-          placeholder="Search Training Topic"
-          value={searchTerm}
-          onChange={handleSearch}
-          style={{ marginBottom: '10px', padding: '5px', width: '50%',right:'10px ',position: "absolute"}}
-          
-
-        /> */}
         <div className="d-flex justify-content-end">
-        <input
-  type="text"
-  placeholder="Search Training Topic"
-  value={searchTerm}
-  onChange={handleSearch}
-  className="input-field"
-  style={{ marginBottom: '10px', padding: '5px', width: '20%', }}
-/>
-</div>
+          <input
+            type="text"
+            placeholder="Search Training Topic"
+            value={searchTerm}
+            onChange={handleSearch}
+            className="input-field"
+            style={{ marginBottom: "10px", padding: "5px", width: "20%" }}
+          />
+        </div>
         <DataTable
           columns={columns}
           data={filteredData}
@@ -96,14 +98,20 @@ function ExpandableComponent({ employeeId, employeeName, data, parentTableData }
           customStyles={expandCustomStyles}
         />
       </div>
-      <div className='d-flex justify-content-end'>
+      <div className="d-flex justify-content-end">
         <PDFDownloadLink
-          document={<Report upperData={parentTableData} expandedData={meetings} />}
-          fileName='Individual_Training.pdf'
+          document={
+            <Report
+              upperData={parentTableData}
+              expandedData={meetings}
+              employeeId={employeeId}
+            />
+          }
+          fileName="Individual_Training.pdf"
         >
           {({ loading }) => (
-            <button disabled={loading} className='btn-login m-2'>
-              {loading ? 'Downloading...' : 'Download'}
+            <button disabled={loading} className="btn-login m-2">
+              {loading ? "Downloading..." : "Download"}
             </button>
           )}
         </PDFDownloadLink>

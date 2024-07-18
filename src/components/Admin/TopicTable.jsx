@@ -50,9 +50,9 @@ export default function TopicTable() {
             name: 'Actions',
             cell: row => (
               <div style={{ display: 'flex' }} className="action-buttons">
-                <Button variant="warning" onClick={() => handleEdit(row)}><Edit /></Button>
-                <Button variant="danger" onClick={() => handleDelete(row._id)}><Delete /></Button>
-              </div>
+          <button className='btn-edit' onClick={() => handleEdit(row)} ><Edit /></button>
+          <button className='btn-delete' onClick={() => handleDelete(row._id)} ><Delete /></button>
+        </div>
             )
           }
         ]

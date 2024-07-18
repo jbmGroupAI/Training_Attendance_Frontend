@@ -276,7 +276,7 @@ import { Document, Page, View, Text, Image, StyleSheet } from "@react-pdf/render
 import logo from "./Logo.png";
 import logoo from "./third-eye.png";
 
-const Report = ({ upperData, expandedData }) => {
+const Report = ({ upperData, expandedData, employeeId }) => {
   const styles = StyleSheet.create({
     page: {
       fontSize: 11,
@@ -403,7 +403,7 @@ const Report = ({ upperData, expandedData }) => {
             borderTopLeftRadius: index === 0 ? 4 : 0,
             borderTopRightRadius: index === test1.length - 1 ? 4 : 0,
             borderLeft: index === 0 ? "1px solid lightskyblue" : 0,
-            borderRight: index === test1.length - 1 ? "1px solid lightskyblue" : 0 
+            borderRight: index === test1.length - 1 ? "1px solid lightskyblue" : 0
           }}
         >
           <Text>{name}</Text>
@@ -437,14 +437,15 @@ const Report = ({ upperData, expandedData }) => {
   );
 
   const test2 = [
-    { name: "Training Topic", key: "projectName", size: "15%" },
+    { name: "Training Topic", key: "projectName", size: "17%" },
     { name: "Trainer Name", key: "trainerName", size: "15%" },
-    { name: "Plant Names", key: "plantNames", size: "15%" },
-    { name: "Plant ID", key: "plantIds", size: "15%" },
+    { name: "Plant Names", key: "plantNames", size: "10%" },
+    { name: "Plant ID", key: "plantIds", size: "8%" },
     { name: "Date", key: "date", size: "15%" },
-    { name: "From Time", key: "fromTime", size: "10%" },
-    { name: "To Time", key: "toTime", size: "10%" },
+    { name: "From Time", key: "fromTime", size: "8%" },
+    { name: "To Time", key: "toTime", size: "8%" },
     { name: "Training Hours", key: "trainingHours", size: "10%" },
+    { name: "Attendance", key: "attendance", size: "10%" }
   ];
 
   const TableHead1 = () => (
@@ -524,8 +525,20 @@ const Report = ({ upperData, expandedData }) => {
                     ? rowData[key].join(", ")
                     : key === "plantIds"
                     ? rowData[key].join(", ")
-                    : rowData[key]}
+                    : key === "attendance"
+                    ?(
+                      (() => {
+                        console.log("rowDDDD", rowData)
+                        const temp = rowData?.allEmployees?.find(
+                          (employee) => employee.empOnlyId === employeeId
+                        );
+                        console.log("temp", temp);
+                        return temp && temp.acknowledgement ? "Present" : "Absent";
+                      })()
+                    ): rowData[key]}
                 </Text>
+      
+
               </View>
             ))}
           </View>
