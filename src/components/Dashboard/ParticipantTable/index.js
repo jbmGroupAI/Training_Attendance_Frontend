@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import Header from '../Header';
 import DataTable from 'react-data-table-component';
@@ -100,4 +98,5 @@ export default function Index() {
     </div>
   );
 }
+
 

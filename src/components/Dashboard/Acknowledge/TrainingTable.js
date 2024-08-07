@@ -243,7 +243,7 @@ const TrainingTable = () => {
     return (
         <div className="container">
             <div className="section">
-                <h2 className="heading">Training Session Details</h2>
+                <h2 className="heading">Training Details</h2>
                 <table className="table">
                     <thead>
                         <tr>
@@ -319,8 +319,10 @@ const TrainingTable = () => {
                     </tbody>
                 </table>
             </div>
-
-            <button onClick={handleSubmit} className="submit-btn">Acknowledgement</button>
+            <div className="submit-btn-container">
+                <button onClick={handleSubmit} className="submit-btn">Acknowledgement</button>
+            </div>
+            {/* <button onClick={handleSubmit} className="submit-btn">Acknowledgement</button> */}
         </div>
     );
 };

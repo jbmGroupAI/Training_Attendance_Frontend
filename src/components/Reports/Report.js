@@ -928,7 +928,8 @@ const Report = ({ data }) => {
         <Text style={{
           fontSize: 10,
           marginRight: 10,
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          color: '#0000FF' 
         }}>{legalCodes}</Text>
       </View>
     </View>
